@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Пакет приложения — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Пакет приложения · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link" href="index.html"><strong>Начало работы</strong><span>Подключение SDK</span></a><a class="nav-link" href="api.html"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link current" href="package.html" aria-current="page"><strong>Пакет приложения</strong><span>ZIP и разрешения</span></a><a class="nav-link" href="versions.html"><strong>Совместимость</strong><span>Версии и обновление</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> SDK внешнего приложения<p>Камера · оплата · печать · цифровая выдача</p></div><a class="source-link" href="PACKAGE.md">Версия Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / ZIP и разрешения</div><h1 id="пакет-приложения">Пакет приложения<a class="anchor" href="#пакет-приложения" aria-label="Ссылка на раздел">#</a></h1>
+<p>Платформа принимает ZIP с готовым статическим сайтом. В корне архива находятся <code>service.json</code>, entry-файл и необходимые ассеты. Дополнительная верхняя папка проекта не нужна.</p>
+<h2 id="манифест">Манифест<a class="anchor" href="#манифест" aria-label="Ссылка на раздел">#</a></h2>
+<pre><code class="language-json">{
+  &quot;schema_version&quot;: 1,
+  &quot;id&quot;: &quot;example.postcard&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;name&quot;: &quot;Фотооткрытка&quot;,
+  &quot;entry&quot;: &quot;index.html&quot;,
+  &quot;sdk&quot;: &quot;1&quot;,
+  &quot;capabilities&quot;: [&quot;capture:main&quot;, &quot;payment&quot;, &quot;print&quot;, &quot;result:write&quot;, &quot;config:read&quot;],
+  &quot;requires_online&quot;: false,
+  &quot;network&quot;: { &quot;allowed_origins&quot;: [] }
+}
+</code></pre>
+<p>Полные ограничения полей: <a href="service.schema.json">service.schema.json</a>. ID содержит 2..4 сегмента, разделённых точкой; каждый начинается с латинской строчной буквы. Версия — <code>MAJOR.MINOR.PATCH</code> без prerelease. При изменении готовых файлов или SDK повышайте версию: опубликованный пакет неизменяем.</p>
+<h2 id="разрешения">Разрешения<a class="anchor" href="#разрешения" aria-label="Ссылка на раздел">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Доступ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>capture:main</td>
+<td>Главная камера</td>
+</tr>
+<tr>
+<td>capture:secondary</td>
+<td>Назначенные ракурсы top/side</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>Оплата, продление ожидания наличных, запрос проверки возврата</td>
+</tr>
+<tr>
+<td>print</td>
+<td>Печать своих фотографий</td>
+</tr>
+<tr>
+<td>result:write</td>
+<td>Загрузка обработанных JPEG и цифровая выдача</td>
+</tr>
+<tr>
+<td>config:read</td>
+<td>Публичные настройки, рамки и эффекты</td>
+</tr>
+</tbody></table>
+<p>Действуют только права, одновременно объявленные приложением и разрешённые в назначении центра. Манифест не открывает внутренний API терминала или чужие сессии.</p>
+<h2 id="файлы-и-сеть">Файлы и сеть<a class="anchor" href="#файлы-и-сеть" aria-label="Ссылка на раздел">#</a></h2>
+<p>Используйте относительные ссылки на ассеты: <code>./assets/app.js</code>, <code>./style.css</code>. Файлы <code>.env</code>, ключи, <code>node_modules</code>, dev-server, исполняемые файлы и нативные SDK не должны входить в ZIP.</p>
+<p>Для внешнего API объявите точный origin:</p>
+<pre><code class="language-json">{ &quot;network&quot;: { &quot;allowed_origins&quot;: [&quot;https://api.example.com&quot;] } }
+</code></pre>
+<p>Пути, query, credentials и маски запрещены. WebSocket-origin указывается отдельно от HTTP. CORS и TLS продолжают действовать. Пустой список разрешает ресурсы своего сайта и локальный SDK, без произвольной внешней сети.</p>
+<p>Максимумы пакета: 4096 файлов, 32 MiB на файл, 512 MiB распакованного объёма, 256 MiB архива. Символические ссылки, обход каталогов и неподдерживаемые типы файлов отклоняются.</p>
+<h2 id="передача-в-платформу">Передача в платформу<a class="anchor" href="#передача-в-платформу" aria-label="Ссылка на раздел">#</a></h2>
+<p>Передайте оператору ZIP, ID и версию приложения, нужные разрешения, основной способ выдачи и описание сценария. В центре пакет назначается услуге типа «Внешнее приложение» на тестовой точке. Цена услуги, цена дополнительного листа, публичный config и тип выдачи задаются назначением, а не секретами внутри сайта.</p>
+<p>Перед использованием посетителями проверьте приложение на тестовой точке: подтверждение оплаты, ориентацию и обработку фото, фактическую выдачу листов, QR и результат сессии в центре. При сбое сохраните runId/sessionId, шаг и текст ошибки; не включайте секреты и фотографии посетителя в диагностические сообщения.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="PACKAGE.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#манифест">Манифест</a><a class="toc-link depth-2" href="#разрешения">Разрешения</a><a class="toc-link depth-2" href="#файлы-и-сеть">Файлы и сеть</a><a class="toc-link depth-2" href="#передача-в-платформу">Передача в платформу</a></aside></div></body></html>
