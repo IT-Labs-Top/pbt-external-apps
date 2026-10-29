@@ -58,7 +58,7 @@ export declare class ExternalClient {
     context(): Promise<ExternalContext>;
     /** Enabled frames from this service, or the terminal catalog when no private list is assigned. */
     frames(): Promise<ExternalFrame[]>;
-    /** CSS filters and cached preview images from the center. Requires config:read. */
+    /** CSS filters and cached preview images configured in the administration panel. Requires config:read. */
     effects(): Promise<ExternalEffect[]>;
     cameras(): Promise<ExternalCamerasResponse>;
     /** Explicit application activity; automatic heartbeats still do not postpone standby. */

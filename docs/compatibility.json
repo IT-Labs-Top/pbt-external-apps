@@ -10,13 +10,13 @@
     "sdk": "0.1.0"
   },
   "artifacts": {
-    "docs/API.md": "fbcdbc97000a17909203fa456d32c5dbd3414d1f36561dda04fa50a684a3d616",
-    "docs/openapi.json": "1ab7c0351fb6ab10a37a346d351776a4cebd0af42da79ddeea904165367153cd",
+    "docs/API.md": "459457e50dabdc4c1b518ad6329b141caf39914e9457d05c1af34cd95b4f7ac4",
+    "docs/openapi.json": "ae7cbd2bfed17415fc845eae5788b4f360efc1cc5ca32d98a87ff656c1c5ebbb",
     "docs/service.schema.json": "0f4c5e4ab2bfd5cfe1593482638412f517ee0468f543ea374caef23f969a9571",
     "sdk/package.json": "ab2d2179f29cc852a9960c05ab83e78f7baebb8bccdb0a0a80e696099f6eaba9",
-    "sdk/dist/external.js": "49d0140b40ad9a94d2c6e721b6ebaa23e10865d7ebe959be430d8691e7d88794",
-    "sdk/dist/external.d.ts": "20ae25924d6c0ec865cce9f0da6a80420af8023db22a7dc33ef0c90e25bd3c81",
+    "sdk/dist/external.js": "daa222113458e8d3efa8e9a12352fbe92275e109e092ea9450a48e6d8ac10314",
+    "sdk/dist/external.d.ts": "439edabe247976a58c33e14bcace6ddaac9316e8462d71490da86107727007e2",
     "sdk/dist/types.d.ts": "d04e47b5172aa8b9741d43a1a265f43a403fdbb3407a0afd0ec1d2fe9e3fb988",
-    "sdk/dist/generated.d.ts": "81d959754ed1a7d2ab0902f688195970b255f21a3d79a229b0c22761c9755364"
+    "sdk/dist/generated.d.ts": "095106ebd0644184cc73b73d69be50657bf36590d215f6257935ef6d8843ba30"
   }
 }

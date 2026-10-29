@@ -25,7 +25,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -42,7 +42,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,7 +59,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -76,7 +76,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -93,7 +93,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -110,7 +110,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -127,7 +127,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -144,7 +144,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -161,7 +161,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -178,7 +178,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -195,7 +195,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -212,7 +212,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -229,7 +229,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -271,7 +271,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -288,7 +288,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -305,7 +305,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -322,7 +322,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -339,7 +339,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -356,7 +356,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -373,7 +373,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -390,7 +390,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -407,7 +407,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -424,7 +424,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -441,7 +441,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -458,7 +458,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -475,7 +475,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -517,7 +517,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -534,7 +534,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -551,7 +551,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -568,7 +568,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -585,7 +585,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -602,7 +602,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -619,7 +619,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -636,7 +636,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -653,7 +653,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -670,7 +670,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -687,7 +687,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -704,7 +704,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -721,7 +721,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -771,7 +771,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -788,7 +788,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -805,7 +805,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -822,7 +822,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -839,7 +839,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -856,7 +856,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -873,7 +873,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -890,7 +890,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -907,7 +907,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -924,7 +924,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -941,7 +941,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -958,7 +958,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -975,7 +975,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1026,7 +1026,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1043,7 +1043,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1060,7 +1060,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1077,7 +1077,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1094,7 +1094,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1111,7 +1111,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1128,7 +1128,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1145,7 +1145,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1162,7 +1162,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1179,7 +1179,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1196,7 +1196,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1213,7 +1213,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1230,7 +1230,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1276,7 +1276,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1293,7 +1293,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1310,7 +1310,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1327,7 +1327,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1344,7 +1344,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1361,7 +1361,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1378,7 +1378,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1395,7 +1395,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1412,7 +1412,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1429,7 +1429,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1446,7 +1446,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1463,7 +1463,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1480,7 +1480,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1518,7 +1518,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1535,7 +1535,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1552,7 +1552,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1569,7 +1569,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1586,7 +1586,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1603,7 +1603,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1620,7 +1620,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1637,7 +1637,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1654,7 +1654,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1671,7 +1671,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1688,7 +1688,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1705,7 +1705,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1722,7 +1722,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1760,7 +1760,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1777,7 +1777,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1794,7 +1794,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1811,7 +1811,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1828,7 +1828,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1845,7 +1845,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1862,7 +1862,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1879,7 +1879,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1896,7 +1896,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1913,7 +1913,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1930,7 +1930,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1947,7 +1947,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1964,7 +1964,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2010,7 +2010,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2027,7 +2027,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2044,7 +2044,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2061,7 +2061,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2078,7 +2078,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2095,7 +2095,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2112,7 +2112,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2129,7 +2129,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2146,7 +2146,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2163,7 +2163,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2180,7 +2180,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2197,7 +2197,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2214,7 +2214,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2262,7 +2262,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2279,7 +2279,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2296,7 +2296,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2313,7 +2313,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2330,7 +2330,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2347,7 +2347,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2364,7 +2364,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2381,7 +2381,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2398,7 +2398,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2415,7 +2415,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2432,7 +2432,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2449,7 +2449,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2466,7 +2466,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2526,7 +2526,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2543,7 +2543,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2560,7 +2560,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2577,7 +2577,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2594,7 +2594,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2611,7 +2611,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2628,7 +2628,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2645,7 +2645,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2662,7 +2662,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2679,7 +2679,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2696,7 +2696,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2713,7 +2713,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2730,7 +2730,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2788,7 +2788,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2805,7 +2805,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2822,7 +2822,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2839,7 +2839,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2856,7 +2856,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2873,7 +2873,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2890,7 +2890,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2907,7 +2907,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2924,7 +2924,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2941,7 +2941,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2958,7 +2958,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2975,7 +2975,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2992,7 +2992,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3064,7 +3064,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3081,7 +3081,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3098,7 +3098,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3115,7 +3115,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3132,7 +3132,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3149,7 +3149,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3166,7 +3166,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3183,7 +3183,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3200,7 +3200,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3217,7 +3217,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3234,7 +3234,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3251,7 +3251,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3268,7 +3268,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3306,7 +3306,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3323,7 +3323,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3340,7 +3340,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3357,7 +3357,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3374,7 +3374,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3391,7 +3391,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3408,7 +3408,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3425,7 +3425,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3442,7 +3442,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3459,7 +3459,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3476,7 +3476,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3493,7 +3493,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3510,7 +3510,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3549,7 +3549,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3566,7 +3566,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3583,7 +3583,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3600,7 +3600,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3617,7 +3617,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3634,7 +3634,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3651,7 +3651,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3668,7 +3668,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3685,7 +3685,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3702,7 +3702,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3719,7 +3719,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3736,7 +3736,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3753,7 +3753,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3792,7 +3792,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3809,7 +3809,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3826,7 +3826,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3843,7 +3843,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3860,7 +3860,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3877,7 +3877,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3894,7 +3894,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3911,7 +3911,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3928,7 +3928,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3945,7 +3945,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3962,7 +3962,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3979,7 +3979,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3996,7 +3996,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4051,7 +4051,7 @@
             }
           },
           "400": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4068,7 +4068,7 @@
             }
           },
           "401": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4085,7 +4085,7 @@
             }
           },
           "403": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4102,7 +4102,7 @@
             }
           },
           "404": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4119,7 +4119,7 @@
             }
           },
           "408": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4136,7 +4136,7 @@
             }
           },
           "409": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4153,7 +4153,7 @@
             }
           },
           "410": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4170,7 +4170,7 @@
             }
           },
           "413": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4187,7 +4187,7 @@
             }
           },
           "429": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4204,7 +4204,7 @@
             }
           },
           "500": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4221,7 +4221,7 @@
             }
           },
           "502": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4238,7 +4238,7 @@
             }
           },
           "503": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4255,7 +4255,7 @@
             }
           },
           "504": {
-            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "description": "Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4351,7 +4351,7 @@
               }
             ],
             "default": null,
-            "description": "Кадр меньше minimum_photo_pixels из настроек центра",
+            "description": "Кадр меньше minimum_photo_pixels из настроек в панели администратора",
             "title": "Belowminimum"
           }
         },
@@ -4388,7 +4388,7 @@
             "anyOf": [
               {
                 "type": "number",
-                "maximum": 1000000.0,
+                "maximum": 1000000,
                 "minimum": 0.01
               },
               {
@@ -4396,12 +4396,12 @@
               }
             ],
             "title": "Amount",
-            "description": "Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из центра"
+            "description": "Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из панели администратора"
           },
           "copies": {
             "type": "integer",
-            "maximum": 10.0,
-            "minimum": 1.0,
+            "maximum": 10,
+            "minimum": 1,
             "title": "Copies",
             "default": 1
           },
@@ -4545,7 +4545,7 @@
               }
             ],
             "default": null,
-            "description": "Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из центра",
+            "description": "Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из панели администратора",
             "title": "Amount"
           },
           "copies": {
@@ -4840,15 +4840,15 @@
           },
           "price": {
             "type": "number",
-            "minimum": 0.0,
+            "minimum": 0,
             "title": "Price",
-            "description": "Цена услуги из центра, в рублях. Используйте для расчёта оплаты"
+            "description": "Цена услуги из панели администратора, в рублях. Используйте для расчёта оплаты"
           },
           "sheetPrice": {
             "type": "number",
-            "minimum": 0.0,
+            "minimum": 0,
             "title": "Sheetprice",
-            "description": "Цена дополнительного листа из центра, в рублях. Используйте для расчёта доплаты"
+            "description": "Цена дополнительного листа из панели администратора, в рублях. Используйте для расчёта доплаты"
           },
           "fulfillment": {
             "type": "string",
@@ -5323,8 +5323,8 @@
             "anyOf": [
               {
                 "type": "integer",
-                "maximum": 9007199254740991.0,
-                "minimum": 0.0
+                "maximum": 9007199254740991,
+                "minimum": 0
               },
               {
                 "type": "null"

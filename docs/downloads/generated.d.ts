@@ -296,7 +296,7 @@ export interface components {
         CapturePhotoResponse: {
             /**
              * Belowminimum
-             * @description Кадр меньше minimum_photo_pixels из настроек центра
+             * @description Кадр меньше minimum_photo_pixels из настроек в панели администратора
              * @default null
              */
             belowMinimum: boolean | null;
@@ -341,7 +341,7 @@ export interface components {
             action: "payment" | "capture" | "print" | "complete" | "cancel" | "extend" | "refund" | "share";
             /**
              * Amount
-             * @description Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из центра
+             * @description Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из панели администратора
              */
             amount?: number | null;
             /**
@@ -398,7 +398,7 @@ export interface components {
             action: "payment" | "capture" | "print" | "complete" | "cancel" | "extend" | "refund" | "share";
             /**
              * Amount
-             * @description Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из центра
+             * @description Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из панели администратора
              * @default null
              */
             amount: number | null;
@@ -523,7 +523,7 @@ export interface components {
             permissions: ("capture:main" | "capture:secondary" | "payment" | "print" | "result:write" | "config:read")[];
             /**
              * Price
-             * @description Цена услуги из центра, в рублях. Используйте для расчёта оплаты
+             * @description Цена услуги из панели администратора, в рублях. Используйте для расчёта оплаты
              */
             price: number;
             /**
@@ -538,7 +538,7 @@ export interface components {
             sessionId: string;
             /**
              * Sheetprice
-             * @description Цена дополнительного листа из центра, в рублях. Используйте для расчёта доплаты
+             * @description Цена дополнительного листа из панели администратора, в рублях. Используйте для расчёта доплаты
              */
             sheetPrice: number;
             /** Version */
@@ -777,7 +777,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -786,7 +786,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -795,7 +795,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -804,7 +804,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -813,7 +813,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -822,7 +822,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -831,7 +831,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -840,7 +840,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -849,7 +849,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -858,7 +858,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -867,7 +867,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -876,7 +876,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -885,7 +885,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -916,7 +916,7 @@ export interface operations {
                     "application/octet-stream": string;
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -925,7 +925,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -934,7 +934,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -943,7 +943,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -952,7 +952,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -961,7 +961,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -970,7 +970,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -979,7 +979,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -988,7 +988,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -997,7 +997,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1006,7 +1006,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1015,7 +1015,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1024,7 +1024,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1053,7 +1053,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalCamerasResponse"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1062,7 +1062,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1071,7 +1071,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1080,7 +1080,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1089,7 +1089,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1098,7 +1098,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1107,7 +1107,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1116,7 +1116,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1125,7 +1125,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1134,7 +1134,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1143,7 +1143,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1152,7 +1152,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1161,7 +1161,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1194,7 +1194,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalCommandReceipt"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1203,7 +1203,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1212,7 +1212,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1221,7 +1221,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1230,7 +1230,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1239,7 +1239,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1248,7 +1248,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1257,7 +1257,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1266,7 +1266,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1275,7 +1275,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1284,7 +1284,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1293,7 +1293,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1302,7 +1302,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1331,7 +1331,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalContextResponse"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1340,7 +1340,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1349,7 +1349,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1358,7 +1358,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1367,7 +1367,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1376,7 +1376,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1385,7 +1385,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1394,7 +1394,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1403,7 +1403,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1412,7 +1412,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1421,7 +1421,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1430,7 +1430,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1439,7 +1439,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1468,7 +1468,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalEffect"][];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1477,7 +1477,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1486,7 +1486,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1495,7 +1495,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1504,7 +1504,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1513,7 +1513,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1522,7 +1522,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1531,7 +1531,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1540,7 +1540,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1549,7 +1549,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1558,7 +1558,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1567,7 +1567,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1576,7 +1576,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1605,7 +1605,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalFrame"][];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1614,7 +1614,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1623,7 +1623,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1632,7 +1632,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1641,7 +1641,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1650,7 +1650,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1659,7 +1659,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1668,7 +1668,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1677,7 +1677,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1686,7 +1686,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1695,7 +1695,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1704,7 +1704,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1713,7 +1713,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1744,7 +1744,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1753,7 +1753,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1762,7 +1762,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1771,7 +1771,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1780,7 +1780,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1789,7 +1789,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1798,7 +1798,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1807,7 +1807,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1816,7 +1816,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1825,7 +1825,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1834,7 +1834,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1843,7 +1843,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1852,7 +1852,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -1883,7 +1883,7 @@ export interface operations {
                     "image/jpeg": string;
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1892,7 +1892,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -1901,7 +1901,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -1910,7 +1910,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1919,7 +1919,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -1928,7 +1928,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -1937,7 +1937,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -1946,7 +1946,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -1955,7 +1955,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -1964,7 +1964,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -1973,7 +1973,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -1982,7 +1982,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -1991,7 +1991,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2020,7 +2020,7 @@ export interface operations {
                     "multipart/x-mixed-replace": string;
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2029,7 +2029,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2038,7 +2038,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2047,7 +2047,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2056,7 +2056,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2065,7 +2065,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2074,7 +2074,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2083,7 +2083,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2092,7 +2092,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2101,7 +2101,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2110,7 +2110,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2119,7 +2119,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2128,7 +2128,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2159,7 +2159,7 @@ export interface operations {
                     "multipart/x-mixed-replace": string;
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2168,7 +2168,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2177,7 +2177,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2186,7 +2186,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2195,7 +2195,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2204,7 +2204,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2213,7 +2213,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2222,7 +2222,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2231,7 +2231,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2240,7 +2240,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2249,7 +2249,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2258,7 +2258,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2267,7 +2267,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2299,7 +2299,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2308,7 +2308,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2317,7 +2317,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2326,7 +2326,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2335,7 +2335,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2344,7 +2344,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2353,7 +2353,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2362,7 +2362,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2371,7 +2371,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2380,7 +2380,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2389,7 +2389,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2398,7 +2398,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2407,7 +2407,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2447,7 +2447,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2456,7 +2456,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2465,7 +2465,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2474,7 +2474,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2483,7 +2483,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2492,7 +2492,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2501,7 +2501,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2510,7 +2510,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2519,7 +2519,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2528,7 +2528,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2537,7 +2537,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2546,7 +2546,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2555,7 +2555,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2584,7 +2584,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalShareResult"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2593,7 +2593,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2602,7 +2602,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2611,7 +2611,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2620,7 +2620,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2629,7 +2629,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2638,7 +2638,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2647,7 +2647,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2656,7 +2656,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2665,7 +2665,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2674,7 +2674,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2683,7 +2683,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2692,7 +2692,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2721,7 +2721,7 @@ export interface operations {
                     "image/png": string;
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2730,7 +2730,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2739,7 +2739,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2748,7 +2748,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2757,7 +2757,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2766,7 +2766,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2775,7 +2775,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2784,7 +2784,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2793,7 +2793,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2802,7 +2802,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2811,7 +2811,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2820,7 +2820,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2829,7 +2829,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -2858,7 +2858,7 @@ export interface operations {
                     "application/json": components["schemas"]["ExternalStateResponse"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2867,7 +2867,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -2876,7 +2876,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -2885,7 +2885,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2894,7 +2894,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -2903,7 +2903,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -2912,7 +2912,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -2921,7 +2921,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -2930,7 +2930,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -2939,7 +2939,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -2948,7 +2948,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -2957,7 +2957,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -2966,7 +2966,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;
@@ -3002,7 +3002,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -3011,7 +3011,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             401: {
                 headers: {
                     [name: string]: unknown;
@@ -3020,7 +3020,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -3029,7 +3029,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -3038,7 +3038,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             408: {
                 headers: {
                     [name: string]: unknown;
@@ -3047,7 +3047,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             409: {
                 headers: {
                     [name: string]: unknown;
@@ -3056,7 +3056,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             410: {
                 headers: {
                     [name: string]: unknown;
@@ -3065,7 +3065,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             413: {
                 headers: {
                     [name: string]: unknown;
@@ -3074,7 +3074,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -3083,7 +3083,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             500: {
                 headers: {
                     [name: string]: unknown;
@@ -3092,7 +3092,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             502: {
                 headers: {
                     [name: string]: unknown;
@@ -3101,7 +3101,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -3110,7 +3110,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"] | components["schemas"]["ExternalGatewayError"];
                 };
             };
-            /** @description Backend/gateway error; SDK error mapping is documented in API.md */
+            /** @description Ошибка локального сервера фотобудки или API-шлюза. Обработка ошибок SDK описана в API.md. */
             504: {
                 headers: {
                     [name: string]: unknown;

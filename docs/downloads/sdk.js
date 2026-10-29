@@ -51,7 +51,7 @@ export class ExternalClient {
     frames() {
         return this.call('/frames');
     }
-    /** CSS filters and cached preview images from the center. Requires config:read. */
+    /** CSS filters and cached preview images configured in the administration panel. Requires config:read. */
     effects() {
         return this.call('/effects');
     }
