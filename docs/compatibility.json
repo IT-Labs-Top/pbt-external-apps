@@ -10,7 +10,7 @@
     "sdk": "0.1.0"
   },
   "artifacts": {
-    "docs/API.md": "e047ed49de9650551fa8b65eb6a53501af03b1588b6a124dbddc388dfd5f1f00",
+    "docs/API.md": "fbcdbc97000a17909203fa456d32c5dbd3414d1f36561dda04fa50a684a3d616",
     "docs/openapi.json": "1ab7c0351fb6ab10a37a346d351776a4cebd0af42da79ddeea904165367153cd",
     "docs/service.schema.json": "0f4c5e4ab2bfd5cfe1593482638412f517ee0468f543ea374caef23f969a9571",
     "sdk/package.json": "ab2d2179f29cc852a9960c05ab83e78f7baebb8bccdb0a0a80e696099f6eaba9",

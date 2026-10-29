@@ -375,4 +375,3 @@ Bridge: `window.pbtService.onLifecycle(handler)` возвращает функц
 Capability: capture:main, capture:secondary, payment, print, result:write, config:read. Права не расширяются конфигом/SDK; backend проверяет пересечение манифеста и назначения центра. `requires_online` влияет на доступность услуги; для share всё равно нужна связь с центром.
 
 network.allowed_origins: точные origin со схемой http/https/ws/wss, доменом/IP и портом, без путей/credentials/query/масок. До 32 записей и 2048 символов после нормализации. Стандартные порты убираются, домены нормализуются. HTTP-origin не разрешает автоматически WebSocket, поддомен или другой порт. Собственный origin разрешён без записи; пространство svc.localhost зарезервировано. Изменение списка требует нового ZIP. CORS/TLS, блокировка внешней HTML-навигации, iframe и новых окон сохраняются. Сетевые вызовы идут обычным fetch/WebSocket, не через административный прокси backend.
-
