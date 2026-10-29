@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "example.postcard",
+  "version": "1.0.0",
+  "name": "Фотооткрытка",
+  "entry": "index.html",
+  "sdk": "1",
+  "capabilities": [
+    "capture:main",
+    "capture:secondary",
+    "payment",
+    "print",
+    "result:write",
+    "config:read"
+  ],
+  "requires_online": false,
+  "network": { "allowed_origins": ["https://api.open-meteo.com"] }
+}

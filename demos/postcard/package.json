@@ -1,0 +1,9 @@
+{
+  "name": "pbt-demo-postcard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Фотооткрытка: самостоятельный пример внешнего приложения на JavaScript",
+  "engines": { "node": ">=24" },
+  "scripts": { "package": "node package.mjs" }
+}

@@ -1,6 +1,6 @@
 {
   "name": "pbt-external-apps",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "Документация, SDK и локальная песочница для приложений фотобудки",
@@ -9,6 +9,7 @@
   "homepage": "https://it-labs-top.github.io/pbt-external-apps/",
   "scripts": {
     "start": "node sandbox/start.mjs",
-    "sandbox": "node sandbox/start.mjs"
+    "sandbox": "node sandbox/start.mjs",
+    "demo": "node sandbox/start.mjs --app=demos/postcard"
   }
 }

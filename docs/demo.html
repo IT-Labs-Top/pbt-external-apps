@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Фотооткрытка — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Фотооткрытка · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link" href="index.html"><strong>Начало работы</strong><span>Подключение SDK</span></a><a class="nav-link" href="sandbox.html"><strong>Песочница</strong><span>Запуск и проверка</span></a><a class="nav-link current" href="demo.html" aria-current="page"><strong>Фотооткрытка</strong><span>Демоприложение</span></a><a class="nav-link" href="support.html"><strong>Диагностика</strong><span>Обращение в поддержку</span></a><a class="nav-link" href="api.html"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link" href="package.html"><strong>Пакет приложения</strong><span>ZIP и разрешения</span></a><a class="nav-link" href="versions.html"><strong>Совместимость</strong><span>Версии и обновление</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> SDK внешнего приложения<p>Камера · оплата · печать · цифровая выдача</p></div><a class="source-link" href="DEMO.md">Версия Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / Демоприложение</div><h1 id="демоприложение-фотооткрытка">Демоприложение «Фотооткрытка»<a class="anchor" href="#демоприложение-фотооткрытка" aria-label="Ссылка на раздел">#</a></h1>
+<p>Это законченный пример внешнего приложения на обычном JavaScript. Он получает настройки услуги, принимает оплату через SDK, снимает фото, собирает открытку в Canvas, печатает её и показывает QR для скачивания.</p>
+<h2 id="запуск">Запуск<a class="anchor" href="#запуск" aria-label="Ссылка на раздел">#</a></h2>
+<p>Нужен Node.js 24+. Скачайте репозиторий и выполните из его корня:</p>
+<pre><code class="language-sh">node sandbox/start.mjs --app=demos/postcard
+</code></pre>
+<p>Альтернатива — <code>npm run demo</code> (<code>npm.cmd run demo</code> при ограничениях PowerShell). Устанавливать зависимости или собирать интерфейс не требуется. Встроенная страница проверки отдельных методов SDK по-прежнему запускается командой <code>node sandbox/start.mjs</code>.</p>
+<p>Откройте адрес из терминала и нажмите «Применить настройки и начать сессию». В области приложения появится «Фотооткрытка».</p>
+<h2 id="пройти-сценарий">Пройти сценарий<a class="anchor" href="#пройти-сценарий" aria-label="Ссылка на раздел">#</a></h2>
+<ol>
+<li>Нажмите «Начать» в приложении. Во вкладке песочницы «Оплата» одобрите карту или внесите наличные. Частичную наличную оплату можно продлить кнопкой «Добавить время» в приложении.</li>
+<li>После оплаты появится камера. Нажмите «Сделать снимок» и дождитесь отсчёта. Перед оформлением кадр можно переснять.</li>
+<li>Выберите рамку, оттенок и подпись. Приложение использует каталоги SDK; неподходящие для одной портретной открытки рамки не предлагаются.</li>
+<li>Подтвердите оформление. При выборе нескольких открыток приложение отдельно запросит доплату за дополнительные листы по <code>sheetPrice</code>.</li>
+<li>Дождитесь печати и подготовки ссылки. Сохраните файл через QR, затем завершите сессию.</li>
+</ol>
+<p>Для <code>fulfillment=digital</code> печать и доплата не выполняются. Нулевая цена пропускает начальную оплату. Все операции в песочнице имитируются.</p>
+<p>QR локальной песочницы открывает галерею <strong>на том же компьютере</strong>. Её можно открыть из вкладки «Результаты». Скачивание на телефон требует работающего сервера панели администратора; этот сценарий проверяется на фотобудке.</p>
+<h2 id="исходники-и-готовый-пакет">Исходники и готовый пакет<a class="anchor" href="#исходники-и-готовый-пакет" aria-label="Ссылка на раздел">#</a></h2>
+<p>Исходники находятся в папке <code>demos/postcard</code> публичного репозитория. Это самостоятельная папка статического приложения: <code>index.html</code>, <code>style.css</code>, <code>service.json</code>, <code>src/</code>, <code>assets/</code>, <code>vendor/sdk.js</code>. Скопируйте её в свой проект и запускайте через <code>--app=путь</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Что изучить</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>src/app.js</code></td>
+<td>Основной сценарий, вызовы SDK, ошибки и жизненный цикл.</td>
+</tr>
+<tr>
+<td><code>src/operations.js</code></td>
+<td>Одно действие — один ID и неизменные аргументы до установления результата.</td>
+</tr>
+<tr>
+<td><code>src/postcard.js</code></td>
+<td>JPEG 1200×1800 с настоящим эффектом, подписью и рамкой.</td>
+</tr>
+<tr>
+<td><code>src/weather.js</code></td>
+<td>Необязательный внешний запрос с таймаутом и продолжением основного сценария при ошибке.</td>
+</tr>
+<tr>
+<td><code>package.mjs</code></td>
+<td>Повторяемая сборка ZIP из тех же исходников без npm-зависимостей.</td>
+</tr>
+</tbody></table>
+<p><a href="downloads/photo-postcard-1.0.0.zip">Скачать готовый ZIP 1.0.0</a> · <a href="downloads/photo-postcard-1.0.0.zip.sha256">SHA-256</a>.</p>
+<p>Изменив приложение, увеличьте версию в <code>service.json</code> и выполните:</p>
+<pre><code class="language-sh">node demos/postcard/package.mjs
+</code></pre>
+<p>Пакет появится в <code>demos/postcard/dist</code>. README и инструмент упаковки в ZIP не входят. Не меняйте опубликованные файлы под прежней версией. Для своего приложения измените ID и имя в манифесте. <a href="package.html">Правила пакета и передачи администратору</a>.</p>
+<h2 id="публичные-настройки">Публичные настройки<a class="anchor" href="#публичные-настройки" aria-label="Ссылка на раздел">#</a></h2>
+<p>Пример <code>config</code>:</p>
+<pre><code class="language-json">{
+  &quot;city&quot;: &quot;Самара&quot;,
+  &quot;weather&quot;: { &quot;enabled&quot;: false, &quot;latitude&quot;: 53.1959, &quot;longitude&quot;: 50.1008 }
+}
+</code></pre>
+<p>Погода отключена по умолчанию. При <code>weather.enabled=true</code> приложение выполняет запрос к объявленному origin <code>https://api.open-meteo.com</code>. Геолокация посетителя не используется. Ошибка, отсутствие интернета или таймаут погоды не блокируют оплату и создание открытки.</p>
+<p><a href="https://open-meteo.com/">Open-Meteo</a> предоставляет данные с атрибуцией CC BY 4.0; источник указан в интерфейсе и на открытке с погодой. Бесплатный endpoint — для некоммерческого использования. Для коммерческого применения нужны подходящие условия поставщика и соответствующие изменения кода/манифеста; секреты в клиентском коде хранить нельзя.</p>
+<h2 id="проверить-ошибки">Проверить ошибки<a class="anchor" href="#проверить-ошибки" aria-label="Ссылка на раздел">#</a></h2>
+<ul>
+<li>Потеря ответа или задержка: приложение продолжает прежний запрос и не создаёт новую оплату, снимок или печать автоматически.</li>
+<li>Отказ карты без внесённых денег: можно явно начать новую попытку. Частично внесённые деньги требуют сверки прежней оплаты.</li>
+<li>Частичная печать: показывается число подтверждённых листов; автоматического повторного задания нет.</li>
+<li>Сервер панели администратора недоступен после печати: повторяется подготовка ссылки, готовые листы не печатаются повторно.</li>
+<li>Пауза: ввод, отсчёт и предпросмотр останавливаются; уже принятые операции учитываются после продолжения. Остановка освобождает ресурсы.</li>
+<li>Перезагрузка страницы в начатой сессии: новый сценарий блокируется до сверки прежних операций. Пример не восстанавливает Canvas после перезагрузки и не начинает новую оплату поверх старой.</li>
+<li>«Помощь и возврат»: запрос проверки возврата передаётся программе фотобудки, без объявления банковской операции успешной по одному приёму запроса.</li>
+</ul>
+<p>События <code>postcard.*</code> записывают этапы, попытки и ошибки с ID операций. Подпись и байты фото в события не передаются. <a href="support.html">Как скачать диагностику</a>.</p>
+<p>Песочница проверяет логику и контракт SDK. Драйверы, реальная ориентация камеры, фактическая печать, оплата и банковские возвраты требуют отдельного прогона на тестовой фотобудке.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="DEMO.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#запуск">Запуск</a><a class="toc-link depth-2" href="#пройти-сценарий">Пройти сценарий</a><a class="toc-link depth-2" href="#исходники-и-готовый-пакет">Исходники и готовый пакет</a><a class="toc-link depth-2" href="#публичные-настройки">Публичные настройки</a><a class="toc-link depth-2" href="#проверить-ошибки">Проверить ошибки</a></aside></div></body></html>

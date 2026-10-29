@@ -16,10 +16,19 @@ node sandbox/start.mjs
 
 Для своей готовой web-сборки: `node sandbox/start.mjs --app=C:/projects/my-app/dist`. [Инструкция и сценарии ошибок](docs/SANDBOX.md).
 
+## Запустить демоприложение
+
+```sh
+node sandbox/start.mjs --app=demos/postcard
+```
+
+«Фотооткрытка» показывает полный сценарий: оплата, снимок, рамка и эффект, готовый JPEG, печать, QR и завершение. [Инструкция](docs/DEMO.md) · [Исходники](demos/postcard) · [Готовый ZIP](demos/postcard/dist/photo-postcard-1.0.0.zip).
+
 ## Документация
 
 - [Начало работы](docs/START.md)
 - [Песочница](docs/SANDBOX.md)
+- [Демоприложение «Фотооткрытка»](docs/DEMO.md)
 - [Диагностика и обращение в поддержку](docs/SUPPORT.md)
 - [Справочник SDK](docs/API.md)
 - [Пакет приложения и разрешения](docs/PACKAGE.md)

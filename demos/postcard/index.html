@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Фотооткрытка · Сохраните момент</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <div id="pause-note" class="pause-note" hidden>
+      Пауза. Продолжите работу в диалоге на экране.
+    </div>
+    <div id="app">
+      <header class="masthead">
+        <a class="brand" href="#" aria-label="Фотооткрытка"
+          ><span class="brand-mark">п.</span
+          ><span
+            >Фотооткрытка<small>маленькая история большого дня</small></span
+          ></a
+        >
+        <div class="place">
+          <span id="city">Самара</span><span id="weather" hidden></span>
+        </div>
+        <button id="exit" class="quiet" type="button">
+          Выйти <span aria-hidden="true">↗</span>
+        </button>
+      </header>
+      <nav class="journey" aria-label="Этапы">
+        <span data-step="start"><b>01</b> Начало</span
+        ><span data-step="camera"><b>02</b> Снимок</span
+        ><span data-step="design"><b>03</b> Оформление</span
+        ><span data-step="delivery"><b>04</b> Получение</span>
+      </nav>
+      <main>
+        <section data-screen="loading" class="centered">
+          <div class="spinner" aria-hidden="true"></div>
+          <h1>Готовим вашу<br />маленькую историю</h1>
+          <p>Это займёт несколько секунд.</p>
+        </section>
+        <section data-screen="start" class="welcome two-columns" hidden>
+          <div class="copy">
+            <span class="eyebrow">ИЗ ЭТОГО ДНЯ — С ЛЮБОВЬЮ</span>
+            <h1>Момент,<br />который останется<br /><em>с вами.</em></h1>
+            <p class="lead">
+              Один снимок, любимый оттенок и несколько тёплых слов. Создайте
+              свою фотооткрытку.
+            </p>
+            <button id="begin" class="primary large" type="button" disabled>
+              Подготовка…
+            </button>
+            <p id="included" class="fine"></p>
+            <div class="details-line">
+              <span>Снимок с камеры</span><span>Ваше оформление</span
+              ><span>Файлы по QR</span>
+            </div>
+          </div>
+          <div class="cover-scene" aria-hidden="true">
+            <div class="postmark">
+              СОХРАНИТЕ<br />ЭТОТ ДЕНЬ<br /><span>✳</span>
+            </div>
+            <div class="cover-card">
+              <img src="./assets/cover.svg" alt="" /><span class="handwriting"
+                >Здесь будет ваша история.</span
+              ><small>POSTCARD / ОДИН ПРЕКРАСНЫЙ ДЕНЬ</small>
+            </div>
+            <span class="scene-note"
+              >Самые важные вещи<br />помещаются в ладонях.</span
+            >
+          </div>
+        </section>
+        <section
+          data-screen="payment"
+          class="two-columns payment-screen"
+          hidden
+        >
+          <div class="copy">
+            <span class="eyebrow">ЕЩЁ ШАГ ДО ВАШЕЙ ОТКРЫТКИ</span>
+            <h1>Пусть этот день<br /><em>останется.</em></h1>
+            <p id="payment-description" class="lead">
+              Оплатите услугу удобным способом на устройстве.
+            </p>
+            <div class="payment-total">
+              <span>К оплате</span><strong id="amount-due">—</strong>
+            </div>
+            <div class="progress-track"><div id="payment-bar"></div></div>
+            <p id="payment-progress" aria-live="polite">Ожидаем оплату…</p>
+            <p id="payment-time" class="fine"></p>
+            <button id="extend" class="secondary" type="button" hidden>
+              Добавить время для наличных
+            </button>
+          </div>
+          <div class="paper-note">
+            <span class="eyebrow">ВАШ МОМЕНТ</span>
+            <div class="outline-camera" aria-hidden="true">◉</div>
+            <h2>Сначала — улыбка.<br />Остальное мы сохраним.</h2>
+            <p>
+              После оплаты включится камера. Вы сможете переснять кадр перед
+              оформлением.
+            </p>
+          </div>
+        </section>
+        <section data-screen="camera" hidden>
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">02 / ВАШ СНИМОК</span>
+              <h1>Просто будьте <em>собой.</em></h1>
+            </div>
+            <label class="camera-choice"
+              >Камера<select id="camera"></select
+            ></label>
+          </div>
+          <div class="camera-stage">
+            <img id="preview" alt="Предпросмотр камеры" />
+            <div class="camera-corners" aria-hidden="true"></div>
+            <span
+              id="countdown"
+              class="countdown"
+              aria-live="assertive"
+              hidden
+            ></span
+            ><span class="camera-hint"
+              >Смотрите в камеру — и сохраните этот момент</span
+            >
+          </div>
+          <div class="action-row">
+            <p class="fine">Перед снимком будет обратный отсчёт.</p>
+            <button id="shoot" class="primary large" type="button">
+              Сделать снимок <span aria-hidden="true">●</span>
+            </button>
+          </div>
+        </section>
+        <section data-screen="design" class="editor two-columns" hidden>
+          <div class="postcard-preview">
+            <canvas
+              id="postcard"
+              width="1200"
+              height="1800"
+              aria-label="Ваша фотооткрытка"
+            ></canvas
+            ><span class="fine"
+              >Предпросмотр готовой открытки · 10 × 15 см</span
+            >
+          </div>
+          <div class="editor-controls">
+            <span class="eyebrow">03 / ДОБАВЬТЕ НАСТРОЕНИЕ</span>
+            <h1>Ваша история.<br /><em>Ваши детали.</em></h1>
+            <fieldset>
+              <legend>Рамка</legend>
+              <div id="frames" class="choice-list"></div>
+            </fieldset>
+            <fieldset>
+              <legend>Оттенок</legend>
+              <div id="effects" class="choice-list"></div>
+            </fieldset>
+            <label class="caption-label"
+              >Несколько слов на память<input
+                id="caption"
+                maxlength="60"
+                value="Сохраним этот день"
+                autocomplete="off"
+            /></label>
+            <p id="catalog-note" class="fine"></p>
+            <div class="editor-actions">
+              <button id="accept-design" class="primary large" type="button">
+                Всё нравится <span aria-hidden="true">→</span></button
+              ><button id="retake" class="quiet" type="button">
+                Переснять
+              </button>
+            </div>
+          </div>
+        </section>
+        <section data-screen="delivery" class="two-columns" hidden>
+          <div class="copy">
+            <span class="eyebrow">04 / ЗАБЕРИТЕ ЭТОТ ДЕНЬ С СОБОЙ</span>
+            <h1>На бумаге.<br />И всегда <em>рядом.</em></h1>
+            <p id="delivery-description" class="lead"></p>
+            <label id="copies-label" class="copies-label"
+              >Количество открыток<select id="copies">
+                <option value="1">1 открытка</option>
+                <option value="2">2 открытки</option>
+                <option value="3">3 открытки</option>
+              </select></label
+            >
+            <div class="receipt-lines">
+              <div><span>Услуга</span><strong id="base-price">—</strong></div>
+              <div>
+                <span>Дополнительные открытки</span
+                ><strong id="extra-price">—</strong>
+              </div>
+            </div>
+            <button id="deliver" class="primary large" type="button">
+              Получить открытку
+            </button>
+            <p id="delivery-note" class="fine"></p>
+          </div>
+          <div class="delivery-art">
+            <img id="final-preview" alt="Готовая открытка" /><span
+              class="paper-label"
+              >Сделано вами. Сохранено навсегда.</span
+            >
+          </div>
+        </section>
+        <section data-screen="working" class="centered" hidden>
+          <span class="eyebrow">ВАША ИСТОРИЯ УЖЕ ПОЧТИ ГОТОВА</span>
+          <div class="spinner" aria-hidden="true"></div>
+          <h1 id="working-title">Сохраняем<br />этот момент.</h1>
+          <p id="working-progress" class="lead" aria-live="polite"></p>
+          <p class="fine">Пожалуйста, дождитесь результата.</p>
+        </section>
+        <section data-screen="share" class="two-columns share-screen" hidden>
+          <div class="copy">
+            <span class="eyebrow">ТЕПЕРЬ ЭТА ИСТОРИЯ — ВАША</span>
+            <h1>Заберите момент<br /><em>с собой.</em></h1>
+            <p id="share-description" class="lead"></p>
+            <p id="qr-help" class="fine"></p>
+            <button id="finish" class="primary large" type="button" disabled>
+              Завершить</button
+            ><button id="reload-qr" class="quiet" type="button" hidden>
+              Загрузить QR ещё раз
+            </button>
+          </div>
+          <div class="qr-card">
+            <span class="eyebrow">ВАША ФОТООТКРЫТКА</span
+            ><img id="qr" alt="QR-код для скачивания открытки" /><span
+              id="qr-status"
+              aria-live="polite"
+              >Загружаем QR…</span
+            >
+            <p id="share-url" class="fine"></p>
+            <small>Сохраните файл до завершения работы</small>
+          </div>
+        </section>
+        <section data-screen="done" class="centered" hidden>
+          <span class="done-mark" aria-hidden="true">✳</span
+          ><span class="eyebrow">СПАСИБО ЗА ЭТОТ МОМЕНТ</span>
+          <h1 id="done-title">Пусть хорошее<br /><em>остаётся.</em></h1>
+          <p id="done-message" class="lead">Ваша история сохранена.</p>
+        </section>
+        <section data-screen="recovery" class="centered" hidden>
+          <span class="eyebrow">РАБОТА УЖЕ БЫЛА НАЧАТА</span>
+          <h1>Сначала проверим<br /><em>результат.</em></h1>
+          <p class="lead">
+            Страница была открыта заново в начатой сессии. Обратитесь к
+            администратору, чтобы сверить оплату и готовые открытки. Новая
+            оплата и печать здесь не запускаются.
+          </p>
+          <p class="fine">
+            Для выхода или проверки возврата воспользуйтесь помощью внизу
+            экрана.
+          </p>
+        </section>
+        <aside id="error" class="error-card" role="alert" hidden>
+          <div>
+            <span class="eyebrow">ДАВАЙТЕ РАЗБЕРЁМСЯ</span>
+            <h2 id="error-title"></h2>
+            <p id="error-message"></p>
+          </div>
+          <div class="error-actions">
+            <button id="retry" class="primary" type="button">Продолжить</button
+            ><button id="error-exit" class="secondary" type="button">
+              Завершить работу
+            </button>
+          </div>
+        </aside>
+      </main>
+      <footer>
+        <span>Маленькая открытка. Большое воспоминание.</span
+        ><button id="help" class="quiet" type="button">Помощь и возврат</button
+        ><span id="weather-credit" hidden>Погода: Open-Meteo · CC BY 4.0</span>
+      </footer>
+    </div>
+    <dialog id="help-dialog">
+      <button
+        id="close-help"
+        class="dialog-close"
+        type="button"
+        aria-label="Закрыть"
+      >
+        ×</button
+      ><span class="eyebrow">ПОМОЩЬ</span>
+      <h2>Нужна помощь?</h2>
+      <p>
+        Если что-то пошло не так, обратитесь к администратору. Запрос проверки
+        возврата завершит работу с открыткой. Итог определяет программа
+        фотобудки.
+      </p>
+      <p id="refund-note" class="fine"></p>
+      <button id="refund" class="secondary" type="button" disabled>
+        Запросить проверку возврата</button
+      ><button id="help-exit" class="quiet" type="button">
+        Открыть подтверждение выхода
+      </button>
+    </dialog>
+  </body>
+</html>

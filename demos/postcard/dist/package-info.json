@@ -1,0 +1,17 @@
+{
+  "appId": "example.postcard",
+  "version": "1.0.0",
+  "archive": "photo-postcard-1.0.0.zip",
+  "sha256": "f6dc64701e44aac378780f9ab48a0bd125312ac64cef1d2d57cc4fb787b93005",
+  "files": {
+    "service.json": "679cba18c16c23c478d0b698d05525abab365f028346afe9db37274f15397224",
+    "index.html": "d8674940c47a5fb8ea6c81e1c586d371d70746752a2f718ea8d4a0b0f22577dd",
+    "style.css": "103f76396c4c2972ba4ae4c6791acfac0e06530afa413cede3fefec86dd138ee",
+    "assets/cover.svg": "d85552dfbdee3fbdceadbdcf9afabce4b3002d608d83c04a0aedcd41ffbe4c19",
+    "vendor/sdk.js": "daa222113458e8d3efa8e9a12352fbe92275e109e092ea9450a48e6d8ac10314",
+    "src/app.js": "22c5668821bf7b47fc2a8f36b992d3bffc98a0e47eb5e974076dbb7858664cfb",
+    "src/operations.js": "edc8a432a9776a76cb6d138dea6bab314e59238605d87068cc3f6613764de122",
+    "src/postcard.js": "441c042194ef21c2b8ec0a690f089fa1c273cd89aaeec39943ce9c7f0e7a1eb4",
+    "src/weather.js": "66918e5b23f1fba9dd4eb51994b51535eba8f5b8dc9353b60c447905f6a9833e"
+  }
+}
