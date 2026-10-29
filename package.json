@@ -1,0 +1,14 @@
+{
+  "name": "pbt-external-apps",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Документация, SDK и локальная песочница для приложений фотобудки",
+  "engines": { "node": ">=24" },
+  "repository": { "type": "git", "url": "https://github.com/IT-Labs-Top/pbt-external-apps.git" },
+  "homepage": "https://it-labs-top.github.io/pbt-external-apps/",
+  "scripts": {
+    "start": "node sandbox/start.mjs",
+    "sandbox": "node sandbox/start.mjs"
+  }
+}
