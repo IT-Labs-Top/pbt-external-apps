@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "description": "SDK и документация для разработчиков внешних приложений фотобудки",
+  "repository": { "type": "git", "url": "https://github.com/IT-Labs-Top/pbt-external-apps.git" },
+  "homepage": "https://it-labs-top.github.io/pbt-external-apps/",
   "engines": { "node": ">=24" },
   "workspaces": ["sdk"],
   "scripts": {
