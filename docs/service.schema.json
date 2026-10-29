@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "NetworkPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_origins": {
+          "description": "Разрешённые http/https/ws/wss origin: схема, домен/IP и порт, без путей и масок",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Allowed Origins",
+          "type": "array"
+        }
+      },
+      "title": "NetworkPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "id": {
+      "pattern": "^[a-z][a-z0-9-]{0,39}(\\.[a-z][a-z0-9-]{0,39}){1,3}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Version",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "entry": {
+      "default": "index.html",
+      "title": "Entry",
+      "type": "string"
+    },
+    "sdk": {
+      "const": "1",
+      "default": "1",
+      "title": "Sdk",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "enum": [
+          "capture:main",
+          "capture:secondary",
+          "payment",
+          "print",
+          "result:write",
+          "config:read"
+        ],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "requires_online": {
+      "default": false,
+      "title": "Requires Online",
+      "type": "boolean"
+    },
+    "network": {
+      "$ref": "#/$defs/NetworkPolicy"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "name"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

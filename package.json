@@ -1,0 +1,23 @@
+{
+  "name": "pbt-external-apps",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SDK и документация для разработчиков внешних приложений фотобудки",
+  "engines": { "node": ">=24" },
+  "workspaces": ["sdk"],
+  "scripts": {
+    "build": "npm run build:sdk && npm run docs:build",
+    "build:sdk": "node scripts/build-sdk.mjs",
+    "docs:build": "node scripts/build-docs.mjs",
+    "docs:serve": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test sdk/tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "linkedom": "0.18.14",
+    "marked": "18.1.2",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  }
+}

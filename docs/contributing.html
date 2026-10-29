@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Участие — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Участие · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link" href="index.html"><strong>Обзор</strong><span>Начало работы</span></a><a class="nav-link" href="api.html"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link" href="compatibility.html"><strong>Совместимость</strong><span>Версии и схемы</span></a><a class="nav-link" href="roadmap.html"><strong>Этапы проекта</strong><span>Состояние работы</span></a><a class="nav-link current" href="contributing.html" aria-current="page"><strong>Участие</strong><span>Сборка и изменения</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> Этап 1: контракт готов<p>Самостоятельная песочница — следующий этап.</p></div><a class="source-link" href="CONTRIBUTING.md">Исходный Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / Сборка и изменения</div><h1 id="работа-с-документацией-и-sdk">Работа с документацией и SDK<a class="anchor" href="#работа-с-документацией-и-sdk" aria-label="Ссылка на раздел">#</a></h1>
+<p>Документация хранится в Markdown; HTML, навигация и индекс поиска строятся из тех же файлов. Для изменений достаточно Node.js 24+ и npm. Внутренний репозиторий терминала, Python и Electron не нужны.</p>
+<h2 id="изменение-текста">Изменение текста<a class="anchor" href="#изменение-текста" aria-label="Ссылка на раздел">#</a></h2>
+<ol>
+<li>Отредактируйте нужный <code>docs/*.md</code>.</li>
+<li>Выполните <code>npm run docs:build</code>.</li>
+<li>Выполните <code>npm run check</code>.</li>
+<li>Откройте <code>docs/index.html</code> или запустите <code>npm run docs:serve</code>.</li>
+<li>Сохраните Markdown вместе с полученными HTML и поисковым индексом.</li>
+</ol>
+<p>Для таблиц, кода и ссылок используется GitHub-flavored Markdown. Относительные ссылки на страницы <code>.md</code> в HTML автоматически превращаются в ссылки на соответствующие <code>.html</code>. Ссылки на JSON, исходники и загрузки сохраняются. HTML работает при открытии из файла и при публикации в подпапке GitHub Pages; внешних CDN и шрифтов нет.</p>
+<h2 id="изменение-sdk">Изменение SDK<a class="anchor" href="#изменение-sdk" aria-label="Ссылка на раздел">#</a></h2>
+<p><code>sdk/src/external.ts</code> содержит клиент, <code>sdk/src/types.ts</code> — публичные алиасы, <code>sdk/src/generated.d.ts</code> — типы из OpenAPI. Не меняйте generated.d.ts вручную. Изменение поведения требует согласованного обновления спецификации и фиксации совместимости.</p>
+<pre><code class="language-sh">npm run build
+npm run check
+npm test
+</code></pre>
+<p>Обычная сборка не обновляет контрольные суммы контракта. Если проверка сообщает о несовпадении, сначала разберите изменение и подтвердите совместимость с платформой.</p>
+<h2 id="github-pages">GitHub Pages<a class="anchor" href="#github-pages" aria-label="Ссылка на раздел">#</a></h2>
+<p>В Settings → Pages выберите источник GitHub Actions. Workflow собирает и проверяет документацию, затем публикует <code>docs/</code>. Проверки pull request не выполняют публикацию. Опубликованный адрес возвращает GitHub; относительные ссылки не требуют ручной правки под имя репозитория.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="CONTRIBUTING.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#изменение-текста">Изменение текста</a><a class="toc-link depth-2" href="#изменение-sdk">Изменение SDK</a><a class="toc-link depth-2" href="#github-pages">GitHub Pages</a></aside></div></body></html>

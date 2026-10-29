@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Совместимость — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Совместимость · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link" href="index.html"><strong>Обзор</strong><span>Начало работы</span></a><a class="nav-link" href="api.html"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link current" href="compatibility.html" aria-current="page"><strong>Совместимость</strong><span>Версии и схемы</span></a><a class="nav-link" href="roadmap.html"><strong>Этапы проекта</strong><span>Состояние работы</span></a><a class="nav-link" href="contributing.html"><strong>Участие</strong><span>Сборка и изменения</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> Этап 1: контракт готов<p>Самостоятельная песочница — следующий этап.</p></div><a class="source-link" href="COMPATIBILITY.md">Исходный Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / Версии и схемы</div><h1 id="совместимость">Совместимость<a class="anchor" href="#совместимость" aria-label="Ссылка на раздел">#</a></h1>
+<p>Этот репозиторий содержит публичный контракт <code>external-sdk-1</code> и SDK <code>@pbt/sdk/external</code> версии 0.1.0. Совместимый локальный кандидат терминала, backend и оболочки — 0.2.38; версия протокола — 1; манифест: <code>schema_version=1</code>, <code>sdk=&quot;1&quot;</code>.</p>
+<p>Статус <strong>local-candidate</strong> означает проверенную локальную связку. Он не подтверждает выкладку на все точки, приёмку физического оборудования или проверку реального центра. Номер 0.2.38 сам по себе недостаточен для идентификации сборки; контрольные суммы и сигнатуры находятся в <a href="compatibility.json">compatibility.json</a>.</p>
+<h2 id="один-контракт-несколько-представлений">Один контракт, несколько представлений<a class="anchor" href="#один-контракт-несколько-представлений" aria-label="Ссылка на раздел">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="api.html">API.md</a></td>
+<td>Нормативное описание поведения и ошибок SDK</td>
+</tr>
+<tr>
+<td><a href="openapi.json">openapi.json</a></td>
+<td>17 публичных runtime-маршрутов и типы их данных</td>
+</tr>
+<tr>
+<td><a href="service.schema.json">service.schema.json</a></td>
+<td>JSON Schema манифеста приложения</td>
+</tr>
+<tr>
+<td><a href="compatibility.json">compatibility.json</a></td>
+<td>Зафиксированные версии, сигнатуры и SHA256 публичных артефактов</td>
+</tr>
+<tr>
+<td><code>sdk/src/external.ts</code></td>
+<td>Реализация SDK</td>
+</tr>
+<tr>
+<td><code>sdk/src/generated.d.ts</code></td>
+<td>Типы, полученные из публичного OpenAPI</td>
+</tr>
+<tr>
+<td><code>sdk/dist</code></td>
+<td>Готовый ESM-клиент и декларации</td>
+</tr>
+</tbody></table>
+<p>Сборка публичного SDK использует локальные публичные типы. Исполняемая логика соответствует зафиксированному SDK терминала; заменён только путь импорта типов. В репозитории нет backend, его тестовых модулей, учётных данных центра или конфигураций устройств.</p>
+<h2 id="проверки">Проверки<a class="anchor" href="#проверки" aria-label="Ссылка на раздел">#</a></h2>
+<pre><code class="language-sh">npm ci
+npm run build
+npm run check
+npm test
+</code></pre>
+<p>Проверяются декларации SDK, контрольные суммы, все ссылки HTML, якоря, наличие документации публичных методов, отсутствие зависимостей от внутреннего репозитория и базовые правила повторов SDK. Генерация HTML детерминирована; CI обнаруживает несохранённое изменение сгенерированных файлов.</p>
+<p>Исходный контракт до переноса прошёл 77 тестов SDK/оболочки и 171 тест backend; один тест символических ссылок Windows был пропущен из-за прав окружения. Это история проверки исходной связки, а не количество тестов данного публичного репозитория. Физическая приёмка — отдельный этап.</p>
+<h2 id="изменение-контракта">Изменение контракта<a class="anchor" href="#изменение-контракта" aria-label="Ссылка на раздел">#</a></h2>
+<p>Изменение методов, схем, денежных единиц, правил повторов или результата завершения требует пересмотра API.md и новой фиксации совместимости. Контрольные суммы не обновляются автоматически при обычной сборке: сначала проверяется изменение поведения. Совместимость с backend и оболочкой подтверждается владельцем платформы; статическая проверка этого репозитория не заменяет её.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="COMPATIBILITY.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#один-контракт-несколько-представлений">Один контракт, несколько представлений</a><a class="toc-link depth-2" href="#проверки">Проверки</a><a class="toc-link depth-2" href="#изменение-контракта">Изменение контракта</a></aside></div></body></html>

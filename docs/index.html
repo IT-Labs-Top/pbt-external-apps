@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Обзор — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Обзор · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link current" href="index.html" aria-current="page"><strong>Обзор</strong><span>Начало работы</span></a><a class="nav-link" href="api.html"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link" href="compatibility.html"><strong>Совместимость</strong><span>Версии и схемы</span></a><a class="nav-link" href="roadmap.html"><strong>Этапы проекта</strong><span>Состояние работы</span></a><a class="nav-link" href="contributing.html"><strong>Участие</strong><span>Сборка и изменения</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> Этап 1: контракт готов<p>Самостоятельная песочница — следующий этап.</p></div><a class="source-link" href="README.md">Исходный Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / Начало работы</div><h1 id="разработка-приложений-фотобудки">Разработка приложений фотобудки<a class="anchor" href="#разработка-приложений-фотобудки" aria-label="Ссылка на раздел">#</a></h1>
+<p>Собственный интерфейс, камеры, оплата, печать и цифровая выдача — через ограниченный API текущей сессии.</p>
+<p>Это публичная документация для автора внешнего приложения. Приложение поставляется как статический сайт в ZIP с <code>service.json</code>, запускается в изолированной оболочке и использует браузерный <code>ExternalClient</code>.</p>
+<h2 id="начните-здесь">Начните здесь<a class="anchor" href="#начните-здесь" aria-label="Ссылка на раздел">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Материал</th>
+<th>Для чего</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="api.html">API SDK</a></td>
+<td>Методы, аргументы, ответы, ошибки и правила безопасных повторов</td>
+</tr>
+<tr>
+<td><a href="compatibility.html">Совместимость</a></td>
+<td>Зафиксированные версии и проверяемые схемы</td>
+</tr>
+<tr>
+<td><a href="roadmap.html">Этапы</a></td>
+<td>Что уже готово и что будет следующим</td>
+</tr>
+<tr>
+<td><a href="contributing.html">Участие</a></td>
+<td>Изменение Markdown, сборка HTML и проверки</td>
+</tr>
+</tbody></table>
+<h2 id="состояние-проекта">Состояние проекта<a class="anchor" href="#состояние-проекта" aria-label="Ссылка на раздел">#</a></h2>
+<p>Завершён первый этап: контракт SDK. В справочнике описаны 30 публичных элементов клиента и 8 низкоуровневых action; OpenAPI содержит 17 runtime-маршрутов. Совместимый локальный кандидат терминала — 0.2.38, SDK — 0.1.0, протокол — 1.</p>
+<p>Следующий этап — самостоятельная песочница, работающая без центра, оборудования, токенов и Python-backend. Затем — единое демонстрационное приложение «Фотооткрытка». Эти возможности пока не входят в готовую часть репозитория.</p>
+<h2 id="основные-правила">Основные правила<a class="anchor" href="#основные-правила" aria-label="Ссылка на раздел">#</a></h2>
+<ul>
+<li>Деньги в SDK задаются в рублях: <code>235.67</code> — это 235 ₽ 67 коп.</li>
+<li>Таймаут ожидания не отменяет оплату или печать.</li>
+<li>Для повтора неизвестного результата сохраняйте <code>requestId</code> и аргументы.</li>
+<li>Принятая команда не подтверждает списание, выдачу всех листов или возврат банком.</li>
+<li>При системной паузе приостановите ввод, отсчёт и превью; после stop освободите ресурсы.</li>
+</ul>
+<h2 id="файлы-контракта">Файлы контракта<a class="anchor" href="#файлы-контракта" aria-label="Ссылка на раздел">#</a></h2>
+<p><a href="openapi.json">OpenAPI JSON</a> · <a href="service.schema.json">JSON Schema манифеста</a> · <a href="compatibility.json">Фиксация совместимости</a> · <a href="downloads/sdk.js">Браузерный SDK</a>.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="README.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#начните-здесь">Начните здесь</a><a class="toc-link depth-2" href="#состояние-проекта">Состояние проекта</a><a class="toc-link depth-2" href="#основные-правила">Основные правила</a><a class="toc-link depth-2" href="#файлы-контракта">Файлы контракта</a></aside></div></body></html>

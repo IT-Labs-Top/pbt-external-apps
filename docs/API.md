@@ -1,0 +1,381 @@
+# API внешнего приложения
+
+Актуальная спецификация `external-sdk-1`, сверенная с реализацией 29.10.2026. Этот документ определяет публичное поведение SDK.
+
+Совместимый локальный кандидат: терминал/backend/оболочка **0.2.38**, SDK **0.1.0**, протокол **1**. Версии, сигнатуры и SHA256 публичных артефактов находятся в [compatibility.json](compatibility.json). Статус кандидата и порядок обновления описаны в [COMPATIBILITY.md](COMPATIBILITY.md).
+
+Машинные представления: [декларации SDK](downloads/external.d.ts), [OpenAPI](openapi.json), [JSON Schema манифеста](service.schema.json). Проверка этого репозитория: `npm run check`.
+
+Используйте `@pbt/sdk/external`. Приложение не получает внутренний API киоска, Node.js или административный токен. Все методы работают только с текущим запуском. Права — пересечение разрешений манифеста и назначения центра.
+
+## Минимальный сценарий
+
+```javascript
+import { ExternalClient } from './sdk.js';
+
+const client = new ExternalClient();
+const context = await client.context();
+await client.ready();
+client.stage('start');
+
+// Вызывайте шаги из обработчиков кнопок, показывая ожидание и ошибки в интерфейсе.
+if (context.price > 0) await client.payment(context.price);
+const photo = await client.capture();
+await client.print(photo.photoId, 1);
+await client.complete();
+```
+
+Для бесплатной услуги пропустите `payment()`. Приложение само определяет порядок действий: съёмка и печать могут выполняться до оплаты. `complete()` вызывайте после подтверждения результата. Он не подменяет ожидание оплаты или выдачи листа.
+
+## Методы
+
+| Метод                                                | Назначение                                                                                    | Разрешение                                      |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `context()`                                          | `runId`, `sessionId`, `permissions`, `price`, `sheetPrice`, `fulfillment`, публичный `config` | Контекст своей сессии; `config:read` для config |
+| `ready()` / `dispose()`                              | Готовность, heartbeat и автоматическая диагностика / освобождение ресурсов                    | Своя сессия                                     |
+| `state()`                                            | Свои команды, платежи, фотографии и задания печати                                            | Своя сессия                                     |
+| `payment(amount?, options?)`                         | Дождаться конкретного завершённого платежа                                                    | `payment`                                       |
+| `waitPayment(operationId, options?)`                 | Продолжить ожидание без нового списания                                                       | Чтение своей сессии                             |
+| `extendCashWait(options?)`                           | Продлить текущий приём остатка наличных                                                       | `payment`                                       |
+| `requestRefund(options?)`                            | Запросить проверку возврата и закрыть приложение                                              | `payment`                                       |
+| `cameras()` / `previewUrl(camera?)`                  | Разрешённые камеры / URL MJPEG для `img.src`                                                  | Права выбранной камеры                          |
+| `capture({ camera?, requestId?, timeoutMs? })`       | Дождаться снимка; `main`, `top`, `side`                                                       | `capture:main` либо `capture:secondary`         |
+| `photoUrl(photoId)`                                  | Локальный URL своего JPEG                                                                     | Фото своей сессии                               |
+| `upload(jpegBlob, requestId)`                        | Сохранить готовый JPEG, например результат Canvas                                             | `result:write`                                  |
+| `print(photoId, copies?, options?)`                  | Дождаться выдачи 1..10 листов                                                                 | `print`                                         |
+| `waitPrint(jobId, options?)`                         | Продолжить ожидание без нового задания                                                        | Чтение своей сессии                             |
+| `frames()` / `effects()`                             | Каталоги рамок и эффектов центра                                                              | `config:read`                                   |
+| `share(photoIds, options?)` / `sharedPhotos()`       | Подготовить / прочитать ссылку цифровой выдачи и QR                                           | `result:write`, фото своей сессии; нужен центр  |
+| `complete({ requestId? })`                           | Подтвердить завершение услуги                                                                 | Своя сессия                                     |
+| `requestExit()` / `exit(requestId?)`                 | Доверенное подтверждение выхода / немедленный выход                                           | Своя сессия                                     |
+| `resetIdleTimer()`                                   | Явно продлить ожидание посетителя                                                             | Своя сессия                                     |
+| `track(name, data)` / `stage(name)`                  | Логическое событие / смена этапа                                                              | Своя сессия                                     |
+| `logError(error, data?, name?)` / `flushTelemetry()` | Ошибка / немедленная отправка накопленного журнала                                            | Своя сессия                                     |
+| `submit(command)` / `command(command, timeoutMs?)`   | Принять / дождаться низкоуровневой команды                                                    | Зависит от действия                             |
+
+`payment()` поддерживает `onProgress(payment)`, `print()` — `onProgress(job)`. Оба принимают `requestId` и `timeoutMs`. `print(..., { cut: true })` запрашивает две полоски 5×15 из одного листа. `copies` считает листы, а не полоски. Результат печати успешен только при `phase=done` и `copiesDone=copies`. Реальная резка зависит от драйвера и настроенной очереди.
+
+## Рубли и повторы
+
+В публичном runtime API все деньги в **рублях**: `235.67` означает 235 ₽ 67 коп. `context.price` — цена услуги, `sheetPrice` — цена дополнительного листа. Оплата листов не начисляется автоматически, печать не ограничивается оплаченной квотой. В назначении центра `service_price_minor` и `sheet_price_minor` задаются в **копейках**.
+
+Каждое новое действие получает новый `requestId`. Повтор одного действия после неизвестного результата использует прежний ID. Таймаут и транспортная ошибка не доказывают отсутствие списания или печати. Не создавайте новый платёж автоматически:
+
+```javascript
+const requestId = crypto.randomUUID(); // храните для этой кнопки/попытки
+try {
+  await client.payment(context.price, { requestId });
+} catch (error) {
+  if (error.code === 'timeout' || error.code === 'transport') {
+    // По кнопке продолжения ожидания; покажите посетителю состояние операции.
+    if (error.operationId) await client.waitPayment(error.operationId);
+    else await client.payment(context.price, { requestId });
+  } else {
+    throw error;
+  }
+}
+```
+
+`ExternalOperationError` содержит `code` (`failed`, `timeout`, `transport`), `requestId`, а после принятия операции — `operationId` или `jobId`; при известном отказе — `result`. Для печати применяйте тот же принцип через `waitPrint()`. Повтор `upload()` требует прежних ID **и содержимого JPEG**. Запрос возврата означает приём запроса backend; подтверждение возврата банком — отдельный результат. При частичной или неопределённой выдаче требуется сверка.
+
+## Жизненный цикл
+
+```javascript
+let paused = false;
+const unsubscribe = window.pbtService?.onLifecycle((event) => {
+  paused = event === 'pause' || event === 'stop';
+  if (paused) document.querySelector('#preview')?.removeAttribute('src');
+  if (event === 'resume') {
+    /* восстановить нужное превью */
+  }
+  if (event === 'stop') client.dispose();
+});
+window.addEventListener('pagehide', () => {
+  unsubscribe?.();
+  client.dispose();
+});
+```
+
+При `pause` запрещайте новые действия и останавливайте отсчёт; после `resume` возвращайте управление посетителю. Уже принятую оплату или печать считайте незавершённой до проверки состояния. При `stop` освобождайте таймеры и превью. Heartbeat, чтение состояния и телеметрия не считаются активностью посетителя. `resetIdleTimer()` используйте осмысленно, а не в бесконечном таймере.
+
+Вызывайте `ready()` до первого `stage()`. Не передавайте фотографии, секреты, платёжные реквизиты или персональные данные в диагностику. Деньги и физическую выдачу backend учитывает независимо от пользовательских событий. `diagnosticsDropped` показывает число отброшенных сообщений SDK.
+
+## Прямой HTTP
+
+SDK использует относительный префикс `/api/v1/external/runtime`. Из приложения допустимы прямые `fetch` к этому API на своём origin; cookies текущего запуска устанавливает оболочка. Host-токен не нужен и не должен попадать в сайт. JSON Schema команд, ответов и маршруты включены в `openapi.json` архива. Манифест и команда используют `snake_case` (`request_id`, `photo_id`), публичные ответы — `camelCase` (`photoId`, `amountPaid`).
+
+## Типы результатов и опций
+
+Все времена в строках — ISO 8601. Денежные числа — рубли, без дополнительного умножения/деления на 100. Опциональные поля могут отсутствовать; nullable-поля могут содержать `null`. Состояния с типом `string` в схемах не являются закрытым enum: приложение должно корректно показывать незнакомое состояние, не объявляя его успехом.
+
+```typescript
+type ExternalOperationOptions = { requestId?: string; timeoutMs?: number };
+type ExternalPaymentOptions = ExternalOperationOptions & {
+  onProgress?: (payment: ExternalPayment) => void;
+};
+type ExternalPrintOptions = ExternalOperationOptions & {
+  cut?: boolean;
+  onProgress?: (job: ExternalPrintJob) => void;
+};
+
+type ExternalContext = {
+  protocol: 1;
+  runId: string;
+  sessionId: string;
+  name: string;
+  version: string;
+  permissions: Capability[];
+  price: number;
+  sheetPrice: number;
+  fulfillment: 'print' | 'digital';
+  config: Record<string, unknown>;
+};
+type ExternalCommandReceipt = { requestId: string; state: string };
+type ExternalPayment = {
+  operationId: string;
+  status: string;
+  amountDue: number;
+  amountPaid: number;
+  method?: string | null;
+  error?: string | null;
+  remainingSeconds?: number | null;
+  fiscalQr?: string | null;
+  refundStatus?: string | null;
+  refundMessage?: string | null;
+  refundAmount?: number | null;
+};
+type ExternalPrintJob = {
+  jobId: string;
+  phase: string;
+  copies: number;
+  copiesDone: number;
+  error?: string | null;
+};
+type ExternalPhoto = {
+  photoId: string;
+  url: string;
+  takenAt: string;
+  width?: number | null;
+  height?: number | null;
+  lens?: string | null;
+  lensApplied?: boolean;
+  belowMinimum?: boolean | null;
+};
+type ExternalShare = {
+  downloadUrl: string;
+  qrUrl: string;
+  expiresAt: string;
+  photosCount: number;
+};
+type ExternalState = {
+  runId: string;
+  sessionId: string;
+  state: string;
+  paid: boolean;
+  payments: ExternalPayment[];
+  printJobs: ExternalPrintJob[];
+  photos: { photoId: string; kind: 'shot' | 'print'; url: string; createdAt: string }[];
+  commands: { requestId: string; state: string; result?: unknown }[];
+};
+```
+
+Фрагменты показывают публичную структуру данных; точная обязательность полей и алиасы типов определены в машинных схемах. У `CapturePhotoResponse` и элементов `state().photos` разные поля: размеры доступны в результате съёмки, а в перечне сессии — вид фото и время регистрации. Не предполагайте, что запись списка содержит размеры снимка.
+
+`config` возвращает только публичный config назначения услуги; без `config:read` это `{}`. В контексте отсутствуют `pricing`, `credits`, `kind` и настройки кассы. `version` в контексте — версия внешнего приложения, а не backend.
+
+## Справочник ExternalClient
+
+Конструктор: `new ExternalClient(fetcher?: typeof fetch)`. В терминале используйте конструктор без аргументов. Подмена `fetcher` предназначена для тестов и будущего локального симулятора; она не расширяет права приложения. Все HTTP-вызовы выполняются с `credentials: 'same-origin'`.
+
+### context()
+
+`context(): Promise<ExternalContext>`. Читает `GET /context`, состояние запуска не меняет. Без специального capability; для содержимого `config` требуется `config:read`. Возвращает цены и назначение своей услуги. Ошибки чтения — обычный `Error` с сообщением; структурированный код backend SDK не сохраняет.
+
+### ready()
+
+`ready(): Promise<void>`. После загрузки контекста сообщает о готовности через `POST /ready {}`, затем включает heartbeat каждые 5 секунд и отправку диагностики каждые 2 секунды. Устанавливает автоматические обработчики `error` и `unhandledrejection`. Повторный вызов заменяет таймеры и обработчики, не создавая второй комплект. Вызывайте до первого `stage()`; начальный ответ `elapsedMs` согласует монотонные часы SDK. Ошибка запроса готовности отклоняет Promise обычным `Error`.
+
+### dispose()
+
+`dispose(): void`. Останавливает локальные heartbeat/отправку диагностики и снимает обработчики ошибок. Предпринимает фоновую отправку накопленного журнала. Не отменяет платёж или печать, не закрывает сессию backend. Вызывайте при `stop` и `pagehide`. После `dispose()` для повторного включения автоматического обслуживания нужен `ready()`.
+
+### state()
+
+`state(): Promise<ExternalState>`. Читает `GET /state`. `paid=true` означает наличие хотя бы одного завершённого платежа, не подтверждает новую доплату. Проверяйте нужный `operationId`. `commands[].state=done` у оплаты и печати означает создание операции, не получение денег или листов. После закрытия запуска доступ отзывается; не стройте логику на возможности прочитать состояние закрытого приложения.
+
+### payment(amount?, options?)
+
+`payment(amount?: number, options?: ExternalPaymentOptions): Promise<ExternalPayment>`. Требует `payment`. Сумма 0.01..1 000 000 ₽, до двух знаков после запятой. Если сумма опущена, используется цена услуги; при нулевой цене пропускайте метод. Значение с долями копейки отклоняется до запроса; SDK убирает только погрешность двоичной арифметики.
+
+Создаёт команду `payment`, затем ждёт свой платёж до `status=completed` и `amountPaid>=amountDue`. Остальные терминальные статусы приводят к `ExternalOperationError('failed')` с последним `result`. Предел ожидания SDK — 600 000 мс; это не таймаут оборудования. `onProgress` получает каждый прочитанный статус. Ошибка callback регистрируется диагностикой и не прерывает платёж. Новая доплата — отдельный вызов с новым `requestId`; после неизвестного результата сохраняйте старый ID и сумму.
+
+### waitPayment(operationId, options?)
+
+`waitPayment(operationId: string, options?: ExternalPaymentOptions): Promise<ExternalPayment>`. Читает свою сессию и ждёт указанный платёж по тем же правилам, что `payment()`. Новую команду не отправляет. Предел по умолчанию — 600 000 мс. Если платёж с таким ID не появляется, ожидание завершится таймаутом; это не подтверждение отсутствия списания. В `options.requestId` передайте исходный ID для привязки возможной ошибки. Дополнительной проверки capability у чтения состояния нет.
+
+### extendCashWait(options?)
+
+`extendCashWait(options?: ExternalOperationOptions): Promise<ExternalPayment>`. Требует `payment`. Отправляет команду `extend` для текущего незавершённого ожидания наличных. Возвращает обновлённый платёж, включая `remainingSeconds`, не создавая новый и не меняя внесённую сумму. Предел ожидания команды — 120 000 мс, если `timeoutMs` не задан. При отсутствии подходящего ожидания команда завершается ошибкой. Каждое новое нажатие получает новый ID; повтор того же нажатия после сбоя — прежний.
+
+### requestRefund(options?)
+
+`requestRefund(options?: { requestId?: string }): Promise<ExternalCommandReceipt>`. Требует `payment`. Отправляет диагностику, затем команду `refund`; backend закрывает запуск как неоказанную услугу и применяет свою политику возврата. Произвольная сумма и чужой платёж не принимаются. По умолчанию один экземпляр клиента удерживает ID для повторов. `state=pending` подтверждает только приём запроса, не возврат банком. После приёма SDK не опрашивает отозванный runtime; результат показывает оболочка. Подтверждённое отсутствие выдачи позволяет полный возврат; частичная/неопределённая выдача требует сверки.
+
+### cameras()
+
+`cameras(): Promise<ExternalCamerasResponse>`. Требует хотя бы одно из `capture:main`, `capture:secondary`. Возвращает `{ captureMode, allowSelection, cameras }`; у камеры `{ id, label, ready, orientation }`. В списке только назначенные и разрешённые камеры. `id`: `main`, `top`, `side`; `orientation`: текущее строковое значение настройки, известные варианты `normal`, `mirror`, `flip`, `rotate180`. `allowSelection` описывает назначение услуги, но сам по себе не добавляет прав на ракурс. Не используйте системные идентификаторы USB-камер и `getUserMedia`: оборудование обслуживает хост.
+
+### previewUrl(camera?)
+
+`previewUrl(camera?: 'main' | 'top' | 'side'): string`. Возвращает URL, запрос сам не делает. Для main: `/api/v1/external/runtime/preview`; для остальных — `/preview/<camera>`. Поместите в `img.src`, чтобы начать MJPEG; удалите `src`, чтобы остановить. На открытие потока нужны права выбранной камеры. Один одновременный поток на ракурс; второй получает `device_busy`. Нет методов `startPreview()`/`stopPreview()`. Останавливайте превью при паузе, выходе и смене ракурса.
+
+### capture(options?)
+
+`capture(options?: ExternalOperationOptions & { camera?: 'main' | 'top' | 'side' }): Promise<ExternalPhoto>`. По умолчанию main, ожидание 120 000 мс. Требует `capture:main` для main или `capture:secondary` для top/side. Ждёт выполнения команды `capture` и возвращает снимок, не JPEG в JSON. Результат уже привязан к сессии. Перед изменяющими действиями необходим `ready()` и отсутствие системной паузы. При неизвестном исходе повторяйте команду с тем же ID и ракурсом.
+
+### photoUrl(photoId)
+
+`photoUrl(photoId: string): string`. Возвращает `/api/v1/external/runtime/photos/<encoded-id>`, не делает запрос. Используйте для `img.src` либо `fetch` и Canvas. Backend проверяет принадлежность фото сессии; для чужого/отсутствующего ID — `not_found`. Новое разрешение камеры для чтения уже существующего снимка не требуется. URL действует в рамках доступа текущего запуска; для выдачи посетителю используйте `share()`.
+
+### upload(jpeg, requestId)
+
+`upload(jpeg: Blob, requestId: string): Promise<{ photoId: string; url: string }>`. Требует `result:write`. Отправляет байты в `POST /result`, `Content-Type: image/jpeg`, `X-Request-Id`. ID обязателен. Ограничения JPEG: до 15 MiB, не более 12 000 пикселей по каждой стороне и 40 миллионов пикселей всего. Новый файл запрещён во время паузы и параллельной изменяющей команды. Успешный ответ backend дополнительно содержит width/height, но SDK гарантирует в типе только `photoId` и `url`.
+
+Повтор успешно записанного JPEG с тем же ID и байтами возвращает прежний результат. Иные байты под тем же ID дают `conflict`. Если backend определённо сообщает, что запись прервана, потребуется новый ID; не назначайте его автоматически при сетевом таймауте без выяснения результата. Таймаут HTTP — 30 000 мс. Ошибки загрузки — обычный `Error`/ошибка fetch, **не** `ExternalOperationError`: исходный ID и Blob должно хранить приложение.
+
+### print(photoId, copies?, options?)
+
+`print(photoId: string, copies?: number, options?: ExternalPrintOptions): Promise<ExternalPrintJob>`. Требует `print` и своё фото. По умолчанию 1 лист, допустимо 1..10 за задание. Отправляет команду `print`, затем ждёт `phase=done` и точное совпадение `copiesDone=copies`. Ожидание по умолчанию 600 000 мс. Ошибка/отмена/неполная выдача отклоняет Promise с `ExternalOperationError('failed')` и `result`.
+
+`cut=true` запрашивает две полоски из листа; при отсутствии настройки резки реальный драйвер может выдать целый лист с предупреждением. `copies=2, cut=true` означает два листа, потенциально четыре полоски. `onProgress` получает состояния своего задания. Печать не списывает оплату автоматически. Повтор после таймаута — прежние `requestId`, `photoId`, `copies`, `cut` или `waitPrint(jobId)`.
+
+### waitPrint(jobId, options?)
+
+`waitPrint(jobId: string, options?: ExternalPrintOptions): Promise<ExternalPrintJob>`. Читает состояние и ждёт тот же результат выдачи, не создавая задания. По умолчанию 600 000 мс. `cut` в переданных опциях не меняет уже созданное задание. При неизвестном `jobId` не создаёт замену, а ждёт до таймаута. В `options.requestId` сохраняйте исходный ID для диагностики.
+
+### frames()
+
+`frames(): Promise<ExternalFrame[]>`. Требует `config:read`. Поля рамки: `id`, `title`, `isPlain`; nullable `formatKey`, `printFormat`, `frameUrl`, `largePhotoFrameUrl`, `layout`; массив `previewUrls`. `layout` при наличии содержит nullable `kind`, `strips`, `framesPerStrip`, `orientation`. Берётся разрешённый каталог услуги, либо общий каталог точки, когда правила назначения допускают его использование. Картинки выдаются локальными `/assets/...`, только для файлов этого каталога. При отсутствии кэша URL может ответить 404. Размеры вырезов и геометрию не выдумывайте: накладывайте рамку только когда её формат понятен приложению.
+
+### effects()
+
+`effects(): Promise<ExternalEffect[]>`. Требует `config:read`. Элемент: `{ id, title, cssFilter?: string | null, previewUrl?: string | null }`. При отсутствии настроенных эффектов — «Без эффекта» с id=-1. Получение и выбор эффекта сами не меняют фото. Приложение применяет эффект в Canvas, сохраняет JPEG через `upload()` и печатает/выдаёт новый `photoId`.
+
+### share(photoIds, options?)
+
+`share(photoIds: string[], options?: ExternalOperationOptions): Promise<ExternalShare>`. Требует `result:write` и связи с центром. Выбор — 1..20 различных своих photoId; каждый JPEG до 15 MiB. Передайте окончательные фото: например, исходник и обработанную открытку. Первый вызов закрепляет состав выдачи на весь запуск; другой список получает `conflict`. Метод ждёт подтверждённую готовность всех файлов и HTTPS-ссылки. По умолчанию 600 000 мс.
+
+Покажите `qrUrl` в `img` **до** `complete()`, оставьте время на сканирование. `downloadUrl` предназначен телефону; навигация renderer на эту внешнюю страницу не разрешается автоматически. При сбое повторяйте тот же ID и список. Повтор failed-share допускает продолжение подтверждения/загрузки; при неизвестном результате создания ссылки или изменении состава backend может потребовать сверку вместо повторного POST. Одна успешная команда не разрешает повторную выдачу изменённых файлов под тем же ID.
+
+### sharedPhotos()
+
+`sharedPhotos(): Promise<ExternalShare>`. Требует `result:write`. Читает уже подготовленную выдачу через `GET /share`, ничего не загружая. Если выдача ещё не готова — `not_found`; срок истёк — `gone`. Ошибки чтения — обычный `Error`. `GET /share/qr` дополнительно получает и проверяет PNG QR в центре; успешное чтение метаданных ещё не доказывает доступность QR или загрузку файлов на телефоне.
+
+### complete(options?)
+
+`complete(options?: { requestId?: string }): Promise<ExternalCommandReceipt>`. Отправляет накопленную диагностику, затем завершение. Успех — только `receipt.state=done`; `failed` и другие ответы отклоняются как `ExternalOperationError('failed')`. Не требует обязательной оплаты/печати, но незавершённый платёж, активная печать и failed-последнее задание препятствуют успешному завершению. Общая сессия также применяет свои проверки.
+
+Метод не принимает `timeoutMs`. HTTP-предел отправки — 15 000 мс. По умолчанию каждый вызов генерирует новый ID, поэтому приложение должно явно сохранять ID завершения для повтора неизвестного результата. После закрытия runtime может быть уже недоступен: не пытайтесь бесконечно повторять завершение или запрашивать `state()` в закрытом окне.
+
+### requestExit()
+
+`requestExit(): Promise<void>`. Открывает доверенный диалог оболочки через `window.pbtService.requestExit()`. Promise означает, что запрос открытия обработан, а не согласие посетителя на выход. Приложение получает `pause`; при выборе продолжения — `resume`, при закрытии — `stop`. Суммы и предупреждения берёт оболочка из backend. Без bridge метод бросает обычный `Error`. HTTP-эквивалента у этого метода нет.
+
+### exit(requestId?)
+
+`exit(requestId?: string): Promise<ExternalCommandReceipt>`. **Аргумент — строка**, не `{ requestId }`. Отправляет диагностику и `cancel` без второго системного подтверждения. Для своего диалога сначала получите согласие посетителя, затем вызывайте метод. Один экземпляр клиента удерживает сгенерированный ID для повторов. `pending` — приём команды; запуск закрывается и runtime отзывается. Метод не запрашивает произвольный возврат денег и не подтверждает банковский результат.
+
+### resetIdleTimer()
+
+`resetIdleTimer(): Promise<void>`. `POST /activity {}` для своей незавершённой сессии. Сбрасывает таймер активности, не меняет интервалы, назначенные центром. Может убрать предупреждение о бездействии при следующем опросе оболочки и вызвать `resume`; добровольный диалог выхода этим не закрывается. Не считайте Promise разрешением новых команд до фактического `resume`.
+
+### track(name, data?)
+
+`track(name: string, data?: Record<string, string | number | boolean | null>): void`. Ставит логическое событие в очередь. `name`: `[a-z][a-z0-9_.-]{0,47}`; ключ данных: `[a-z][a-z0-9_.-]{0,39}`. До 10 полей, строка до 160 символов; числа конечные, по модулю до 10^12. SDK обрезает/фильтрует данные, недопустимое имя пропускает. Очередь до 32 событий; диагностике нельзя мешать услуге. Используйте, например, `postcard.effect.selected`, без данных посетителя.
+
+### stage(name)
+
+`stage(name: string): void`. Записывает переход этапа с теми же правилами имени. После `ready()` включает монотонное `elapsed_ms` от начала запуска. Повторные доставки сохраняют отметку и event_id; этапы backend считает по отметкам, повторные посещения суммирует. Это наблюдение приложения, не доказательство оплаты/выдачи. На старом backend без `elapsedMs` применяется прежняя привязка по времени получения; этот режим не входит в закреплённый кандидат.
+
+### logError(error, data?, name?)
+
+`logError(error: unknown, data?: EventData, name?: string): void`. Имя по умолчанию `application.error`. Записывает сообщение до 500 символов и stack до 1000, с фильтрацией данных. Не выбрасывает исключение наружу. После `ready()` необработанные ошибки JS собираются автоматически; ожидаемые сбои и контекст шага можно записывать явно. Избегайте дубля одной ошибки в каждом слое приложения.
+
+### flushTelemetry()
+
+`flushTelemetry(): Promise<void>`. Best effort: отправляет накопленную диагностику через `POST /telemetry`, пакетами до 5 событий и 7000 байт. Предел одного запроса 2000 мс. Одновременные вызовы разделяют текущую отправку; это не гарантия доставки всего журнала. После трёх неудач очередной пакет отбрасывается. При 401/403/404 диагностика отключается до нового клиента. Ошибка отправки не отклоняет Promise и не должна блокировать услугу. ID событий сохраняются при повторе.
+
+### diagnosticsDropped
+
+`readonly diagnosticsDropped: number`. Локальный счётчик сообщений, отброшенных SDK из-за переполнения, ошибок подготовки или отключения отправки. Не является количеством ошибок услуги/деньгами/числом потерянных фотографий. Успешная отправка не обнуляет его.
+
+### submit(command)
+
+`submit(command: ExternalCommand): Promise<ExternalCommandReceipt>`. Отправляет `POST /commands`. `202` и `pending` подтверждают принятие. Не ждёт завершения команды/платежа/печати и не проверяет `receipt.state=failed` за вызывающее приложение. Любая ошибка отправки или HTTP-ответа, включая валидацию/права/лимит, оборачивается в `ExternalOperationError('transport')` с requestId. Поэтому `transport` не является доказательством, что запрос дошёл или не дошёл.
+
+### command(command, timeoutMs?)
+
+`command<T = unknown>(command: ExternalCommand, timeoutMs?: number): Promise<T>`. Для незакрывающих действий отправляет команду и опрашивает `state().commands` до `done`; по умолчанию 120 000 мс. Возвращает `result`, при failed/interrupted — `ExternalOperationError('failed')`. У payment результат — созданный платёж, у print — `{ jobId, phase }`; далее нужны `waitPayment()`/`waitPrint()`.
+
+Для complete/cancel/refund возвращает **ExternalCommandReceipt** без опроса закрытого runtime; для complete требует done, для cancel/refund pending допускается. Не указывайте произвольный generic, который не соответствует action: generic — утверждение вызывающей стороны, не проверка backend. В типе SDK нет перегрузок, автоматически выводящих результат по action. `timeoutMs` регулирует опрос, не первый HTTP-запрос, и не отменяет оборудование.
+
+## Низкоуровневые команды
+
+Поля команды — snake_case; `request_id` обязателен, `[A-Za-z0-9_-]{1,64}`. Повтор требует тот же ID и те же нормализованные аргументы. У всех команд есть значения по умолчанию: `copies=1`, `cut=false`, `camera=main`, `amount=null`, `photo_id=null`, `photo_ids=[]`. Не передавайте не относящиеся к действию поля, даже если текущая модель их допускает. Неизвестные поля запрещены.
+
+| action   | Значимые аргументы      | Разрешение   | Результат command()                          |
+| -------- | ----------------------- | ------------ | -------------------------------------------- |
+| payment  | amount? в рублях        | payment      | Созданный ExternalPayment; нужен waitPayment |
+| capture  | camera?                 | Права камеры | ExternalPhoto                                |
+| print    | photo_id, copies?, cut? | print        | jobId/phase; нужен waitPrint                 |
+| share    | photo_ids               | result:write | ExternalShare                                |
+| extend   | —                       | payment      | Текущий ExternalPayment                      |
+| complete | —                       | Своя сессия  | Receipt state=done                           |
+| cancel   | —                       | Своя сессия  | Receipt принятия, без ожидания закрытия      |
+| refund   | —                       | payment      | Receipt принятия, не банковский возврат      |
+
+`amount_minor` и `kind` — только совместимость backend со старыми ZIP; в новом публичном контракте их нет. Рубли в ответах остаются рублями и для старых команд. Переиспользование ID с другими аргументами — `conflict`. Отклонённая известная команда не начинает выполнение заново при повторе ID; исключение — failed-share с прежним составом, где backend проверяет/продолжает цифровую выдачу.
+
+## Ошибки: три разных уровня
+
+1. HTTP backend: `{"error":{"code":"forbidden","message":"...","details":{}}}`. Типовые коды: validation_error 400, unauthorized 401, forbidden 403, not_found 404, gone 410, conflict/device_busy 409, rate_limited 429, device_unavailable 503, device_error/upstream_unavailable 502, operation_timeout 504, internal_error 500. details может отсутствовать. Шлюз и защитные лимиты также могут вернуть `{"error":"..."}` или сокращённую ошибку. При прямом fetch проверяйте status и форму тела.
+2. Команда принята, затем failed: `state().commands` содержит `state=failed`, `result={error: string}`. Структурированный исходный код backend в этой записи не сохраняется. SDK преобразует её в `ExternalOperationError` с code=failed.
+3. SDK: операции ожидания используют ExternalOperationError, обычные чтения/ready/upload/bridge — Error или ошибку fetch. У SDK нет общего свойства httpStatus/backendCode. `submit()` оборачивает даже определённый HTTP-отказ в transport; при необходимости различать такие ответы используйте прямой HTTP API с теми же правилами доступа.
+
+`ExternalOperationError` имеет `name`, `message`, `code`, опциональные `requestId`, `operationId`, `jobId`, `result`. hardware-ID появляется только когда SDK уже прочитал результат создания. Если ответ создания потерян, известен только requestId. Текст message предназначен человеку и не является стабильным машинным кодом. Лимит `command(timeoutMs)` не включает время первого `submit()`; у payment/print уменьшается остаток ожидания после создания, но общий deadline не гарантирует отмену запроса/оборудования.
+
+## Повторы и подтверждение результата
+
+| Ситуация                                          | Следующее действие                                                                       |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Таймаут/потеря ответа, известен только requestId  | Повторить то же действие с прежним ID и аргументами                                      |
+| Известен operationId                              | waitPayment(operationId), без новой команды                                              |
+| Известен jobId                                    | waitPrint(jobId), без нового задания                                                     |
+| Подтверждённый отказ, нужна новая попытка         | Сначала сверить внесённые деньги/выдачу; новая попытка получает новый ID                 |
+| Upload: ответ потерян                             | Тот же ID и Blob; не рендерить заново другой JPEG под старым ID                          |
+| Upload: подтверждённый конфликт прерванной записи | Новый ID допустим после установления результата записи                                   |
+| Share: ответ/подтверждение потеряны               | Тот же ID/список, либо sharedPhotos для готовой выдачи; не менять состав                 |
+| Complete/exit/refund приняты, окно закрывается    | Освободить ресурсы; не опрашивать закрытый runtime                                       |
+| Приложение/терминал перезапущено                  | Не воспроизводить физические/денежные команды автоматически; новый запуск — новая сессия |
+
+`timeout`/`transport` не означают отмену. Новый ID обозначает новое действие и может повторить списание или печать. `pending` означает принятие, `commands.done` — выполнение команды создания, `payment.completed` — подтверждение конкретного платежа, `print.done` с совпадением количества — подтверждение всех листов. Успешный `share()` подтверждает готовность ссылки в центре; не доказывает скачивание на телефоне. Запрос возврата не доказывает возврат банком.
+
+## Пауза, ожидание и лимиты
+
+Bridge: `window.pbtService.onLifecycle(handler)` возвращает функцию отписки. События: start, pause, resume, stop. Регистрация не воспроизводит прошедшее start; самостоятельная инициализация приложения не должна ждать его бесконечно. У bridge есть protocol=1 и requestExit(); внутренних токенов/произвольного IPC нет.
+
+На pause остановите ввод, отсчёт, превью и начало новых команд. Не считайте уже принятую физическую операцию отменённой. Возвращайте управление после resume; при stop остановите таймеры и вызовите dispose. `ready` и heartbeat не являются пользовательской активностью. Реальное ожидание оборудования backend учитывает как занятость и не считает уходом посетителя; произвольная обработка JavaScript требует осмысленного resetIdleTimer. Интервалы до/после оплаты назначает центр, приложение их не меняет.
+
+За запуск: до 10 попыток оплаты, 200 команд, 20 уникальных изображений, 256 MiB файлов. Один photoId, используемый как shot и print, не удваивает число/объём файлов; разные upload получают отдельные photoId. У runtime общий бюджет запросов 10/с с начальным burst 20 на appId и отдельные лимиты одновременности; смена токена его не обнуляет. JSON-запрос до 8192 байт, загрузка JPEG до 15 MiB. Шлюз имеет дополнительные собственные бюджеты. При 429 соблюдайте Retry-After, прекращайте агрессивный опрос; новый requestId лимиты не обходит.
+
+## Манифест и разрешённая сеть
+
+`service.json`: schema_version=1, sdk="1", id, version, name, entry, capabilities, requires_online, network.allowed_origins. Полные ограничения полей — [service.schema.json](service.schema.json). Готовые файлы приложения и манифест лежат в корне ZIP; entry и ссылки на ассеты относительные. В опубликованной версии нельзя заменять байты без новой версии и контрольной суммы.
+
+Capability: capture:main, capture:secondary, payment, print, result:write, config:read. Права не расширяются конфигом/SDK; backend проверяет пересечение манифеста и назначения центра. `requires_online` влияет на доступность услуги; для share всё равно нужна связь с центром.
+
+network.allowed_origins: точные origin со схемой http/https/ws/wss, доменом/IP и портом, без путей/credentials/query/масок. До 32 записей и 2048 символов после нормализации. Стандартные порты убираются, домены нормализуются. HTTP-origin не разрешает автоматически WebSocket, поддомен или другой порт. Собственный origin разрешён без записи; пространство svc.localhost зарезервировано. Изменение списка требует нового ZIP. CORS/TLS, блокировка внешней HTML-навигации, iframe и новых окон сохраняются. Сетевые вызовы идут обычным fetch/WebSocket, не через административный прокси backend.
+
+## Этапы проекта
+
+Контракт SDK готов. Самостоятельная песочница, единая «Фотооткрытка», инструменты поставки и физическая приёмка выполняются отдельными этапами: [ROADMAP.md](ROADMAP.md).

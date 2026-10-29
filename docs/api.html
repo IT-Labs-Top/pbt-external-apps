@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Справочник SDK — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Справочник SDK · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link" href="index.html"><strong>Обзор</strong><span>Начало работы</span></a><a class="nav-link current" href="api.html" aria-current="page"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link" href="compatibility.html"><strong>Совместимость</strong><span>Версии и схемы</span></a><a class="nav-link" href="roadmap.html"><strong>Этапы проекта</strong><span>Состояние работы</span></a><a class="nav-link" href="contributing.html"><strong>Участие</strong><span>Сборка и изменения</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> Этап 1: контракт готов<p>Самостоятельная песочница — следующий этап.</p></div><a class="source-link" href="API.md">Исходный Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / Контракт и методы</div><h1 id="api-внешнего-приложения">API внешнего приложения<a class="anchor" href="#api-внешнего-приложения" aria-label="Ссылка на раздел">#</a></h1>
+<p>Актуальная спецификация <code>external-sdk-1</code>, сверенная с реализацией 29.10.2026. Этот документ определяет публичное поведение SDK.</p>
+<p>Совместимый локальный кандидат: терминал/backend/оболочка <strong>0.2.38</strong>, SDK <strong>0.1.0</strong>, протокол <strong>1</strong>. Версии, сигнатуры и SHA256 публичных артефактов находятся в <a href="compatibility.json">compatibility.json</a>. Статус кандидата и порядок обновления описаны в <a href="compatibility.html">COMPATIBILITY.md</a>.</p>
+<p>Машинные представления: <a href="downloads/external.d.ts">декларации SDK</a>, <a href="openapi.json">OpenAPI</a>, <a href="service.schema.json">JSON Schema манифеста</a>. Проверка этого репозитория: <code>npm run check</code>.</p>
+<p>Используйте <code>@pbt/sdk/external</code>. Приложение не получает внутренний API киоска, Node.js или административный токен. Все методы работают только с текущим запуском. Права — пересечение разрешений манифеста и назначения центра.</p>
+<h2 id="минимальный-сценарий">Минимальный сценарий<a class="anchor" href="#минимальный-сценарий" aria-label="Ссылка на раздел">#</a></h2>
+<pre><code class="language-javascript">import { ExternalClient } from &#39;./sdk.js&#39;;
+
+const client = new ExternalClient();
+const context = await client.context();
+await client.ready();
+client.stage(&#39;start&#39;);
+
+// Вызывайте шаги из обработчиков кнопок, показывая ожидание и ошибки в интерфейсе.
+if (context.price &gt; 0) await client.payment(context.price);
+const photo = await client.capture();
+await client.print(photo.photoId, 1);
+await client.complete();
+</code></pre>
+<p>Для бесплатной услуги пропустите <code>payment()</code>. Приложение само определяет порядок действий: съёмка и печать могут выполняться до оплаты. <code>complete()</code> вызывайте после подтверждения результата. Он не подменяет ожидание оплаты или выдачи листа.</p>
+<h2 id="методы">Методы<a class="anchor" href="#методы" aria-label="Ссылка на раздел">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>Назначение</th>
+<th>Разрешение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>context()</code></td>
+<td><code>runId</code>, <code>sessionId</code>, <code>permissions</code>, <code>price</code>, <code>sheetPrice</code>, <code>fulfillment</code>, публичный <code>config</code></td>
+<td>Контекст своей сессии; <code>config:read</code> для config</td>
+</tr>
+<tr>
+<td><code>ready()</code> / <code>dispose()</code></td>
+<td>Готовность, heartbeat и автоматическая диагностика / освобождение ресурсов</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>state()</code></td>
+<td>Свои команды, платежи, фотографии и задания печати</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>payment(amount?, options?)</code></td>
+<td>Дождаться конкретного завершённого платежа</td>
+<td><code>payment</code></td>
+</tr>
+<tr>
+<td><code>waitPayment(operationId, options?)</code></td>
+<td>Продолжить ожидание без нового списания</td>
+<td>Чтение своей сессии</td>
+</tr>
+<tr>
+<td><code>extendCashWait(options?)</code></td>
+<td>Продлить текущий приём остатка наличных</td>
+<td><code>payment</code></td>
+</tr>
+<tr>
+<td><code>requestRefund(options?)</code></td>
+<td>Запросить проверку возврата и закрыть приложение</td>
+<td><code>payment</code></td>
+</tr>
+<tr>
+<td><code>cameras()</code> / <code>previewUrl(camera?)</code></td>
+<td>Разрешённые камеры / URL MJPEG для <code>img.src</code></td>
+<td>Права выбранной камеры</td>
+</tr>
+<tr>
+<td><code>capture({ camera?, requestId?, timeoutMs? })</code></td>
+<td>Дождаться снимка; <code>main</code>, <code>top</code>, <code>side</code></td>
+<td><code>capture:main</code> либо <code>capture:secondary</code></td>
+</tr>
+<tr>
+<td><code>photoUrl(photoId)</code></td>
+<td>Локальный URL своего JPEG</td>
+<td>Фото своей сессии</td>
+</tr>
+<tr>
+<td><code>upload(jpegBlob, requestId)</code></td>
+<td>Сохранить готовый JPEG, например результат Canvas</td>
+<td><code>result:write</code></td>
+</tr>
+<tr>
+<td><code>print(photoId, copies?, options?)</code></td>
+<td>Дождаться выдачи 1..10 листов</td>
+<td><code>print</code></td>
+</tr>
+<tr>
+<td><code>waitPrint(jobId, options?)</code></td>
+<td>Продолжить ожидание без нового задания</td>
+<td>Чтение своей сессии</td>
+</tr>
+<tr>
+<td><code>frames()</code> / <code>effects()</code></td>
+<td>Каталоги рамок и эффектов центра</td>
+<td><code>config:read</code></td>
+</tr>
+<tr>
+<td><code>share(photoIds, options?)</code> / <code>sharedPhotos()</code></td>
+<td>Подготовить / прочитать ссылку цифровой выдачи и QR</td>
+<td><code>result:write</code>, фото своей сессии; нужен центр</td>
+</tr>
+<tr>
+<td><code>complete({ requestId? })</code></td>
+<td>Подтвердить завершение услуги</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>requestExit()</code> / <code>exit(requestId?)</code></td>
+<td>Доверенное подтверждение выхода / немедленный выход</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>resetIdleTimer()</code></td>
+<td>Явно продлить ожидание посетителя</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>track(name, data)</code> / <code>stage(name)</code></td>
+<td>Логическое событие / смена этапа</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>logError(error, data?, name?)</code> / <code>flushTelemetry()</code></td>
+<td>Ошибка / немедленная отправка накопленного журнала</td>
+<td>Своя сессия</td>
+</tr>
+<tr>
+<td><code>submit(command)</code> / <code>command(command, timeoutMs?)</code></td>
+<td>Принять / дождаться низкоуровневой команды</td>
+<td>Зависит от действия</td>
+</tr>
+</tbody></table>
+<p><code>payment()</code> поддерживает <code>onProgress(payment)</code>, <code>print()</code> — <code>onProgress(job)</code>. Оба принимают <code>requestId</code> и <code>timeoutMs</code>. <code>print(..., { cut: true })</code> запрашивает две полоски 5×15 из одного листа. <code>copies</code> считает листы, а не полоски. Результат печати успешен только при <code>phase=done</code> и <code>copiesDone=copies</code>. Реальная резка зависит от драйвера и настроенной очереди.</p>
+<h2 id="рубли-и-повторы">Рубли и повторы<a class="anchor" href="#рубли-и-повторы" aria-label="Ссылка на раздел">#</a></h2>
+<p>В публичном runtime API все деньги в <strong>рублях</strong>: <code>235.67</code> означает 235 ₽ 67 коп. <code>context.price</code> — цена услуги, <code>sheetPrice</code> — цена дополнительного листа. Оплата листов не начисляется автоматически, печать не ограничивается оплаченной квотой. В назначении центра <code>service_price_minor</code> и <code>sheet_price_minor</code> задаются в <strong>копейках</strong>.</p>
+<p>Каждое новое действие получает новый <code>requestId</code>. Повтор одного действия после неизвестного результата использует прежний ID. Таймаут и транспортная ошибка не доказывают отсутствие списания или печати. Не создавайте новый платёж автоматически:</p>
+<pre><code class="language-javascript">const requestId = crypto.randomUUID(); // храните для этой кнопки/попытки
+try {
+  await client.payment(context.price, { requestId });
+} catch (error) {
+  if (error.code === &#39;timeout&#39; || error.code === &#39;transport&#39;) {
+    // По кнопке продолжения ожидания; покажите посетителю состояние операции.
+    if (error.operationId) await client.waitPayment(error.operationId);
+    else await client.payment(context.price, { requestId });
+  } else {
+    throw error;
+  }
+}
+</code></pre>
+<p><code>ExternalOperationError</code> содержит <code>code</code> (<code>failed</code>, <code>timeout</code>, <code>transport</code>), <code>requestId</code>, а после принятия операции — <code>operationId</code> или <code>jobId</code>; при известном отказе — <code>result</code>. Для печати применяйте тот же принцип через <code>waitPrint()</code>. Повтор <code>upload()</code> требует прежних ID <strong>и содержимого JPEG</strong>. Запрос возврата означает приём запроса backend; подтверждение возврата банком — отдельный результат. При частичной или неопределённой выдаче требуется сверка.</p>
+<h2 id="жизненный-цикл">Жизненный цикл<a class="anchor" href="#жизненный-цикл" aria-label="Ссылка на раздел">#</a></h2>
+<pre><code class="language-javascript">let paused = false;
+const unsubscribe = window.pbtService?.onLifecycle((event) =&gt; {
+  paused = event === &#39;pause&#39; || event === &#39;stop&#39;;
+  if (paused) document.querySelector(&#39;#preview&#39;)?.removeAttribute(&#39;src&#39;);
+  if (event === &#39;resume&#39;) {
+    /* восстановить нужное превью */
+  }
+  if (event === &#39;stop&#39;) client.dispose();
+});
+window.addEventListener(&#39;pagehide&#39;, () =&gt; {
+  unsubscribe?.();
+  client.dispose();
+});
+</code></pre>
+<p>При <code>pause</code> запрещайте новые действия и останавливайте отсчёт; после <code>resume</code> возвращайте управление посетителю. Уже принятую оплату или печать считайте незавершённой до проверки состояния. При <code>stop</code> освобождайте таймеры и превью. Heartbeat, чтение состояния и телеметрия не считаются активностью посетителя. <code>resetIdleTimer()</code> используйте осмысленно, а не в бесконечном таймере.</p>
+<p>Вызывайте <code>ready()</code> до первого <code>stage()</code>. Не передавайте фотографии, секреты, платёжные реквизиты или персональные данные в диагностику. Деньги и физическую выдачу backend учитывает независимо от пользовательских событий. <code>diagnosticsDropped</code> показывает число отброшенных сообщений SDK.</p>
+<h2 id="прямой-http">Прямой HTTP<a class="anchor" href="#прямой-http" aria-label="Ссылка на раздел">#</a></h2>
+<p>SDK использует относительный префикс <code>/api/v1/external/runtime</code>. Из приложения допустимы прямые <code>fetch</code> к этому API на своём origin; cookies текущего запуска устанавливает оболочка. Host-токен не нужен и не должен попадать в сайт. JSON Schema команд, ответов и маршруты включены в <code>openapi.json</code> архива. Манифест и команда используют <code>snake_case</code> (<code>request_id</code>, <code>photo_id</code>), публичные ответы — <code>camelCase</code> (<code>photoId</code>, <code>amountPaid</code>).</p>
+<h2 id="типы-результатов-и-опций">Типы результатов и опций<a class="anchor" href="#типы-результатов-и-опций" aria-label="Ссылка на раздел">#</a></h2>
+<p>Все времена в строках — ISO 8601. Денежные числа — рубли, без дополнительного умножения/деления на 100. Опциональные поля могут отсутствовать; nullable-поля могут содержать <code>null</code>. Состояния с типом <code>string</code> в схемах не являются закрытым enum: приложение должно корректно показывать незнакомое состояние, не объявляя его успехом.</p>
+<pre><code class="language-typescript">type ExternalOperationOptions = { requestId?: string; timeoutMs?: number };
+type ExternalPaymentOptions = ExternalOperationOptions &amp; {
+  onProgress?: (payment: ExternalPayment) =&gt; void;
+};
+type ExternalPrintOptions = ExternalOperationOptions &amp; {
+  cut?: boolean;
+  onProgress?: (job: ExternalPrintJob) =&gt; void;
+};
+
+type ExternalContext = {
+  protocol: 1;
+  runId: string;
+  sessionId: string;
+  name: string;
+  version: string;
+  permissions: Capability[];
+  price: number;
+  sheetPrice: number;
+  fulfillment: &#39;print&#39; | &#39;digital&#39;;
+  config: Record&lt;string, unknown&gt;;
+};
+type ExternalCommandReceipt = { requestId: string; state: string };
+type ExternalPayment = {
+  operationId: string;
+  status: string;
+  amountDue: number;
+  amountPaid: number;
+  method?: string | null;
+  error?: string | null;
+  remainingSeconds?: number | null;
+  fiscalQr?: string | null;
+  refundStatus?: string | null;
+  refundMessage?: string | null;
+  refundAmount?: number | null;
+};
+type ExternalPrintJob = {
+  jobId: string;
+  phase: string;
+  copies: number;
+  copiesDone: number;
+  error?: string | null;
+};
+type ExternalPhoto = {
+  photoId: string;
+  url: string;
+  takenAt: string;
+  width?: number | null;
+  height?: number | null;
+  lens?: string | null;
+  lensApplied?: boolean;
+  belowMinimum?: boolean | null;
+};
+type ExternalShare = {
+  downloadUrl: string;
+  qrUrl: string;
+  expiresAt: string;
+  photosCount: number;
+};
+type ExternalState = {
+  runId: string;
+  sessionId: string;
+  state: string;
+  paid: boolean;
+  payments: ExternalPayment[];
+  printJobs: ExternalPrintJob[];
+  photos: { photoId: string; kind: &#39;shot&#39; | &#39;print&#39;; url: string; createdAt: string }[];
+  commands: { requestId: string; state: string; result?: unknown }[];
+};
+</code></pre>
+<p>Фрагменты показывают публичную структуру данных; точная обязательность полей и алиасы типов определены в машинных схемах. У <code>CapturePhotoResponse</code> и элементов <code>state().photos</code> разные поля: размеры доступны в результате съёмки, а в перечне сессии — вид фото и время регистрации. Не предполагайте, что запись списка содержит размеры снимка.</p>
+<p><code>config</code> возвращает только публичный config назначения услуги; без <code>config:read</code> это <code>{}</code>. В контексте отсутствуют <code>pricing</code>, <code>credits</code>, <code>kind</code> и настройки кассы. <code>version</code> в контексте — версия внешнего приложения, а не backend.</p>
+<h2 id="справочник-externalclient">Справочник ExternalClient<a class="anchor" href="#справочник-externalclient" aria-label="Ссылка на раздел">#</a></h2>
+<p>Конструктор: <code>new ExternalClient(fetcher?: typeof fetch)</code>. В терминале используйте конструктор без аргументов. Подмена <code>fetcher</code> предназначена для тестов и будущего локального симулятора; она не расширяет права приложения. Все HTTP-вызовы выполняются с <code>credentials: &#39;same-origin&#39;</code>.</p>
+<h3 id="context">context()<a class="anchor" href="#context" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>context(): Promise&lt;ExternalContext&gt;</code>. Читает <code>GET /context</code>, состояние запуска не меняет. Без специального capability; для содержимого <code>config</code> требуется <code>config:read</code>. Возвращает цены и назначение своей услуги. Ошибки чтения — обычный <code>Error</code> с сообщением; структурированный код backend SDK не сохраняет.</p>
+<h3 id="ready">ready()<a class="anchor" href="#ready" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>ready(): Promise&lt;void&gt;</code>. После загрузки контекста сообщает о готовности через <code>POST /ready {}</code>, затем включает heartbeat каждые 5 секунд и отправку диагностики каждые 2 секунды. Устанавливает автоматические обработчики <code>error</code> и <code>unhandledrejection</code>. Повторный вызов заменяет таймеры и обработчики, не создавая второй комплект. Вызывайте до первого <code>stage()</code>; начальный ответ <code>elapsedMs</code> согласует монотонные часы SDK. Ошибка запроса готовности отклоняет Promise обычным <code>Error</code>.</p>
+<h3 id="dispose">dispose()<a class="anchor" href="#dispose" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>dispose(): void</code>. Останавливает локальные heartbeat/отправку диагностики и снимает обработчики ошибок. Предпринимает фоновую отправку накопленного журнала. Не отменяет платёж или печать, не закрывает сессию backend. Вызывайте при <code>stop</code> и <code>pagehide</code>. После <code>dispose()</code> для повторного включения автоматического обслуживания нужен <code>ready()</code>.</p>
+<h3 id="state">state()<a class="anchor" href="#state" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>state(): Promise&lt;ExternalState&gt;</code>. Читает <code>GET /state</code>. <code>paid=true</code> означает наличие хотя бы одного завершённого платежа, не подтверждает новую доплату. Проверяйте нужный <code>operationId</code>. <code>commands[].state=done</code> у оплаты и печати означает создание операции, не получение денег или листов. После закрытия запуска доступ отзывается; не стройте логику на возможности прочитать состояние закрытого приложения.</p>
+<h3 id="paymentamount-options">payment(amount?, options?)<a class="anchor" href="#paymentamount-options" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>payment(amount?: number, options?: ExternalPaymentOptions): Promise&lt;ExternalPayment&gt;</code>. Требует <code>payment</code>. Сумма 0.01..1 000 000 ₽, до двух знаков после запятой. Если сумма опущена, используется цена услуги; при нулевой цене пропускайте метод. Значение с долями копейки отклоняется до запроса; SDK убирает только погрешность двоичной арифметики.</p>
+<p>Создаёт команду <code>payment</code>, затем ждёт свой платёж до <code>status=completed</code> и <code>amountPaid&gt;=amountDue</code>. Остальные терминальные статусы приводят к <code>ExternalOperationError(&#39;failed&#39;)</code> с последним <code>result</code>. Предел ожидания SDK — 600 000 мс; это не таймаут оборудования. <code>onProgress</code> получает каждый прочитанный статус. Ошибка callback регистрируется диагностикой и не прерывает платёж. Новая доплата — отдельный вызов с новым <code>requestId</code>; после неизвестного результата сохраняйте старый ID и сумму.</p>
+<h3 id="waitpaymentoperationid-options">waitPayment(operationId, options?)<a class="anchor" href="#waitpaymentoperationid-options" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>waitPayment(operationId: string, options?: ExternalPaymentOptions): Promise&lt;ExternalPayment&gt;</code>. Читает свою сессию и ждёт указанный платёж по тем же правилам, что <code>payment()</code>. Новую команду не отправляет. Предел по умолчанию — 600 000 мс. Если платёж с таким ID не появляется, ожидание завершится таймаутом; это не подтверждение отсутствия списания. В <code>options.requestId</code> передайте исходный ID для привязки возможной ошибки. Дополнительной проверки capability у чтения состояния нет.</p>
+<h3 id="extendcashwaitoptions">extendCashWait(options?)<a class="anchor" href="#extendcashwaitoptions" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>extendCashWait(options?: ExternalOperationOptions): Promise&lt;ExternalPayment&gt;</code>. Требует <code>payment</code>. Отправляет команду <code>extend</code> для текущего незавершённого ожидания наличных. Возвращает обновлённый платёж, включая <code>remainingSeconds</code>, не создавая новый и не меняя внесённую сумму. Предел ожидания команды — 120 000 мс, если <code>timeoutMs</code> не задан. При отсутствии подходящего ожидания команда завершается ошибкой. Каждое новое нажатие получает новый ID; повтор того же нажатия после сбоя — прежний.</p>
+<h3 id="requestrefundoptions">requestRefund(options?)<a class="anchor" href="#requestrefundoptions" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>requestRefund(options?: { requestId?: string }): Promise&lt;ExternalCommandReceipt&gt;</code>. Требует <code>payment</code>. Отправляет диагностику, затем команду <code>refund</code>; backend закрывает запуск как неоказанную услугу и применяет свою политику возврата. Произвольная сумма и чужой платёж не принимаются. По умолчанию один экземпляр клиента удерживает ID для повторов. <code>state=pending</code> подтверждает только приём запроса, не возврат банком. После приёма SDK не опрашивает отозванный runtime; результат показывает оболочка. Подтверждённое отсутствие выдачи позволяет полный возврат; частичная/неопределённая выдача требует сверки.</p>
+<h3 id="cameras">cameras()<a class="anchor" href="#cameras" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>cameras(): Promise&lt;ExternalCamerasResponse&gt;</code>. Требует хотя бы одно из <code>capture:main</code>, <code>capture:secondary</code>. Возвращает <code>{ captureMode, allowSelection, cameras }</code>; у камеры <code>{ id, label, ready, orientation }</code>. В списке только назначенные и разрешённые камеры. <code>id</code>: <code>main</code>, <code>top</code>, <code>side</code>; <code>orientation</code>: текущее строковое значение настройки, известные варианты <code>normal</code>, <code>mirror</code>, <code>flip</code>, <code>rotate180</code>. <code>allowSelection</code> описывает назначение услуги, но сам по себе не добавляет прав на ракурс. Не используйте системные идентификаторы USB-камер и <code>getUserMedia</code>: оборудование обслуживает хост.</p>
+<h3 id="previewurlcamera">previewUrl(camera?)<a class="anchor" href="#previewurlcamera" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>previewUrl(camera?: &#39;main&#39; | &#39;top&#39; | &#39;side&#39;): string</code>. Возвращает URL, запрос сам не делает. Для main: <code>/api/v1/external/runtime/preview</code>; для остальных — <code>/preview/&lt;camera&gt;</code>. Поместите в <code>img.src</code>, чтобы начать MJPEG; удалите <code>src</code>, чтобы остановить. На открытие потока нужны права выбранной камеры. Один одновременный поток на ракурс; второй получает <code>device_busy</code>. Нет методов <code>startPreview()</code>/<code>stopPreview()</code>. Останавливайте превью при паузе, выходе и смене ракурса.</p>
+<h3 id="captureoptions">capture(options?)<a class="anchor" href="#captureoptions" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>capture(options?: ExternalOperationOptions &amp; { camera?: &#39;main&#39; | &#39;top&#39; | &#39;side&#39; }): Promise&lt;ExternalPhoto&gt;</code>. По умолчанию main, ожидание 120 000 мс. Требует <code>capture:main</code> для main или <code>capture:secondary</code> для top/side. Ждёт выполнения команды <code>capture</code> и возвращает снимок, не JPEG в JSON. Результат уже привязан к сессии. Перед изменяющими действиями необходим <code>ready()</code> и отсутствие системной паузы. При неизвестном исходе повторяйте команду с тем же ID и ракурсом.</p>
+<h3 id="photourlphotoid">photoUrl(photoId)<a class="anchor" href="#photourlphotoid" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>photoUrl(photoId: string): string</code>. Возвращает <code>/api/v1/external/runtime/photos/&lt;encoded-id&gt;</code>, не делает запрос. Используйте для <code>img.src</code> либо <code>fetch</code> и Canvas. Backend проверяет принадлежность фото сессии; для чужого/отсутствующего ID — <code>not_found</code>. Новое разрешение камеры для чтения уже существующего снимка не требуется. URL действует в рамках доступа текущего запуска; для выдачи посетителю используйте <code>share()</code>.</p>
+<h3 id="uploadjpeg-requestid">upload(jpeg, requestId)<a class="anchor" href="#uploadjpeg-requestid" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>upload(jpeg: Blob, requestId: string): Promise&lt;{ photoId: string; url: string }&gt;</code>. Требует <code>result:write</code>. Отправляет байты в <code>POST /result</code>, <code>Content-Type: image/jpeg</code>, <code>X-Request-Id</code>. ID обязателен. Ограничения JPEG: до 15 MiB, не более 12 000 пикселей по каждой стороне и 40 миллионов пикселей всего. Новый файл запрещён во время паузы и параллельной изменяющей команды. Успешный ответ backend дополнительно содержит width/height, но SDK гарантирует в типе только <code>photoId</code> и <code>url</code>.</p>
+<p>Повтор успешно записанного JPEG с тем же ID и байтами возвращает прежний результат. Иные байты под тем же ID дают <code>conflict</code>. Если backend определённо сообщает, что запись прервана, потребуется новый ID; не назначайте его автоматически при сетевом таймауте без выяснения результата. Таймаут HTTP — 30 000 мс. Ошибки загрузки — обычный <code>Error</code>/ошибка fetch, <strong>не</strong> <code>ExternalOperationError</code>: исходный ID и Blob должно хранить приложение.</p>
+<h3 id="printphotoid-copies-options">print(photoId, copies?, options?)<a class="anchor" href="#printphotoid-copies-options" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>print(photoId: string, copies?: number, options?: ExternalPrintOptions): Promise&lt;ExternalPrintJob&gt;</code>. Требует <code>print</code> и своё фото. По умолчанию 1 лист, допустимо 1..10 за задание. Отправляет команду <code>print</code>, затем ждёт <code>phase=done</code> и точное совпадение <code>copiesDone=copies</code>. Ожидание по умолчанию 600 000 мс. Ошибка/отмена/неполная выдача отклоняет Promise с <code>ExternalOperationError(&#39;failed&#39;)</code> и <code>result</code>.</p>
+<p><code>cut=true</code> запрашивает две полоски из листа; при отсутствии настройки резки реальный драйвер может выдать целый лист с предупреждением. <code>copies=2, cut=true</code> означает два листа, потенциально четыре полоски. <code>onProgress</code> получает состояния своего задания. Печать не списывает оплату автоматически. Повтор после таймаута — прежние <code>requestId</code>, <code>photoId</code>, <code>copies</code>, <code>cut</code> или <code>waitPrint(jobId)</code>.</p>
+<h3 id="waitprintjobid-options">waitPrint(jobId, options?)<a class="anchor" href="#waitprintjobid-options" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>waitPrint(jobId: string, options?: ExternalPrintOptions): Promise&lt;ExternalPrintJob&gt;</code>. Читает состояние и ждёт тот же результат выдачи, не создавая задания. По умолчанию 600 000 мс. <code>cut</code> в переданных опциях не меняет уже созданное задание. При неизвестном <code>jobId</code> не создаёт замену, а ждёт до таймаута. В <code>options.requestId</code> сохраняйте исходный ID для диагностики.</p>
+<h3 id="frames">frames()<a class="anchor" href="#frames" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>frames(): Promise&lt;ExternalFrame[]&gt;</code>. Требует <code>config:read</code>. Поля рамки: <code>id</code>, <code>title</code>, <code>isPlain</code>; nullable <code>formatKey</code>, <code>printFormat</code>, <code>frameUrl</code>, <code>largePhotoFrameUrl</code>, <code>layout</code>; массив <code>previewUrls</code>. <code>layout</code> при наличии содержит nullable <code>kind</code>, <code>strips</code>, <code>framesPerStrip</code>, <code>orientation</code>. Берётся разрешённый каталог услуги, либо общий каталог точки, когда правила назначения допускают его использование. Картинки выдаются локальными <code>/assets/...</code>, только для файлов этого каталога. При отсутствии кэша URL может ответить 404. Размеры вырезов и геометрию не выдумывайте: накладывайте рамку только когда её формат понятен приложению.</p>
+<h3 id="effects">effects()<a class="anchor" href="#effects" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>effects(): Promise&lt;ExternalEffect[]&gt;</code>. Требует <code>config:read</code>. Элемент: <code>{ id, title, cssFilter?: string | null, previewUrl?: string | null }</code>. При отсутствии настроенных эффектов — «Без эффекта» с id=-1. Получение и выбор эффекта сами не меняют фото. Приложение применяет эффект в Canvas, сохраняет JPEG через <code>upload()</code> и печатает/выдаёт новый <code>photoId</code>.</p>
+<h3 id="sharephotoids-options">share(photoIds, options?)<a class="anchor" href="#sharephotoids-options" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>share(photoIds: string[], options?: ExternalOperationOptions): Promise&lt;ExternalShare&gt;</code>. Требует <code>result:write</code> и связи с центром. Выбор — 1..20 различных своих photoId; каждый JPEG до 15 MiB. Передайте окончательные фото: например, исходник и обработанную открытку. Первый вызов закрепляет состав выдачи на весь запуск; другой список получает <code>conflict</code>. Метод ждёт подтверждённую готовность всех файлов и HTTPS-ссылки. По умолчанию 600 000 мс.</p>
+<p>Покажите <code>qrUrl</code> в <code>img</code> <strong>до</strong> <code>complete()</code>, оставьте время на сканирование. <code>downloadUrl</code> предназначен телефону; навигация renderer на эту внешнюю страницу не разрешается автоматически. При сбое повторяйте тот же ID и список. Повтор failed-share допускает продолжение подтверждения/загрузки; при неизвестном результате создания ссылки или изменении состава backend может потребовать сверку вместо повторного POST. Одна успешная команда не разрешает повторную выдачу изменённых файлов под тем же ID.</p>
+<h3 id="sharedphotos">sharedPhotos()<a class="anchor" href="#sharedphotos" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>sharedPhotos(): Promise&lt;ExternalShare&gt;</code>. Требует <code>result:write</code>. Читает уже подготовленную выдачу через <code>GET /share</code>, ничего не загружая. Если выдача ещё не готова — <code>not_found</code>; срок истёк — <code>gone</code>. Ошибки чтения — обычный <code>Error</code>. <code>GET /share/qr</code> дополнительно получает и проверяет PNG QR в центре; успешное чтение метаданных ещё не доказывает доступность QR или загрузку файлов на телефоне.</p>
+<h3 id="completeoptions">complete(options?)<a class="anchor" href="#completeoptions" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>complete(options?: { requestId?: string }): Promise&lt;ExternalCommandReceipt&gt;</code>. Отправляет накопленную диагностику, затем завершение. Успех — только <code>receipt.state=done</code>; <code>failed</code> и другие ответы отклоняются как <code>ExternalOperationError(&#39;failed&#39;)</code>. Не требует обязательной оплаты/печати, но незавершённый платёж, активная печать и failed-последнее задание препятствуют успешному завершению. Общая сессия также применяет свои проверки.</p>
+<p>Метод не принимает <code>timeoutMs</code>. HTTP-предел отправки — 15 000 мс. По умолчанию каждый вызов генерирует новый ID, поэтому приложение должно явно сохранять ID завершения для повтора неизвестного результата. После закрытия runtime может быть уже недоступен: не пытайтесь бесконечно повторять завершение или запрашивать <code>state()</code> в закрытом окне.</p>
+<h3 id="requestexit">requestExit()<a class="anchor" href="#requestexit" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>requestExit(): Promise&lt;void&gt;</code>. Открывает доверенный диалог оболочки через <code>window.pbtService.requestExit()</code>. Promise означает, что запрос открытия обработан, а не согласие посетителя на выход. Приложение получает <code>pause</code>; при выборе продолжения — <code>resume</code>, при закрытии — <code>stop</code>. Суммы и предупреждения берёт оболочка из backend. Без bridge метод бросает обычный <code>Error</code>. HTTP-эквивалента у этого метода нет.</p>
+<h3 id="exitrequestid">exit(requestId?)<a class="anchor" href="#exitrequestid" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>exit(requestId?: string): Promise&lt;ExternalCommandReceipt&gt;</code>. <strong>Аргумент — строка</strong>, не <code>{ requestId }</code>. Отправляет диагностику и <code>cancel</code> без второго системного подтверждения. Для своего диалога сначала получите согласие посетителя, затем вызывайте метод. Один экземпляр клиента удерживает сгенерированный ID для повторов. <code>pending</code> — приём команды; запуск закрывается и runtime отзывается. Метод не запрашивает произвольный возврат денег и не подтверждает банковский результат.</p>
+<h3 id="resetidletimer">resetIdleTimer()<a class="anchor" href="#resetidletimer" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>resetIdleTimer(): Promise&lt;void&gt;</code>. <code>POST /activity {}</code> для своей незавершённой сессии. Сбрасывает таймер активности, не меняет интервалы, назначенные центром. Может убрать предупреждение о бездействии при следующем опросе оболочки и вызвать <code>resume</code>; добровольный диалог выхода этим не закрывается. Не считайте Promise разрешением новых команд до фактического <code>resume</code>.</p>
+<h3 id="trackname-data">track(name, data?)<a class="anchor" href="#trackname-data" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>track(name: string, data?: Record&lt;string, string | number | boolean | null&gt;): void</code>. Ставит логическое событие в очередь. <code>name</code>: <code>[a-z][a-z0-9_.-]{0,47}</code>; ключ данных: <code>[a-z][a-z0-9_.-]{0,39}</code>. До 10 полей, строка до 160 символов; числа конечные, по модулю до 10^12. SDK обрезает/фильтрует данные, недопустимое имя пропускает. Очередь до 32 событий; диагностике нельзя мешать услуге. Используйте, например, <code>postcard.effect.selected</code>, без данных посетителя.</p>
+<h3 id="stagename">stage(name)<a class="anchor" href="#stagename" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>stage(name: string): void</code>. Записывает переход этапа с теми же правилами имени. После <code>ready()</code> включает монотонное <code>elapsed_ms</code> от начала запуска. Повторные доставки сохраняют отметку и event_id; этапы backend считает по отметкам, повторные посещения суммирует. Это наблюдение приложения, не доказательство оплаты/выдачи. На старом backend без <code>elapsedMs</code> применяется прежняя привязка по времени получения; этот режим не входит в закреплённый кандидат.</p>
+<h3 id="logerrorerror-data-name">logError(error, data?, name?)<a class="anchor" href="#logerrorerror-data-name" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>logError(error: unknown, data?: EventData, name?: string): void</code>. Имя по умолчанию <code>application.error</code>. Записывает сообщение до 500 символов и stack до 1000, с фильтрацией данных. Не выбрасывает исключение наружу. После <code>ready()</code> необработанные ошибки JS собираются автоматически; ожидаемые сбои и контекст шага можно записывать явно. Избегайте дубля одной ошибки в каждом слое приложения.</p>
+<h3 id="flushtelemetry">flushTelemetry()<a class="anchor" href="#flushtelemetry" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>flushTelemetry(): Promise&lt;void&gt;</code>. Best effort: отправляет накопленную диагностику через <code>POST /telemetry</code>, пакетами до 5 событий и 7000 байт. Предел одного запроса 2000 мс. Одновременные вызовы разделяют текущую отправку; это не гарантия доставки всего журнала. После трёх неудач очередной пакет отбрасывается. При 401/403/404 диагностика отключается до нового клиента. Ошибка отправки не отклоняет Promise и не должна блокировать услугу. ID событий сохраняются при повторе.</p>
+<h3 id="diagnosticsdropped">diagnosticsDropped<a class="anchor" href="#diagnosticsdropped" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>readonly diagnosticsDropped: number</code>. Локальный счётчик сообщений, отброшенных SDK из-за переполнения, ошибок подготовки или отключения отправки. Не является количеством ошибок услуги/деньгами/числом потерянных фотографий. Успешная отправка не обнуляет его.</p>
+<h3 id="submitcommand">submit(command)<a class="anchor" href="#submitcommand" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>submit(command: ExternalCommand): Promise&lt;ExternalCommandReceipt&gt;</code>. Отправляет <code>POST /commands</code>. <code>202</code> и <code>pending</code> подтверждают принятие. Не ждёт завершения команды/платежа/печати и не проверяет <code>receipt.state=failed</code> за вызывающее приложение. Любая ошибка отправки или HTTP-ответа, включая валидацию/права/лимит, оборачивается в <code>ExternalOperationError(&#39;transport&#39;)</code> с requestId. Поэтому <code>transport</code> не является доказательством, что запрос дошёл или не дошёл.</p>
+<h3 id="commandcommand-timeoutms">command(command, timeoutMs?)<a class="anchor" href="#commandcommand-timeoutms" aria-label="Ссылка на раздел">#</a></h3>
+<p><code>command&lt;T = unknown&gt;(command: ExternalCommand, timeoutMs?: number): Promise&lt;T&gt;</code>. Для незакрывающих действий отправляет команду и опрашивает <code>state().commands</code> до <code>done</code>; по умолчанию 120 000 мс. Возвращает <code>result</code>, при failed/interrupted — <code>ExternalOperationError(&#39;failed&#39;)</code>. У payment результат — созданный платёж, у print — <code>{ jobId, phase }</code>; далее нужны <code>waitPayment()</code>/<code>waitPrint()</code>.</p>
+<p>Для complete/cancel/refund возвращает <strong>ExternalCommandReceipt</strong> без опроса закрытого runtime; для complete требует done, для cancel/refund pending допускается. Не указывайте произвольный generic, который не соответствует action: generic — утверждение вызывающей стороны, не проверка backend. В типе SDK нет перегрузок, автоматически выводящих результат по action. <code>timeoutMs</code> регулирует опрос, не первый HTTP-запрос, и не отменяет оборудование.</p>
+<h2 id="низкоуровневые-команды">Низкоуровневые команды<a class="anchor" href="#низкоуровневые-команды" aria-label="Ссылка на раздел">#</a></h2>
+<p>Поля команды — snake_case; <code>request_id</code> обязателен, <code>[A-Za-z0-9_-]{1,64}</code>. Повтор требует тот же ID и те же нормализованные аргументы. У всех команд есть значения по умолчанию: <code>copies=1</code>, <code>cut=false</code>, <code>camera=main</code>, <code>amount=null</code>, <code>photo_id=null</code>, <code>photo_ids=[]</code>. Не передавайте не относящиеся к действию поля, даже если текущая модель их допускает. Неизвестные поля запрещены.</p>
+<table>
+<thead>
+<tr>
+<th>action</th>
+<th>Значимые аргументы</th>
+<th>Разрешение</th>
+<th>Результат command()</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>payment</td>
+<td>amount? в рублях</td>
+<td>payment</td>
+<td>Созданный ExternalPayment; нужен waitPayment</td>
+</tr>
+<tr>
+<td>capture</td>
+<td>camera?</td>
+<td>Права камеры</td>
+<td>ExternalPhoto</td>
+</tr>
+<tr>
+<td>print</td>
+<td>photo_id, copies?, cut?</td>
+<td>print</td>
+<td>jobId/phase; нужен waitPrint</td>
+</tr>
+<tr>
+<td>share</td>
+<td>photo_ids</td>
+<td>result:write</td>
+<td>ExternalShare</td>
+</tr>
+<tr>
+<td>extend</td>
+<td>—</td>
+<td>payment</td>
+<td>Текущий ExternalPayment</td>
+</tr>
+<tr>
+<td>complete</td>
+<td>—</td>
+<td>Своя сессия</td>
+<td>Receipt state=done</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>—</td>
+<td>Своя сессия</td>
+<td>Receipt принятия, без ожидания закрытия</td>
+</tr>
+<tr>
+<td>refund</td>
+<td>—</td>
+<td>payment</td>
+<td>Receipt принятия, не банковский возврат</td>
+</tr>
+</tbody></table>
+<p><code>amount_minor</code> и <code>kind</code> — только совместимость backend со старыми ZIP; в новом публичном контракте их нет. Рубли в ответах остаются рублями и для старых команд. Переиспользование ID с другими аргументами — <code>conflict</code>. Отклонённая известная команда не начинает выполнение заново при повторе ID; исключение — failed-share с прежним составом, где backend проверяет/продолжает цифровую выдачу.</p>
+<h2 id="ошибки-три-разных-уровня">Ошибки: три разных уровня<a class="anchor" href="#ошибки-три-разных-уровня" aria-label="Ссылка на раздел">#</a></h2>
+<ol>
+<li>HTTP backend: <code>{&quot;error&quot;:{&quot;code&quot;:&quot;forbidden&quot;,&quot;message&quot;:&quot;...&quot;,&quot;details&quot;:{}}}</code>. Типовые коды: validation_error 400, unauthorized 401, forbidden 403, not_found 404, gone 410, conflict/device_busy 409, rate_limited 429, device_unavailable 503, device_error/upstream_unavailable 502, operation_timeout 504, internal_error 500. details может отсутствовать. Шлюз и защитные лимиты также могут вернуть <code>{&quot;error&quot;:&quot;...&quot;}</code> или сокращённую ошибку. При прямом fetch проверяйте status и форму тела.</li>
+<li>Команда принята, затем failed: <code>state().commands</code> содержит <code>state=failed</code>, <code>result={error: string}</code>. Структурированный исходный код backend в этой записи не сохраняется. SDK преобразует её в <code>ExternalOperationError</code> с code=failed.</li>
+<li>SDK: операции ожидания используют ExternalOperationError, обычные чтения/ready/upload/bridge — Error или ошибку fetch. У SDK нет общего свойства httpStatus/backendCode. <code>submit()</code> оборачивает даже определённый HTTP-отказ в transport; при необходимости различать такие ответы используйте прямой HTTP API с теми же правилами доступа.</li>
+</ol>
+<p><code>ExternalOperationError</code> имеет <code>name</code>, <code>message</code>, <code>code</code>, опциональные <code>requestId</code>, <code>operationId</code>, <code>jobId</code>, <code>result</code>. hardware-ID появляется только когда SDK уже прочитал результат создания. Если ответ создания потерян, известен только requestId. Текст message предназначен человеку и не является стабильным машинным кодом. Лимит <code>command(timeoutMs)</code> не включает время первого <code>submit()</code>; у payment/print уменьшается остаток ожидания после создания, но общий deadline не гарантирует отмену запроса/оборудования.</p>
+<h2 id="повторы-и-подтверждение-результата">Повторы и подтверждение результата<a class="anchor" href="#повторы-и-подтверждение-результата" aria-label="Ссылка на раздел">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ситуация</th>
+<th>Следующее действие</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Таймаут/потеря ответа, известен только requestId</td>
+<td>Повторить то же действие с прежним ID и аргументами</td>
+</tr>
+<tr>
+<td>Известен operationId</td>
+<td>waitPayment(operationId), без новой команды</td>
+</tr>
+<tr>
+<td>Известен jobId</td>
+<td>waitPrint(jobId), без нового задания</td>
+</tr>
+<tr>
+<td>Подтверждённый отказ, нужна новая попытка</td>
+<td>Сначала сверить внесённые деньги/выдачу; новая попытка получает новый ID</td>
+</tr>
+<tr>
+<td>Upload: ответ потерян</td>
+<td>Тот же ID и Blob; не рендерить заново другой JPEG под старым ID</td>
+</tr>
+<tr>
+<td>Upload: подтверждённый конфликт прерванной записи</td>
+<td>Новый ID допустим после установления результата записи</td>
+</tr>
+<tr>
+<td>Share: ответ/подтверждение потеряны</td>
+<td>Тот же ID/список, либо sharedPhotos для готовой выдачи; не менять состав</td>
+</tr>
+<tr>
+<td>Complete/exit/refund приняты, окно закрывается</td>
+<td>Освободить ресурсы; не опрашивать закрытый runtime</td>
+</tr>
+<tr>
+<td>Приложение/терминал перезапущено</td>
+<td>Не воспроизводить физические/денежные команды автоматически; новый запуск — новая сессия</td>
+</tr>
+</tbody></table>
+<p><code>timeout</code>/<code>transport</code> не означают отмену. Новый ID обозначает новое действие и может повторить списание или печать. <code>pending</code> означает принятие, <code>commands.done</code> — выполнение команды создания, <code>payment.completed</code> — подтверждение конкретного платежа, <code>print.done</code> с совпадением количества — подтверждение всех листов. Успешный <code>share()</code> подтверждает готовность ссылки в центре; не доказывает скачивание на телефоне. Запрос возврата не доказывает возврат банком.</p>
+<h2 id="пауза-ожидание-и-лимиты">Пауза, ожидание и лимиты<a class="anchor" href="#пауза-ожидание-и-лимиты" aria-label="Ссылка на раздел">#</a></h2>
+<p>Bridge: <code>window.pbtService.onLifecycle(handler)</code> возвращает функцию отписки. События: start, pause, resume, stop. Регистрация не воспроизводит прошедшее start; самостоятельная инициализация приложения не должна ждать его бесконечно. У bridge есть protocol=1 и requestExit(); внутренних токенов/произвольного IPC нет.</p>
+<p>На pause остановите ввод, отсчёт, превью и начало новых команд. Не считайте уже принятую физическую операцию отменённой. Возвращайте управление после resume; при stop остановите таймеры и вызовите dispose. <code>ready</code> и heartbeat не являются пользовательской активностью. Реальное ожидание оборудования backend учитывает как занятость и не считает уходом посетителя; произвольная обработка JavaScript требует осмысленного resetIdleTimer. Интервалы до/после оплаты назначает центр, приложение их не меняет.</p>
+<p>За запуск: до 10 попыток оплаты, 200 команд, 20 уникальных изображений, 256 MiB файлов. Один photoId, используемый как shot и print, не удваивает число/объём файлов; разные upload получают отдельные photoId. У runtime общий бюджет запросов 10/с с начальным burst 20 на appId и отдельные лимиты одновременности; смена токена его не обнуляет. JSON-запрос до 8192 байт, загрузка JPEG до 15 MiB. Шлюз имеет дополнительные собственные бюджеты. При 429 соблюдайте Retry-After, прекращайте агрессивный опрос; новый requestId лимиты не обходит.</p>
+<h2 id="манифест-и-разрешённая-сеть">Манифест и разрешённая сеть<a class="anchor" href="#манифест-и-разрешённая-сеть" aria-label="Ссылка на раздел">#</a></h2>
+<p><code>service.json</code>: schema_version=1, sdk=&quot;1&quot;, id, version, name, entry, capabilities, requires_online, network.allowed_origins. Полные ограничения полей — <a href="service.schema.json">service.schema.json</a>. Готовые файлы приложения и манифест лежат в корне ZIP; entry и ссылки на ассеты относительные. В опубликованной версии нельзя заменять байты без новой версии и контрольной суммы.</p>
+<p>Capability: capture:main, capture:secondary, payment, print, result:write, config:read. Права не расширяются конфигом/SDK; backend проверяет пересечение манифеста и назначения центра. <code>requires_online</code> влияет на доступность услуги; для share всё равно нужна связь с центром.</p>
+<p>network.allowed_origins: точные origin со схемой http/https/ws/wss, доменом/IP и портом, без путей/credentials/query/масок. До 32 записей и 2048 символов после нормализации. Стандартные порты убираются, домены нормализуются. HTTP-origin не разрешает автоматически WebSocket, поддомен или другой порт. Собственный origin разрешён без записи; пространство svc.localhost зарезервировано. Изменение списка требует нового ZIP. CORS/TLS, блокировка внешней HTML-навигации, iframe и новых окон сохраняются. Сетевые вызовы идут обычным fetch/WebSocket, не через административный прокси backend.</p>
+<h2 id="этапы-проекта">Этапы проекта<a class="anchor" href="#этапы-проекта" aria-label="Ссылка на раздел">#</a></h2>
+<p>Контракт SDK готов. Самостоятельная песочница, единая «Фотооткрытка», инструменты поставки и физическая приёмка выполняются отдельными этапами: <a href="roadmap.html">ROADMAP.md</a>.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="API.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#минимальный-сценарий">Минимальный сценарий</a><a class="toc-link depth-2" href="#методы">Методы</a><a class="toc-link depth-2" href="#рубли-и-повторы">Рубли и повторы</a><a class="toc-link depth-2" href="#жизненный-цикл">Жизненный цикл</a><a class="toc-link depth-2" href="#прямой-http">Прямой HTTP</a><a class="toc-link depth-2" href="#типы-результатов-и-опций">Типы результатов и опций</a><a class="toc-link depth-2" href="#справочник-externalclient">Справочник ExternalClient</a><a class="toc-link depth-3" href="#context">context()</a><a class="toc-link depth-3" href="#ready">ready()</a><a class="toc-link depth-3" href="#dispose">dispose()</a><a class="toc-link depth-3" href="#state">state()</a><a class="toc-link depth-3" href="#paymentamount-options">payment(amount?, options?)</a><a class="toc-link depth-3" href="#waitpaymentoperationid-options">waitPayment(operationId, options?)</a><a class="toc-link depth-3" href="#extendcashwaitoptions">extendCashWait(options?)</a><a class="toc-link depth-3" href="#requestrefundoptions">requestRefund(options?)</a><a class="toc-link depth-3" href="#cameras">cameras()</a><a class="toc-link depth-3" href="#previewurlcamera">previewUrl(camera?)</a><a class="toc-link depth-3" href="#captureoptions">capture(options?)</a><a class="toc-link depth-3" href="#photourlphotoid">photoUrl(photoId)</a><a class="toc-link depth-3" href="#uploadjpeg-requestid">upload(jpeg, requestId)</a><a class="toc-link depth-3" href="#printphotoid-copies-options">print(photoId, copies?, options?)</a><a class="toc-link depth-3" href="#waitprintjobid-options">waitPrint(jobId, options?)</a><a class="toc-link depth-3" href="#frames">frames()</a><a class="toc-link depth-3" href="#effects">effects()</a><a class="toc-link depth-3" href="#sharephotoids-options">share(photoIds, options?)</a><a class="toc-link depth-3" href="#sharedphotos">sharedPhotos()</a><a class="toc-link depth-3" href="#completeoptions">complete(options?)</a><a class="toc-link depth-3" href="#requestexit">requestExit()</a><a class="toc-link depth-3" href="#exitrequestid">exit(requestId?)</a><a class="toc-link depth-3" href="#resetidletimer">resetIdleTimer()</a><a class="toc-link depth-3" href="#trackname-data">track(name, data?)</a><a class="toc-link depth-3" href="#stagename">stage(name)</a><a class="toc-link depth-3" href="#logerrorerror-data-name">logError(error, data?, name?)</a><a class="toc-link depth-3" href="#flushtelemetry">flushTelemetry()</a><a class="toc-link depth-3" href="#diagnosticsdropped">diagnosticsDropped</a><a class="toc-link depth-3" href="#submitcommand">submit(command)</a><a class="toc-link depth-3" href="#commandcommand-timeoutms">command(command, timeoutMs?)</a><a class="toc-link depth-2" href="#низкоуровневые-команды">Низкоуровневые команды</a><a class="toc-link depth-2" href="#ошибки-три-разных-уровня">Ошибки: три разных уровня</a><a class="toc-link depth-2" href="#повторы-и-подтверждение-результата">Повторы и подтверждение результата</a><a class="toc-link depth-2" href="#пауза-ожидание-и-лимиты">Пауза, ожидание и лимиты</a><a class="toc-link depth-2" href="#манифест-и-разрешённая-сеть">Манифест и разрешённая сеть</a><a class="toc-link depth-2" href="#этапы-проекта">Этапы проекта</a></aside></div></body></html>

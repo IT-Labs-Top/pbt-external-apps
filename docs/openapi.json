@@ -1,0 +1,5525 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Photo Booth Terminal — External Runtime API",
+    "description": "Public external application API. Relative URLs use the current service origin. Amounts are rubles. See API.md for SDK errors, retries and command result semantics. Error statuses list shared admission/handler failures; not every status occurs on every route.",
+    "version": "0.2.38"
+  },
+  "paths": {
+    "/api/v1/external/runtime/context": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Context",
+        "operationId": "context_api_v1_external_runtime_context_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalContextResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/frames": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Frames",
+        "operationId": "frames_api_v1_external_runtime_frames_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalFrame"
+                  },
+                  "type": "array",
+                  "title": "Response Frames Api V1 External Runtime Frames Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/effects": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Effects",
+        "operationId": "effects_api_v1_external_runtime_effects_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalEffect"
+                  },
+                  "type": "array",
+                  "title": "Response Effects Api V1 External Runtime Effects Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/assets/{key}": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Catalog Asset",
+        "operationId": "catalog_asset_api_v1_external_runtime_assets__key__get",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/ready": {
+      "post": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Ready",
+        "operationId": "ready_api_v1_external_runtime_ready_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "elapsedMs"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "elapsedMs": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/heartbeat": {
+      "post": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Heartbeat",
+        "operationId": "heartbeat_api_v1_external_runtime_heartbeat_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/state": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "State",
+        "operationId": "state_api_v1_external_runtime_state_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/cameras": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Cameras",
+        "operationId": "cameras_api_v1_external_runtime_cameras_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalCamerasResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/activity": {
+      "post": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Reset Idle",
+        "operationId": "reset_idle_api_v1_external_runtime_activity_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/commands": {
+      "post": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Command",
+        "operationId": "command_api_v1_external_runtime_commands_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Command"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalCommandReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/telemetry": {
+      "post": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Telemetry",
+        "operationId": "telemetry_api_v1_external_runtime_telemetry_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObservationBatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "accepted",
+                    "duplicates"
+                  ],
+                  "properties": {
+                    "accepted": {
+                      "type": "integer"
+                    },
+                    "duplicates": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/result": {
+      "post": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Result",
+        "operationId": "result_api_v1_external_runtime_result_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "photoId",
+                    "url",
+                    "width",
+                    "height"
+                  ],
+                  "properties": {
+                    "photoId": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "integer"
+                    },
+                    "height": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/photos/{photo_id}": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Photo",
+        "operationId": "photo_api_v1_external_runtime_photos__photo_id__get",
+        "parameters": [
+          {
+            "name": "photo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Photo Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/share": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Share Result",
+        "operationId": "share_result_api_v1_external_runtime_share_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalShareResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/share/qr": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Share Qr",
+        "operationId": "share_qr_api_v1_external_runtime_share_qr_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/preview": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Preview",
+        "operationId": "preview_api_v1_external_runtime_preview_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "multipart/x-mixed-replace": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/external/runtime/preview/{camera}": {
+      "get": {
+        "tags": [
+          "external-apps"
+        ],
+        "summary": "Camera Preview",
+        "operationId": "camera_preview_api_v1_external_runtime_preview__camera__get",
+        "parameters": [
+          {
+            "name": "camera",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "main",
+                "top",
+                "side"
+              ],
+              "type": "string",
+              "title": "Camera"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "multipart/x-mixed-replace": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Backend/gateway error; SDK error mapping is documented in API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalGatewayError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CapturePhotoResponse": {
+        "properties": {
+          "photoId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Photoid",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL для загрузки фото с локального API",
+            "title": "Url",
+            "type": "string"
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Height"
+          },
+          "takenAt": {
+            "title": "Takenat",
+            "type": "string"
+          },
+          "lens": {
+            "anyOf": [
+              {
+                "enum": [
+                  "main",
+                  "ultrawide"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Какой объектив просили",
+            "title": "Lens"
+          },
+          "lensApplied": {
+            "default": false,
+            "description": "Камера переключила объектив (телефон); Canon и веб-камеры — false",
+            "title": "Lensapplied",
+            "type": "boolean"
+          },
+          "belowMinimum": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Кадр меньше minimum_photo_pixels из настроек центра",
+            "title": "Belowminimum"
+          }
+        },
+        "required": [
+          "photoId",
+          "url",
+          "takenAt"
+        ],
+        "title": "CapturePhotoResponse",
+        "type": "object"
+      },
+      "Command": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Request Id"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "payment",
+              "capture",
+              "print",
+              "complete",
+              "cancel",
+              "extend",
+              "refund",
+              "share"
+            ],
+            "title": "Action"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000.0,
+                "minimum": 0.01
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount",
+            "description": "Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из центра"
+          },
+          "copies": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Copies",
+            "default": 1
+          },
+          "cut": {
+            "type": "boolean",
+            "title": "Cut",
+            "description": "Резка листа на две полоски 5×15 см (2×6 дюймов)",
+            "default": false
+          },
+          "camera": {
+            "type": "string",
+            "enum": [
+              "main",
+              "top",
+              "side"
+            ],
+            "title": "Camera",
+            "default": "main"
+          },
+          "photo_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^ph_[A-Za-z0-9_-]{1,80}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Id"
+          },
+          "photo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Photo Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id",
+          "action"
+        ],
+        "title": "Command"
+      },
+      "ErrorBody": {
+        "properties": {
+          "code": {
+            "enum": [
+              "validation_error",
+              "not_found",
+              "gone",
+              "unauthorized",
+              "forbidden",
+              "conflict",
+              "rate_limited",
+              "device_unavailable",
+              "device_busy",
+              "device_error",
+              "upstream_unavailable",
+              "operation_cancelled",
+              "operation_timeout",
+              "payment_declined",
+              "not_implemented",
+              "internal_error"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "details": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Details"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorBody",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorBody"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "ExternalAppCommand": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Request Id",
+            "type": "string"
+          },
+          "action": {
+            "enum": [
+              "payment",
+              "capture",
+              "print",
+              "complete",
+              "cancel",
+              "extend",
+              "refund",
+              "share"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "maximum": 1000000,
+                "minimum": 0.01,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Сумма оплаты в рублях, до двух знаков после запятой; без неё — цена услуги из центра",
+            "title": "Amount"
+          },
+          "copies": {
+            "default": 1,
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Copies",
+            "type": "integer"
+          },
+          "cut": {
+            "default": false,
+            "description": "Резка листа на две полоски 5×15 см (2×6 дюймов)",
+            "title": "Cut",
+            "type": "boolean"
+          },
+          "camera": {
+            "default": "main",
+            "enum": [
+              "main",
+              "top",
+              "side"
+            ],
+            "title": "Camera",
+            "type": "string"
+          },
+          "photo_id": {
+            "anyOf": [
+              {
+                "pattern": "^ph_[A-Za-z0-9_-]{1,80}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Photo Id"
+          },
+          "photo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Photo Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "request_id",
+          "action"
+        ],
+        "title": "Command",
+        "type": "object"
+      },
+      "ExternalAppObservation": {
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id",
+            "type": "string"
+          },
+          "kind": {
+            "default": "event",
+            "enum": [
+              "event",
+              "stage",
+              "error"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "pattern": "^[a-z][a-z0-9_.-]{0,47}$",
+            "title": "Name",
+            "type": "string"
+          },
+          "message": {
+            "default": "",
+            "maxLength": 1000,
+            "title": "Message",
+            "type": "string"
+          },
+          "stack": {
+            "default": "",
+            "maxLength": 2000,
+            "title": "Stack",
+            "type": "string"
+          },
+          "data": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "maxProperties": 10,
+            "title": "Data",
+            "type": "object"
+          },
+          "elapsed_ms": {
+            "anyOf": [
+              {
+                "maximum": 9007199254740991,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Момент события от начала запуска, мс; часы SDK согласованы через ready",
+            "title": "Elapsed Ms"
+          }
+        },
+        "required": [
+          "event_id",
+          "name"
+        ],
+        "title": "Observation",
+        "type": "object"
+      },
+      "ExternalAppObservationBatch": {
+        "additionalProperties": false,
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/Observation"
+            },
+            "maxItems": 5,
+            "minItems": 1,
+            "title": "Events",
+            "type": "array"
+          }
+        },
+        "required": [
+          "events"
+        ],
+        "title": "ObservationBatch",
+        "type": "object"
+      },
+      "ExternalCamera": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "main",
+              "top",
+              "side"
+            ],
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "ready": {
+            "type": "boolean",
+            "title": "Ready"
+          },
+          "orientation": {
+            "type": "string",
+            "title": "Orientation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "ready",
+          "orientation"
+        ],
+        "title": "ExternalCamera"
+      },
+      "ExternalCamerasResponse": {
+        "properties": {
+          "captureMode": {
+            "type": "string",
+            "title": "Capturemode"
+          },
+          "allowSelection": {
+            "type": "boolean",
+            "title": "Allowselection"
+          },
+          "cameras": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalCamera"
+            },
+            "type": "array",
+            "title": "Cameras"
+          }
+        },
+        "type": "object",
+        "required": [
+          "captureMode",
+          "allowSelection",
+          "cameras"
+        ],
+        "title": "ExternalCamerasResponse"
+      },
+      "ExternalCommandReceipt": {
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "title": "Requestid"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requestId",
+          "state"
+        ],
+        "title": "ExternalCommandReceipt"
+      },
+      "ExternalCommandRecord": {
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "title": "Requestid"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "result": {
+            "title": "Result"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requestId",
+          "state"
+        ],
+        "title": "ExternalCommandRecord"
+      },
+      "ExternalContextResponse": {
+        "properties": {
+          "protocol": {
+            "type": "integer",
+            "const": 1,
+            "title": "Protocol",
+            "default": 1
+          },
+          "runId": {
+            "type": "string",
+            "title": "Runid"
+          },
+          "sessionId": {
+            "type": "string",
+            "title": "Sessionid"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "permissions": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "capture:main",
+                "capture:secondary",
+                "payment",
+                "print",
+                "result:write",
+                "config:read"
+              ]
+            },
+            "type": "array",
+            "title": "Permissions"
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Price",
+            "description": "Цена услуги из центра, в рублях. Используйте для расчёта оплаты"
+          },
+          "sheetPrice": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Sheetprice",
+            "description": "Цена дополнительного листа из центра, в рублях. Используйте для расчёта доплаты"
+          },
+          "fulfillment": {
+            "type": "string",
+            "enum": [
+              "print",
+              "digital"
+            ],
+            "title": "Fulfillment"
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "runId",
+          "sessionId",
+          "name",
+          "version",
+          "permissions",
+          "price",
+          "sheetPrice",
+          "fulfillment",
+          "config"
+        ],
+        "title": "ExternalContextResponse"
+      },
+      "ExternalEffect": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "cssFilter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cssfilter"
+          },
+          "previewUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previewurl"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "ExternalEffect"
+      },
+      "ExternalFrame": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "isPlain": {
+            "type": "boolean",
+            "title": "Isplain",
+            "default": false
+          },
+          "formatKey": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formatkey"
+          },
+          "printFormat": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Printformat"
+          },
+          "frameUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frameurl"
+          },
+          "largePhotoFrameUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Largephotoframeurl"
+          },
+          "previewUrls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Previewurls"
+          },
+          "layout": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExternalFrameLayout"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "ExternalFrame"
+      },
+      "ExternalFrameLayout": {
+        "properties": {
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "strips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Strips"
+          },
+          "framesPerStrip": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Framesperstrip"
+          },
+          "orientation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orientation"
+          }
+        },
+        "type": "object",
+        "title": "ExternalFrameLayout"
+      },
+      "ExternalPayment": {
+        "properties": {
+          "operationId": {
+            "type": "string",
+            "title": "Operationid"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method"
+          },
+          "amountDue": {
+            "type": "number",
+            "title": "Amountdue",
+            "description": "Сумма к оплате, рубли"
+          },
+          "amountPaid": {
+            "type": "number",
+            "title": "Amountpaid",
+            "description": "Принято денег, рубли"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "remainingSeconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remainingseconds"
+          },
+          "fiscalQr": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fiscalqr"
+          },
+          "refundStatus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refundstatus"
+          },
+          "refundMessage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refundmessage"
+          },
+          "refundAmount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refundamount",
+            "description": "Сумма возврата, рубли"
+          }
+        },
+        "type": "object",
+        "required": [
+          "operationId",
+          "status",
+          "amountDue",
+          "amountPaid"
+        ],
+        "title": "ExternalPayment"
+      },
+      "ExternalShareResult": {
+        "properties": {
+          "downloadUrl": {
+            "type": "string",
+            "title": "Downloadurl"
+          },
+          "qrUrl": {
+            "type": "string",
+            "title": "Qrurl"
+          },
+          "expiresAt": {
+            "type": "string",
+            "title": "Expiresat"
+          },
+          "photosCount": {
+            "type": "integer",
+            "title": "Photoscount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "downloadUrl",
+          "qrUrl",
+          "expiresAt",
+          "photosCount"
+        ],
+        "title": "ExternalShareResult"
+      },
+      "ExternalStateResponse": {
+        "properties": {
+          "runId": {
+            "type": "string",
+            "title": "Runid"
+          },
+          "sessionId": {
+            "type": "string",
+            "title": "Sessionid"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "paid": {
+            "type": "boolean",
+            "title": "Paid"
+          },
+          "payments": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalPayment"
+            },
+            "type": "array",
+            "title": "Payments"
+          },
+          "photos": {
+            "items": {
+              "$ref": "#/components/schemas/SessionPhoto"
+            },
+            "type": "array",
+            "title": "Photos"
+          },
+          "printJobs": {
+            "items": {
+              "$ref": "#/components/schemas/SessionPrintJob"
+            },
+            "type": "array",
+            "title": "Printjobs"
+          },
+          "commands": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalCommandRecord"
+            },
+            "type": "array",
+            "title": "Commands"
+          }
+        },
+        "type": "object",
+        "required": [
+          "runId",
+          "sessionId",
+          "state",
+          "paid",
+          "payments",
+          "photos",
+          "printJobs",
+          "commands"
+        ],
+        "title": "ExternalStateResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Observation": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "event",
+              "stage",
+              "error"
+            ],
+            "title": "Kind",
+            "default": "event"
+          },
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_.-]{0,47}$",
+            "title": "Name"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Message",
+            "default": ""
+          },
+          "stack": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Stack",
+            "default": ""
+          },
+          "data": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "maxProperties": 10,
+            "title": "Data"
+          },
+          "elapsed_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 9007199254740991.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elapsed Ms",
+            "description": "Момент события от начала запуска, мс; часы SDK согласованы через ready"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "name"
+        ],
+        "title": "Observation"
+      },
+      "ObservationBatch": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/Observation"
+            },
+            "type": "array",
+            "maxItems": 5,
+            "minItems": 1,
+            "title": "Events"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "events"
+        ],
+        "title": "ObservationBatch"
+      },
+      "PrintJobResponse": {
+        "properties": {
+          "jobId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Jobid",
+            "type": "string"
+          },
+          "phase": {
+            "title": "Phase",
+            "type": "string"
+          }
+        },
+        "required": [
+          "jobId",
+          "phase"
+        ],
+        "title": "PrintJobResponse",
+        "type": "object"
+      },
+      "SessionPhoto": {
+        "properties": {
+          "photoId": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Photoid"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "shot",
+              "print"
+            ],
+            "title": "Kind"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "createdAt": {
+            "type": "string",
+            "title": "Createdat"
+          }
+        },
+        "type": "object",
+        "required": [
+          "photoId",
+          "kind",
+          "url",
+          "createdAt"
+        ],
+        "title": "SessionPhoto"
+      },
+      "SessionPrintJob": {
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "title": "Jobid"
+          },
+          "phase": {
+            "type": "string",
+            "title": "Phase"
+          },
+          "copies": {
+            "type": "integer",
+            "title": "Copies"
+          },
+          "copiesDone": {
+            "type": "integer",
+            "title": "Copiesdone"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "jobId",
+          "phase",
+          "copies",
+          "copiesDone"
+        ],
+        "title": "SessionPrintJob"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "ExternalGatewayError": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@pbt/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Браузерный SDK внешнего приложения фотобудки",
+  "exports": {
+    "./external": { "types": "./dist/external.d.ts", "import": "./dist/external.js" }
+  },
+  "files": ["dist", "src"],
+  "scripts": { "build": "node ../scripts/build-sdk.mjs" }
+}

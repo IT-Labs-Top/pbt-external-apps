@@ -1,0 +1,14 @@
+import type { components } from './generated.js';
+type Schemas = components['schemas'];
+
+export type CapturePhotoResponse = Schemas['CapturePhotoResponse'];
+export type ExternalAppCommand = Schemas['ExternalAppCommand'];
+export type ExternalAppObservation = Schemas['ExternalAppObservation'];
+export type ExternalCamerasResponse = Schemas['ExternalCamerasResponse'];
+export type ExternalCommandReceipt = Schemas['ExternalCommandReceipt'];
+export type ExternalContextResponse = Schemas['ExternalContextResponse'];
+export type ExternalEffect = Schemas['ExternalEffect'];
+export type ExternalFrame = Schemas['ExternalFrame'];
+export type ExternalShareResult = Schemas['ExternalShareResult'];
+export type ExternalStateResponse = Schemas['ExternalStateResponse'];
+export type PrintJobResponse = Schemas['PrintJobResponse'];
