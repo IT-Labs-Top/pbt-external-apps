@@ -1,5 +1,6 @@
 import {randomUUID,createHash} from 'node:crypto';
 import {CAPABILITIES,CAMERAS,frames,effects,money,validateSettings,defaultFaults,validateFaults} from './config.mjs';
+import {sanitize} from './diagnostics.mjs';
 
 export class ApiError extends Error{constructor(code,message,status=400){super(message);this.code=code;this.status=status;}}
 const fail=(code,message,status=400)=>{throw new ApiError(code,message,status);};
@@ -49,14 +50,15 @@ export class SandboxRun{
     this.images=images;this.baseUrl=baseUrl;this.appOrigin=appOrigin??'';this.now=now;this.clock=clock;
     this.created=now();this.lastActivity=now();this.state='starting';this.pauseReason=null;
     this.commands=new Map();this.photos=new Map();this.attachments=[];this.payments=[];this.jobs=[];
-    this.events=[];this.observations=new Map();this.lifecycle=[];this.timers=new Set();
+    this.events=[];this.observations=new Map();this.lifecycle=[];this.timers=new Set();this.diagnosticsEvicted=0;
     this.paper=this.settings.paper;this.busy=false;this.deliveryUncertain=false;this.share=null;this.shareIds=null;
     this.stageDurations={};this.stageName=null;this.stageAt=0;this.acceptedCommands=0;this.duplicateCommands=0;
     this.budget={tokens:20,at:now()};this.previewCameras=new Set();this.previewStreams=new Map();this.emitLifecycle('start');this.log('session.started',{app:this.manifest.id});
   }
   log(name,data={},kind='event'){
-    const event={seq:(this.events.at(-1)?.seq??0)+1,ts:stamp(),elapsedMs:Math.max(0,Math.floor(this.now()-this.created)),name,kind,data};
-    this.events.push(event);if(this.events.length>500)this.events.shift();return event;
+    const event={seq:(this.events.at(-1)?.seq??0)+1,ts:stamp(),elapsedMs:Math.max(0,Math.floor(this.now()-this.created)),name,kind,data:sanitize(data)};
+    this.events.push(event);if(this.events.length>500){this.events.shift();this.diagnosticsEvicted++;}
+    try{this.onDiagnosticEvent?.(event);}catch{/* Diagnostic storage cannot interrupt an operation. */}return event;
   }
   emitLifecycle(event){
     if(event==='pause'||event==='stop'){for(const response of this.previewStreams.values())response.end();this.previewStreams.clear();this.previewCameras.clear();}
@@ -73,7 +75,7 @@ export class SandboxRun{
   context(){return {protocol:1,runId:this.id,sessionId:this.sessionId,name:this.manifest.name,version:this.manifest.version,
     permissions:[...this.settings.permissions],price:this.settings.price,sheetPrice:this.settings.sheetPrice,
     fulfillment:this.settings.fulfillment,config:this.settings.permissions.includes('config:read')?this.settings.publicConfig:{}};}
-  ready(){this.active();if(this.state==='starting')this.state='ready';return {ok:true,elapsedMs:Math.floor(this.now()-this.created)};}
+  ready(){this.active();if(this.state==='starting'){this.state='ready';this.log('session.ready');}return {ok:true,elapsedMs:Math.floor(this.now()-this.created)};}
   paid(){return this.payments.some(p=>p.status==='completed'&&p.amountPaid>=p.amountDue);}
   publicPayment(payment){const {deadline,...value}=payment;return {...value,remainingSeconds:payment.status==='pending'?Math.max(0,Math.ceil((deadline-this.now())/1000)):null};}
   snapshot(){return {runId:this.id,sessionId:this.sessionId,state:this.state,paid:this.paid(),
@@ -113,11 +115,12 @@ export class SandboxRun{
     if(!existing&&this.commands.size>=200)fail('forbidden','Не более 200 команд за запуск',403);
     const record=existing??{requestId:command.request_id,hash:encoded,action:command.action};
     record.state='pending';record.result=null;this.commands.set(command.request_id,record);this.busy=true;
-    if(!existing)this.acceptedCommands++;this.log('command.accepted',{requestId:command.request_id,action:command.action});
+    if(!existing)this.acceptedCommands++;this.log('command.accepted',{requestId:command.request_id,action:command.action,args:command});
     const execute=()=>{
+      const started=this.now();this.log('command.started',{requestId:command.request_id,action:command.action});
       try{this.active();record.result=this.action(command);record.state='done';}
-      catch(error){record.state='failed';record.result={error:error.message};this.log('command.failed',{action:command.action,message:error.message},'error');}
-      finally{this.busy=false;}
+      catch(error){record.state='failed';record.result={error:error.message};this.log('command.failed',{requestId:command.request_id,action:command.action,message:error.message,code:error.code,stack:error.stack},'error');}
+      finally{this.busy=false;this.log('command.finished',{requestId:command.request_id,action:command.action,state:record.state,result:record.result,durationMs:Math.floor(this.now()-started)});}
     };
     if(command.action==='complete')execute();else this.schedule(execute,this.faults.operationDelayMs);
     return {requestId:record.requestId,state:record.state};
@@ -257,7 +260,7 @@ export class SandboxRun{
       if(previous){if(previous!==encoded)fail('conflict','ID события использован с другими данными',409);duplicates++;continue;}
       if(this.observations.size>=2000)fail('rate_limited','Слишком много событий',429);
       this.observations.set(event.event_id,encoded);accepted++;
-      const data={...(event.data??{})};if(event.message)data.message=String(event.message).slice(0,500);
+      const data={...(event.data??{}),source:'sdk',eventId:event.event_id,clientElapsedMs:event.elapsed_ms??null};if(event.message)data.message=String(event.message).slice(0,500);if(event.stack)data.stack=String(event.stack).slice(0,2000);
       this.log(event.name,data,event.kind??'event');
       if(event.kind==='stage'){
         const elapsed=Number.isInteger(event.elapsed_ms)?Math.min(event.elapsed_ms,this.now()-this.created):this.now()-this.created;

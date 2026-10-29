@@ -20,6 +20,7 @@ node sandbox/start.mjs
 
 - [Начало работы](docs/START.md)
 - [Песочница](docs/SANDBOX.md)
+- [Диагностика и обращение в поддержку](docs/SUPPORT.md)
 - [Справочник SDK](docs/API.md)
 - [Пакет приложения и разрешения](docs/PACKAGE.md)
 - [Версии и совместимость](docs/VERSIONS.md)

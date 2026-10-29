@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Диагностика — документация SDK внешних приложений фотобудки">
+<meta name="theme-color" content="#12243a"><title>Диагностика · PBT Developers</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body><a class="skip-link" href="#content">Перейти к содержимому</a>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>PBT <small>Developers</small></span></a><span class="contract-badge">SDK 1 · 0.1.0</span>
+<div class="search-box"><label class="sr-only" for="search">Поиск по документации</label><input id="search" type="search" placeholder="Найти метод или раздел…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden role="region" aria-label="Результаты поиска" aria-live="polite"></div></div></header>
+<div class="layout"><aside class="sidebar"><details open class="mobile-navigation"><summary>Документация</summary><nav aria-label="Разделы"><a class="nav-link" href="index.html"><strong>Начало работы</strong><span>Подключение SDK</span></a><a class="nav-link" href="sandbox.html"><strong>Песочница</strong><span>Запуск и проверка</span></a><a class="nav-link current" href="support.html" aria-current="page"><strong>Диагностика</strong><span>Обращение в поддержку</span></a><a class="nav-link" href="api.html"><strong>Справочник SDK</strong><span>Контракт и методы</span></a><a class="nav-link" href="package.html"><strong>Пакет приложения</strong><span>ZIP и разрешения</span></a><a class="nav-link" href="versions.html"><strong>Совместимость</strong><span>Версии и обновление</span></a></nav></details><div class="sidebar-note"><span class="status-dot"></span> SDK внешнего приложения<p>Камера · оплата · печать · цифровая выдача</p></div><a class="source-link" href="SUPPORT.md">Версия Markdown ↗</a></aside>
+<main id="content" class="article"><div class="eyebrow">Внешние приложения / Обращение в поддержку</div><h1 id="диагностика-и-обращение-в-поддержку">Диагностика и обращение в поддержку<a class="anchor" href="#диагностика-и-обращение-в-поддержку" aria-label="Ссылка на раздел">#</a></h1>
+<p>Если приложение ведёт себя неожиданно, воспроизведите проблему в <a href="sandbox.html">песочнице</a>, скачайте диагностику нужной сессии и приложите файл к обращению. Отдельная установка инструментов диагностики не требуется.</p>
+<h2 id="как-передать-случай">Как передать случай<a class="anchor" href="#как-передать-случай" aria-label="Ссылка на раздел">#</a></h2>
+<ol>
+<li>Откройте вкладку <strong>«События»</strong>. Выберите проблемную сессию в списке — текущую или сохранённую ранее.</li>
+<li>Раскройте <strong>«Описание проблемы для поддержки»</strong> и укажите действия, ожидаемый результат и то, что произошло. Полезны способ оплаты, количество листов и включённые сценарии ошибок.</li>
+<li>Нажмите <strong>«Скачать диагностику»</strong>. Имя файла содержит <code>runId</code>; скачивается JSON с выбранной сессией, а не обязательно с последним запуском.</li>
+<li>Откройте JSON и проверьте текст перед передачей. Приложите его к обращению вместе с инструкцией воспроизведения. Если ошибка зависит от изображения, отдельно согласуйте передачу подходящего тестового JPEG.</li>
+</ol>
+<p>Кнопка выгрузки в верхней части страницы использует сессию, выбранную во вкладке «События». Начало новой сессии возвращает выбор на новый запуск. Описание проблемы добавляется только в скачиваемый файл.</p>
+<h2 id="что-входит-в-файл">Что входит в файл<a class="anchor" href="#что-входит-в-файл" aria-label="Ссылка на раздел">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Содержимое</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Идентификация</td>
+<td><code>runId</code>, <code>sessionId</code>, ID и версия приложения, SHA-256 готовых файлов приложения, версия и SHA-256 песочницы.</td>
+</tr>
+<tr>
+<td>Среда</td>
+<td>Версия Node.js, ОС и архитектура; User-Agent, язык и размер области браузера, если страница успела сообщить их.</td>
+</tr>
+<tr>
+<td>SDK</td>
+<td>Версия и SHA-256 SDK из комплекта. Для своего приложения также проверьте, какую копию SDK включили в сборку: автоматически определить её версию песочница не может.</td>
+</tr>
+<tr>
+<td>Настройки</td>
+<td>Цена, разрешения, камеры, каталоги, запас бумаги, таймеры и сценарии ошибок. Значения <code>config</code> удалены.</td>
+</tr>
+<tr>
+<td>Последовательность действий</td>
+<td>Принятие, повтор, начало и окончание команд; <code>requestId</code>, аргументы команды, результат и длительность. Платежи, задания печати и фотографии связаны своими ID.</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>Метод, путь без query-параметров, статус, длительность и код отказа. Тела и заголовки запросов не записываются.</td>
+</tr>
+<tr>
+<td>Браузер</td>
+<td>Ошибки JavaScript со стеком, необработанные Promise, <code>console.error/warn</code>, ошибки загрузки ресурсов и нарушения CSP, в том числе до <code>ready()</code>.</td>
+</tr>
+<tr>
+<td>Результат</td>
+<td>Состояние сессии, суммы, подтверждённые листы, метаданные изображений и этапы приложения. Байтов JPEG нет.</td>
+</tr>
+<tr>
+<td>Полнота</td>
+<td>Потери из-за лимитов, переполнения очереди и ошибок записи; известные потери браузера и SDK; повреждённые строки и признак прерванного процесса.</td>
+</tr>
+</tbody></table>
+<p>События <code>http.request</code> показывают наблюдение сервера, <code>browser.http</code> и <code>browser.http_error</code> — наблюдение браузера. Для SDK-запросов <code>clientRequestId</code> связывает обе записи. Отправленный сервером ответ не доказывает, что браузер успел его получить. <code>command.finished</code> отдельно показывает итог выполнения команды после потери ответа или локального таймаута.</p>
+<p>Браузерный сборщик наблюдает <code>fetch()</code>. Обработанные ошибки собственного XHR/WebSocket-кода записывайте явно через <code>logError()</code>; содержимое обмена песочница не собирает. <code>http.started</code> без завершающего <code>http.request</code> помогает заметить запрос, во время которого процесс был прерван.</p>
+<p>Файл имеет <code>format: &quot;pbt-sandbox-diagnostics&quot;</code> и <code>schemaVersion: 1</code>. Поддержка может сопоставить события по <code>requestId</code>, затем проверить <code>operationId</code>, <code>jobId</code> и итоговые счётчики. Таймаут ожидания сам по себе не означает отсутствия списания или печати.</p>
+<h2 id="сохранение-и-ограничения">Сохранение и ограничения<a class="anchor" href="#сохранение-и-ограничения" aria-label="Ссылка на раздел">#</a></h2>
+<p>Диагностика сохраняется автоматически, без нажатия кнопки. После перезапуска предыдущие сессии остаются в списке. Активная сессия, для которой не было записано штатное завершение, показывается как <strong>«Прервана перезапуском»</strong>: фактический исход операции может требовать дополнительной проверки. Возобновить такую сессию или старую галерею нельзя.</p>
+<p>Папка по умолчанию:</p>
+<table>
+<thead>
+<tr>
+<th>Система</th>
+<th>Папка</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows</td>
+<td><code>%LOCALAPPDATA%/PBT/external-apps-sandbox/diagnostics</code></td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><code>~/Library/Application Support/PBT/external-apps-sandbox/diagnostics</code></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>$XDG_STATE_HOME/pbt-external-apps-sandbox/diagnostics</code>, по умолчанию <code>~/.local/state/pbt-external-apps-sandbox/diagnostics</code></td>
+</tr>
+</tbody></table>
+<p>Фактическая папка показана в терминале и во вкладке «События». Можно выбрать свою:</p>
+<pre><code class="language-sh">node sandbox/start.mjs --data-dir=C:/sandbox-diagnostics
+</code></pre>
+<p>Хранятся до 50 сессий в течение 30 дней. Журнал одной сессии ограничен 8 МиБ; порог очистки всей истории — 128 МиБ. Очистка выполняется при запуске, добавлении сессии и остановке процесса; текущая сессия и метаданные могут временно увеличить объём. В памяти и на странице показываются последние 500 событий, в выгрузку входит весь сохранённый журнал в пределах лимита.</p>
+<p>При заполнении лимита новые события не вытесняют начало файла: счётчик <code>diskDropped</code> увеличивается. Переполнение очереди отмечается в <code>queueDropped</code>, ошибка записи — в <code>writeErrors</code>. Выход за лимит или недоступность диска не должны прерывать оплату, съёмку или печать. Панель показывает предупреждение о неполной записи.</p>
+<p>Кнопка <strong>«Очистить предыдущие сессии»</strong> удаляет сохранённую диагностику и доступные в памяти результаты прошлых запусков; текущая сессия остаётся. Автоматической отправки файлов в поддержку нет.</p>
+<h2 id="как-читать-сведения-о-потерях">Как читать сведения о потерях<a class="anchor" href="#как-читать-сведения-о-потерях" aria-label="Ссылка на раздел">#</a></h2>
+<ul>
+<li><code>memoryEvicted</code> — события ушли из короткого списка в памяти; они могут полностью сохраниться на диске.</li>
+<li><code>diskDropped</code>, <code>queueDropped</code>, <code>writeErrors</code>, <code>corruptLines</code> — известные потери или повреждения сохранённого журнала.</li>
+<li><code>losses.browser.dropped</code> — известные потери ограниченной очереди браузера. Аварийное закрытие страницы может дополнительно потерять ещё не доставленный пакет.</li>
+<li><code>losses.browser.sdkDropped: null</code> — приложение не сообщило этот счётчик. Это <strong>не ноль</strong> и не подтверждение доставки всех событий SDK.</li>
+<li><code>completeness.serverJournal: no_known_losses</code> — известных потерь серверного журнала не обнаружено. Это не гарантия доставки всей браузерной диагностики.</li>
+</ul>
+<p>Встроенная проверочная страница сообщает <code>diagnosticsDropped</code> SDK. Своя сборка при желании может передавать его через необязательный интерфейс песочницы:</p>
+<pre><code class="language-javascript">window.pbtSandboxDiagnostics?.reportSdkDropped(client.diagnosticsDropped);
+</code></pre>
+<p>Вызов можно делать периодически. В программе фотобудки этот интерфейс отсутствует; optional chaining позволяет использовать тот же код. Счётчик сообщает само приложение, поэтому он служит диагностикой, а не независимым подтверждением.</p>
+<h2 id="чувствительные-данные">Чувствительные данные<a class="anchor" href="#чувствительные-данные" aria-label="Ссылка на раздел">#</a></h2>
+<p>Очистка применяется <strong>до записи на диск</strong>, а затем повторно при выгрузке. Удаляются значения <code>config</code>, известные поля секретов и контактов, Bearer-токены, email, номера телефонов, встроенные данные изображений, query-параметры и учётные данные URL, имена пользователей в домашних путях. Фотографии, заголовки и тела HTTP-запросов в диагностику не включаются.</p>
+<p>Произвольный текст может содержать данные, которые невозможно надёжно распознать автоматически. Не записывайте персональные данные и секреты через <code>track()</code> или <code>logError()</code> и проверяйте файл перед передачей. Обработанные ошибки нужно записывать явно; необработанные ошибки после <code>ready()</code> SDK собирает автоматически.</p>
+<p>Для анализа минифицированного стека может понадобиться соответствующая версия исходников или source map. Песочница идентифицирует сборку хешем, но не прикладывает исходники автоматически.</p>
+<footer><span>PBT · Контракт external-sdk-1</span><a href="SUPPORT.md">Открыть .md</a><button type="button" id="print-doc">Печать / PDF</button></footer></main>
+<aside class="toc" aria-label="На этой странице"><p>На этой странице</p><a class="toc-link depth-2" href="#как-передать-случай">Как передать случай</a><a class="toc-link depth-2" href="#что-входит-в-файл">Что входит в файл</a><a class="toc-link depth-2" href="#сохранение-и-ограничения">Сохранение и ограничения</a><a class="toc-link depth-2" href="#как-читать-сведения-о-потерях">Как читать сведения о потерях</a><a class="toc-link depth-2" href="#чувствительные-данные">Чувствительные данные</a></aside></div></body></html>

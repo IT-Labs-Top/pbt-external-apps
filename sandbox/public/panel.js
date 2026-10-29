@@ -1,7 +1,8 @@
 const $=id=>document.getElementById(id);
 let snapshot,loaded=false,frameRun=null,lastPaint='',loading=false,noticeTimer;
+let diagnosticId=null,diagnosticPinned=false,historyKey='',diagnosticLoading=false,diagnosticLoadedAt=0;
 const labels={'capture:main':'Главная камера','capture:secondary':'Дополнительные камеры',payment:'Оплата и возврат',print:'Печать','result:write':'Загрузка JPEG и скачивание файлов','config:read':'Публичные настройки и каталоги'};
-const states={starting:'Запуск',ready:'Активна',running:'Работает',paused:'Пауза',completed:'Завершена',stopped:'Закрыта'};
+const states={starting:'Запуск',ready:'Активна',running:'Работает',paused:'Пауза',completed:'Завершена',stopped:'Закрыта',interrupted:'Прервана перезапуском'};
 function notice(message){$('notice').textContent=message;$('notice').hidden=false;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('notice').hidden=true,6000);}
 async function request(action,data){
   const response=await fetch('/__control/'+action,{method:data===undefined?'GET':'POST',headers:{'Content-Type':'application/json','X-Sandbox-Control':'1'},body:data===undefined?undefined:JSON.stringify(data)});
@@ -36,8 +37,33 @@ function settings(){
 }
 function faults(){return Object.fromEntries([...document.querySelectorAll('[data-fault]')].map(input=>[input.dataset.fault,input.type==='checkbox'?input.checked:Number(input.value)]));}
 function card(title,description,detail){const el=node('div',undefined,'card');el.append(node('strong',title),node('span',description));if(detail)el.append(node('small',detail));return el;}
+async function loadDiagnostics(force=false){
+  if(!diagnosticId||diagnosticLoading||(!force&&Date.now()-diagnosticLoadedAt<2000))return;
+  diagnosticLoading=true;const selected=diagnosticId;
+  try{
+    const detail=await request('session?id='+encodeURIComponent(selected));if(selected!==diagnosticId)return;
+    diagnosticLoadedAt=Date.now();const env=detail.environment;
+    $('diagnostic-info').textContent=`${env.application?.id??'Неизвестное приложение'} ${env.application?.version??''} · ${states[detail.summary.state]??detail.summary.state}\nrunId: ${selected}\nПесочница ${env.sandbox?.version??'—'} · Node ${env.server?.node??'—'} · ${env.server?.platform??'—'}\nБраузер: ${env.browser?.userAgent??'данные ещё не получены'}`;
+    const losses=detail.losses;const browser=losses.browser??{};
+    const completeness={no_known_losses:'известных потерь нет',losses_detected:'есть потери',interrupted:'процесс прерван',memory_only:'только в памяти'};
+    $('diagnostic-losses').textContent=`Статус журнала: ${completeness[detail.completeness.serverJournal]??detail.completeness.serverJournal}. Ошибок записи сессии: ${losses.writeErrors}. Вытеснено из памяти: ${losses.memoryEvicted}. Не записано на диск: ${losses.diskDropped}. Переполнение очереди записи: ${losses.queueDropped}. Потери браузера: ${browser.dropped??0}. Потери SDK: ${browser.sdkDropped??'нет данных'}. Повреждённых строк: ${detail.corruptLines}.`+(detail.incomplete?' Процесс был прерван; итог операции может быть неизвестен.':'');
+    $('event-log').replaceChildren(...[...detail.events].reverse().map(event=>{const row=node('div',undefined,'event '+event.kind);row.append(node('strong',event.name),node('small',`${(event.elapsedMs/1000).toFixed(1)} с · ${event.kind}`),node('pre',JSON.stringify(event.data,null,2)));return row;}));
+  }catch(error){notice(error.message);}finally{diagnosticLoading=false;}
+}
+function diagnosticChoices(data){
+  if(!diagnosticPinned)diagnosticId=data.run?.id??data.history[0]?.id??null;
+  if(diagnosticId&&!data.history.some(item=>item.id===diagnosticId)){diagnosticPinned=false;diagnosticId=data.run?.id??data.history[0]?.id??null;}
+  const signature=JSON.stringify(data.history.map(item=>[item.id,item.state]));
+  if(signature!==historyKey){historyKey=signature;$('diagnostic-session').replaceChildren(...data.history.map(item=>{const option=node('option',`${new Date(item.createdAt).toLocaleString()} · ${states[item.state]??item.state} · ${item.appId??''}`);option.value=item.id;return option;}));}
+  $('diagnostic-session').value=diagnosticId??'';
+  const storage=data.storage;$('diagnostic-storage').textContent=`Папка диагностики: ${storage.directory??'запись отключена'}. Хранение: ${storage.limits.maxSessions} сессий, ${storage.limits.maxAgeDays} дней. Ошибок записи: ${storage.writeErrors}.`;
+  $('storage-warning').hidden=storage.enabled&&storage.available&&storage.writeErrors===0;
+  $('storage-warning').textContent='Диагностика сохраняется не полностью. Ошибок записи: '+storage.writeErrors+'; потеряно в очереди: '+storage.queueDropped+'. Проверьте папку и свободное место.';
+  if(!$('event-log').closest('[data-page]').hidden)void loadDiagnostics();
+}
 function paint(data){
   snapshot=data;if(!loaded){init(data);loaded=true;}
+  diagnosticChoices(data);
   const run=data.run;
   if(run&&frameRun!==run.id){$('application').src=run.url;frameRun=run.id;$('empty').hidden=true;}
   $('run-status').textContent=run?states[run.state]??run.state:'Нет сессии';
@@ -66,11 +92,12 @@ function paint(data){
   $('print-jobs').replaceChildren(...run.stateSnapshot.printJobs.map(job=>card(`${job.phase} · ${job.copiesDone}/${job.copies} листов`,(run.printDetails.find(item=>item.jobId===job.jobId)?.cut?'Запрошена резка · '+(job.copiesDone*2)+' тестовых полосок. ':'')+(job.error??'Без ошибки'),job.jobId)));
   $('raw-state').textContent=JSON.stringify(run.stateSnapshot,null,2);
   $('gallery-link').replaceChildren();if(run.share){const link=node('a','Открыть локальную галерею ↗');link.href=run.share.downloadUrl;link.target='_blank';link.rel='noopener';$('gallery-link').append(link);}
-  $('history').replaceChildren(...data.history.filter(item=>item.id!==run.id).map(item=>card(`${states[item.state]??item.state} · ${item.statistics.confirmedSheets} листов`,`${item.statistics.amountPaid} ₽ · ${item.statistics.captures} снимков`,item.sessionId)));
-  $('event-log').replaceChildren(...[...run.events].reverse().slice(0,100).map(event=>{const row=node('div',undefined,'event '+event.kind);row.append(node('strong',event.name),node('small',`${(event.elapsedMs/1000).toFixed(1)} с · ${event.kind}`),node('div',JSON.stringify(event.data)));return row;}));
+  $('history').replaceChildren(...data.history.filter(item=>item.id!==run.id).map(item=>{const el=card(`${states[item.state]??item.state} · ${item.statistics.confirmedSheets??'—'} листов`,`${item.statistics.amountPaid??'—'} ₽ · ${item.statistics.captures??'—'} снимков`,item.sessionId);const button=node('button','Показать диагностику');button.addEventListener('click',()=>{diagnosticId=item.id;diagnosticPinned=true;$('diagnostic-session').value=item.id;document.querySelector('[data-tab=events]').click();void loadDiagnostics(true);});el.append(button);return el;}));
 }
 function bind(id,action){$(id).addEventListener('click',async()=>{try{$(id).disabled=true;const data=await action();if(data?.application)paint(data);}catch(error){notice(error.message);}finally{$(id).disabled=false;}});}
-bind('new-run',()=>request('start',{settings:settings(),faults:faults()}));
+bind('new-run',()=>{diagnosticPinned=false;return request('start',{settings:settings(),faults:faults()});});
+bind('download-diagnostics',async()=>{if(!diagnosticId)throw new Error('Сначала выберите сессию');const bundle=await request('export',{runId:diagnosticId,report:{steps:$('report-steps').value,expected:$('report-expected').value,actual:$('report-actual').value}});const url=URL.createObjectURL(new Blob([JSON.stringify(bundle,null,2)],{type:'application/json'}));const link=node('a');link.href=url;link.download='pbt-sandbox-diagnostics-'+bundle.summary.id+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+$('diagnostic-session').addEventListener('change',()=>{diagnosticId=$('diagnostic-session').value;diagnosticPinned=true;void loadDiagnostics(true);});
 for(const [id,action] of [['pause','pause'],['resume','resume'],['stay','resume'],['leave','leave'],['exit-dialog','request-exit'],['approve','card-approve'],['decline','card-decline']])bind(id,()=>request('command',{action}));
 bind('cash',()=>request('command',{action:'cash',data:{amount:Number($('cash-amount').value)}}));
 bind('set-paper',()=>request('command',{action:'paper',data:{sheets:Number($('paper-current').value)}}));
@@ -80,6 +107,6 @@ for(const input of document.querySelectorAll('[data-fault]'))input.addEventListe
 bind('clear-faults',async()=>{const defaults={apiOffline:false,managementOffline:false,cameraFailure:false,printerFailure:false,refundFailure:false,apiDelayMs:0,operationDelayMs:250,sheetDelayMs:1000,failAfterSheets:-1,loseNextCommandReply:false};for(const input of document.querySelectorAll('[data-fault]'))input.type==='checkbox'?input.checked=defaults[input.dataset.fault]:input.value=defaults[input.dataset.fault];return request('faults',defaults);});
 bind('save-config',()=>{const data={settings:settings(),faults:faults()};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const link=node('a');link.href=url;link.download='sandbox-settings.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('load-config').addEventListener('change',async event=>{try{const value=JSON.parse(await event.target.files[0].text());const imported=value.settings??value;for(const key of ['price','sheetPrice','fulfillment','paper','cashWaitSeconds','idleWarningSeconds','idleTimeoutSeconds','idleWarningAfterPaymentSeconds','idleTimeoutAfterPaymentSeconds'])if(imported[key]!==undefined)$(key).value=imported[key];$('publicConfig').value=JSON.stringify(imported.publicConfig??{},null,2);for(const input of $('permissions').querySelectorAll('input'))input.checked=(imported.permissions??[]).includes(input.value);for(const row of $('cameras').children){const camera=imported.cameras?.find(c=>c.id===row.dataset.camera);if(camera){row.querySelector('input').checked=camera.enabled;row.querySelector('select').value=camera.orientation;}}for(const [id,key] of [['frames','frameIds'],['effects','effectIds']])for(const input of $(id).querySelectorAll('input'))input.checked=(imported[key]??[]).includes(Number(input.value));if(value.faults)for(const input of document.querySelectorAll('[data-fault]'))if(value.faults[input.dataset.fault]!==undefined)input.type==='checkbox'?input.checked=value.faults[input.dataset.fault]:input.value=value.faults[input.dataset.fault];notice('Настройки загружены. Для применения начните новую сессию.');}catch(error){notice(error.message);}});
-for(const button of document.querySelectorAll('[data-tab]'))button.addEventListener('click',()=>{for(const tab of document.querySelectorAll('[data-tab]'))tab.setAttribute('aria-selected',String(tab===button));for(const page of document.querySelectorAll('[data-page]'))page.hidden=page.dataset.page!==button.dataset.tab;});
+for(const button of document.querySelectorAll('[data-tab]'))button.addEventListener('click',()=>{for(const tab of document.querySelectorAll('[data-tab]'))tab.setAttribute('aria-selected',String(tab===button));for(const page of document.querySelectorAll('[data-page]'))page.hidden=page.dataset.page!==button.dataset.tab;if(button.dataset.tab==='events')void loadDiagnostics(true);});
 async function poll(){if(loading)return;loading=true;try{paint(await request('state'));}catch(error){notice('Песочница недоступна: '+error.message);}finally{loading=false;}}
 void poll();setInterval(poll,700);

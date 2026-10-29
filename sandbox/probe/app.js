@@ -10,10 +10,12 @@ const remove=window.pbtService?.onLifecycle(event=>{
   if(event==='stop'){stopped=true;client.dispose();}
 });
 window.addEventListener('pagehide',()=>{remove?.();client.dispose();});
+const diagnosticsTimer=setInterval(()=>{window.pbtSandboxDiagnostics?.reportSdkDropped(client.diagnosticsDropped);},1000);
+window.addEventListener('pagehide',()=>clearInterval(diagnosticsTimer));
 function action(id,run){$(id).addEventListener('click',async()=>{
   if(paused||stopped)return;$(id).disabled=true;
   try{client.stage(id.replaceAll('-','_'));const result=await run();if(result!==undefined)show(result);}
-  catch(error){if(stopped)return;client.logError(error,{action:id});show({message:error.message,code:error.code,requestId:error.requestId,operationId:error.operationId,jobId:error.jobId,result:error.result});status(error.message);
+  catch(error){if(stopped)return;client.logError(error,{action:id,request_id:error.requestId??'',operation_id:error.operationId??'',job_id:error.jobId??'',code:error.code??''});show({message:error.message,code:error.code,requestId:error.requestId,operationId:error.operationId,jobId:error.jobId,result:error.result});status(error.message);
     if(error.operationId)paymentOperation=error.operationId;if(error.jobId)printJob=error.jobId;
     if(error.code==='failed'&&id!=='share'&&!(id==='pay'&&error.result?.amountPaid>0)){requests.delete(id);if(id==='pay'){paymentOperation=undefined;paymentArgs=undefined;}if(id==='print'){printJob=undefined;printArgs=undefined;}if(id==='capture')captureArgs=undefined;}
   }finally{$(id).disabled=false;}

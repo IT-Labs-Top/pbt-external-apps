@@ -1,11 +1,13 @@
 import {createServer} from 'node:http';
 import {readFile,realpath} from 'node:fs/promises';
-import {randomUUID} from 'node:crypto';
+import {randomUUID,createHash} from 'node:crypto';
+import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {SandboxRun,ApiError,orientJpeg} from './lib/runtime.mjs';
 import {loadApplication,defaults,validateSettings,defaultFaults,validateFaults,safeFile,CAPABILITIES,frames,effects} from './lib/config.mjs';
 import {qrPng} from './lib/qr.mjs';
+import {DiagnosticStore,fingerprint,SANDBOX_VERSION,scrubText} from './lib/diagnostics.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const prefix='/api/v1/external/runtime';
@@ -27,12 +29,18 @@ async function body(request,limit=8192){
 async function json(request,limit=8192){try{return JSON.parse((await body(request,limit)).toString()||'{}');}catch(error){if(error instanceof ApiError)throw error;throw new ApiError('validation_error','Нужен корректный JSON');}}
 const frameSvg='<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1800" viewBox="0 0 1200 1800"><rect x="18" y="18" width="1164" height="1764" rx="36" fill="none" stroke="#12a58a" stroke-width="36"/><path d="M70 150h180M70 150v180M1130 1650H950M1130 1650v-180" stroke="#efb759" stroke-width="14"/><text x="600" y="1740" text-anchor="middle" fill="#12374d" font-size="42" font-family="sans-serif">TEST FRAME</text></svg>';
 
-export async function startSandbox({port=4174,appDirectory,settingsFile,now,clock}={}){
+export async function startSandbox({port=4174,appDirectory,settingsFile,diagnosticsDirectory,now,clock}={}){
   const application=await loadApplication(appDirectory,path.join(here,'probe'));
   let settings=defaults(application.manifest);let draftFaults={...defaultFaults};
   if(settingsFile){const imported=JSON.parse(await readFile(settingsFile,'utf8'));settings=validateSettings(imported.settings??imported,application.manifest);if(imported.faults)draftFaults=validateFaults(imported.faults);}
   const images=Object.fromEntries(await Promise.all(['main','top','side'].map(async camera=>[camera,await readFile(path.join(here,'assets',camera+'.jpg'))])));
   const sdkFile=await realpath(path.join(here,'../sdk/dist/external.js'));
+  const sdkPackage=JSON.parse(await readFile(path.join(here,'../sdk/package.json'),'utf8'));
+  const environment={sandbox:{version:SANDBOX_VERSION,build:await fingerprint(here)},
+    sdk:{version:sdkPackage.version,sha256:createHash('sha256').update(await readFile(sdkFile)).digest('hex'),scope:'bundled SDK; custom applications may bundle another copy'},
+    application:{...application.manifest,build:await fingerprint(application.root)},
+    server:{node:process.version,platform:process.platform,release:os.release(),arch:process.arch}};
+  const diagnostics=await new DiagnosticStore({directory:diagnosticsDirectory}).open();
   const runs=new Map();let current=null;let baseUrl;let tick;
   function newRun(raw={}){
     settings=validateSettings(raw.settings??settings,application.manifest);draftFaults=validateFaults(raw.faults??draftFaults);
@@ -41,17 +49,21 @@ export async function startSandbox({port=4174,appDirectory,settingsFile,now,cloc
     if(current&&!['completed','stopped'].includes(current.state))current.stop('stopped','Начат новый запуск песочницы');
     const run=new SandboxRun({manifest:application.manifest,settings,faults:draftFaults,images,baseUrl,now,clock});
     run.appOrigin=`http://${run.id}.localhost:${server.address().port}`;run.url=run.appOrigin+`/apps/${application.manifest.id}/local/${application.manifest.entry}`;
-    runs.set(run.id,run);current=run;
+    runs.set(run.id,run);current=run;diagnostics.attach(run,environment);
     // Keep recent simulated results. Disposed entries cannot accept new requests.
-    while(runs.size>20){const oldest=runs.values().next().value;if(oldest===current)break;oldest.dispose();runs.delete(oldest.id);}
+    while(runs.size>20){const oldest=runs.values().next().value;if(oldest===current)break;oldest.dispose();diagnostics.detach(oldest);runs.delete(oldest.id);}
     return run;
   }
   function panelState(){return {application:{name:application.manifest.name,id:application.manifest.id,version:application.manifest.version,
     builtin:application.builtin,capabilities:application.manifest.capabilities,network:application.manifest.network},
     settings,faults:current?.faults??draftFaults,availablePermissions:CAPABILITIES,frames,effects,
     run:current?{...current.summary(),url:current.url}:null,
-    history:[...runs.values()].reverse().map(run=>({id:run.id,sessionId:run.sessionId,state:run.state,statistics:run.statistics()}))};}
+    storage:{...diagnostics.health,limits:diagnostics.limits,directory:diagnostics.directory||null},history:diagnostics.list()};}
   const server=createServer(async(request,response)=>{
+    let auditRun;const audit={serverRequestId:randomUUID(),method:request.method,route:null,requestId:null,clientRequestId:null};const received=performance.now();let audited=false;
+    const recordRequest=()=>{if(audited||!auditRun)return;audited=true;auditRun.log('http.request',{...audit,status:response.writableFinished?response.statusCode:null,
+      outcome:response.writableFinished?'response_sent':'connection_closed',durationMs:Math.round(performance.now()-received)},'http');};
+    response.once('finish',recordRequest);response.once('close',recordRequest);
     try{
       const host=(request.headers.host??'').toLowerCase();
       const localPort=server.address().port;
@@ -61,11 +73,18 @@ export async function startSandbox({port=4174,appDirectory,settingsFile,now,cloc
       const url=new URL(request.url,'http://'+host);const pathname=decodeURIComponent(url.pathname);
       if(panelHost){
         if(pathname==='/__control/state'&&request.method==='GET'){send(response,200,panelState());return;}
+        if(pathname==='/__control/session'&&request.method==='GET'){
+          const detail=await diagnostics.detail(url.searchParams.get('id'));if(!detail)throw new ApiError('not_found','Сессия диагностики не найдена',404);send(response,200,detail);return;
+        }
         if(pathname.startsWith('/__control/')&&request.method==='POST'){
           if(request.headers['x-sandbox-control']!=='1'||(request.headers.origin&&!['http://'+host,baseUrl].includes(request.headers.origin)))throw new ApiError('forbidden','Эта команда доступна только панели разработчика',403);
           const data=await json(request,65536);const action=pathname.slice('/__control/'.length);
+          if(action==='export'){
+            const bundle=await diagnostics.export(data.runId??current?.id,data.report);if(!bundle)throw new ApiError('not_found','Выберите сессию для диагностики',404);
+            response.setHeader('Content-Disposition',`attachment; filename="pbt-sandbox-diagnostics-${bundle.summary.id}.json"`);send(response,200,bundle);return;
+          }
           if(action==='start')newRun(data);
-          else if(action==='clear-history'){for(const [id,run] of runs)if(run!==current){run.dispose();runs.delete(id);}}
+          else if(action==='clear-history'){for(const [id,run] of runs)if(run!==current){run.dispose();diagnostics.detach(run);runs.delete(id);}await diagnostics.clearHistory(current?.id);}
           else if(action==='faults'){
             draftFaults=validateFaults({...draftFaults,...data});if(current)current.control('faults',draftFaults);
           }else if(action==='command'){if(!current)throw new ApiError('conflict','Сначала начните сессию',409);current.control(data.action,data.data);}
@@ -83,25 +102,36 @@ export async function startSandbox({port=4174,appDirectory,settingsFile,now,cloc
           send(response,200,html,'text/html; charset=utf-8');return;
         }
         if(pathname==='/__control/export'){
-          response.setHeader('Content-Disposition','attachment; filename="sandbox-session.json"');send(response,200,panelState());return;
+          const bundle=await diagnostics.export(url.searchParams.get('session')??current?.id);if(!bundle)throw new ApiError('not_found','Выберите сессию для диагностики',404);
+          response.setHeader('Content-Disposition',`attachment; filename="pbt-sandbox-diagnostics-${bundle.summary.id}.json"`);send(response,200,bundle);return;
         }
         if(!['GET','HEAD'].includes(request.method))throw new ApiError('not_found','Маршрут не найден',404);
         const file=await safeFile(path.join(here,'public'),pathname==='/'?'index.html':'.'+pathname);
         send(response,200,await readFile(file),types[path.extname(file)]??'application/octet-stream');return;
       }
       const run=runs.get(match[1]);if(!run)throw new ApiError('unauthorized','Запуск не найден или уже удалён',401);
+      // Trace SDK HTTP calls and application resources, excluding routine bridge polling.
+      if(!pathname.startsWith('/__sandbox/')||pathname.endsWith('.js')){
+        auditRun=run;audit.route=scrubText(pathname,300);const trace=request.headers['x-sandbox-trace'];if(typeof trace==='string'&&/^browser_[a-f0-9-]{36}$/.test(trace))audit.clientRequestId=trace;
+        run.log('http.started',{...audit},'http');
+      }
       if(request.headers.origin&&request.headers.origin!==run.appOrigin)throw new ApiError('forbidden','Запрос пришёл с другого адреса приложения',403);
       response.setHeader('Content-Security-Policy',`default-src 'self'; script-src 'self' 'unsafe-inline' ${application.manifest.network.allowed_origins.join(' ')}; style-src 'self' 'unsafe-inline' ${application.manifest.network.allowed_origins.join(' ')}; img-src 'self' data: blob: ${application.manifest.network.allowed_origins.join(' ')}; connect-src 'self' ${application.manifest.network.allowed_origins.join(' ')}; font-src 'self' data: ${application.manifest.network.allowed_origins.join(' ')}; media-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors ${baseUrl} http://localhost:${localPort}`);
       response.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=()');
       if(pathname==='/__sandbox/bridge.js'){send(response,200,await readFile(path.join(here,'public/bridge.js')),'text/javascript; charset=utf-8');return;}
+      if(pathname==='/__sandbox/diagnostics.js'){send(response,200,await readFile(path.join(here,'public/diagnostics.js')),'text/javascript; charset=utf-8');return;}
       if(pathname==='/__sandbox/sdk.js'){send(response,200,await readFile(sdkFile),'text/javascript; charset=utf-8');return;}
       if(pathname==='/__sandbox/lifecycle'){
         const after=Number(url.searchParams.get('after')??0);send(response,200,{events:run.lifecycle.filter(e=>e.seq>after),state:run.state});return;
       }
+      if(pathname==='/__sandbox/diagnostics'&&request.method==='POST'){
+        if(run.endedAt!==undefined&&run.now()-run.endedAt>120000)throw new ApiError('unauthorized','Диагностика закрытого запуска завершена',401);
+        send(response,200,diagnostics.browser(run,await json(request,16384)));return;
+      }
       if(pathname==='/__sandbox/request-exit'&&request.method==='POST'){run.control('request-exit');send(response,200,{ok:true});return;}
       if(pathname.startsWith(prefix+'/')){
         run.admit();
-        if(run.faults.apiOffline){response.destroy();return;}
+        if(run.faults.apiOffline){audit.errorCode='simulated_api_offline';response.destroy();return;}
         const route=pathname.slice(prefix.length);let result;let status=200;
         if(request.method==='GET'){
           switch(route){
@@ -130,6 +160,7 @@ export async function startSandbox({port=4174,appDirectory,settingsFile,now,cloc
           }
         }else if(request.method==='POST'){
           if(route==='/result'){
+            audit.requestId=request.headers['x-request-id']??null;
             if(!request.headers['content-type']?.startsWith('image/jpeg'))throw new ApiError('validation_error','Ожидается image/jpeg');
             const jpeg=await body(request,15*1024*1024);
             const bytes=[...runs.values()].reduce((total,item)=>total+[...item.photos.values()].reduce((sum,p)=>sum+p.data.length,0),0);
@@ -137,20 +168,21 @@ export async function startSandbox({port=4174,appDirectory,settingsFile,now,cloc
             result=run.upload(jpeg,request.headers['x-request-id']);
           }else{
             const data=await json(request);
+            if(typeof data.request_id==='string')audit.requestId=data.request_id;
             switch(route){
               case '/ready':result=run.ready();break;
               case '/heartbeat':result={ok:true};break;
               case '/activity':result=run.activity();break;
               case '/telemetry':result=run.observe(data);break;
               case '/commands':result=run.submit(data);status=202;
-                if(run.faults.loseNextCommandReply){run.faults.loseNextCommandReply=false;draftFaults.loseNextCommandReply=false;run.log('simulator.reply-lost',{requestId:data.request_id});response.destroy();return;}
+                if(run.faults.loseNextCommandReply){run.faults.loseNextCommandReply=false;draftFaults.loseNextCommandReply=false;audit.errorCode='simulated_reply_lost';run.log('simulator.reply-lost',{requestId:data.request_id});response.destroy();return;}
                 break;
               default:throw new ApiError('not_found','Метод API не найден',404);
             }
           }
         }else throw new ApiError('not_found','Метод API не найден',404);
         // Disconnect/timeout does not undo an accepted command or a physical-operation simulation.
-        if(run.faults.apiDelayMs)await new Promise(resolve=>setTimeout(resolve,run.faults.apiDelayMs));
+        if(run.faults.apiDelayMs)await new Promise(resolve=>{const timer=setTimeout(done,run.faults.apiDelayMs);function done(){clearTimeout(timer);response.off('close',done);resolve();}response.once('close',done);});
         send(response,status,result);return;
       }
       if(!['GET','HEAD'].includes(request.method))throw new ApiError('not_found','Маршрут не найден',404);
@@ -158,16 +190,16 @@ export async function startSandbox({port=4174,appDirectory,settingsFile,now,cloc
       if(!pathname.startsWith(entryPrefix))throw new ApiError('not_found','Ресурс приложения не найден',404);
       const file=await safeFile(application.root,pathname.slice(entryPrefix.length));let content=await readFile(file);
       if(path.extname(file).toLowerCase()==='.html'){
-        const script='<script src="/__sandbox/bridge.js"></script>';
+        const script='<script src="/__sandbox/diagnostics.js"></script><script src="/__sandbox/bridge.js"></script>';
         const text=content.toString('utf8');content=Buffer.from(/<head[^>]*>/i.test(text)?text.replace(/<head[^>]*>/i,head=>head+script):script+text);
       }
       send(response,200,content,types[path.extname(file)]??'application/octet-stream');
-    }catch(error){const missing=['ENOENT','ENOTDIR'].includes(error.code);send(response,missing?404:error instanceof ApiError?error.status:400,{error:{code:missing?'not_found':error.code??'validation_error',message:missing?'Файл не найден':error.message??'Ошибка песочницы'}});}
+    }catch(error){const missing=['ENOENT','ENOTDIR'].includes(error.code);audit.errorCode=missing?'not_found':error.code??'validation_error';audit.message=scrubText(error.message??'Ошибка песочницы',500);send(response,missing?404:error instanceof ApiError?error.status:400,{error:{code:audit.errorCode,message:missing?'Файл не найден':error.message??'Ошибка песочницы'}});}
   });
   server.requestTimeout=15000;server.headersTimeout=10000;
   await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',resolve);});
   baseUrl='http://127.0.0.1:'+server.address().port;
-  tick=setInterval(()=>{for(const run of runs.values())run.tick();},250);tick.unref();
-  return {server,url:baseUrl,application,get current(){return current;},runs,
-    async close(){clearInterval(tick);for(const run of runs.values())run.dispose();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}};
+  tick=setInterval(()=>{for(const run of runs.values()){run.tick();if(run.state==='starting'&&!run.notReadyReported&&run.now()-run.created>=15000){run.notReadyReported=true;run.log('browser.not_ready',{message:'SDK ready() was not received within 15 seconds. Check application loading and browser errors.'},'error');}}},250);tick.unref();
+  return {server,url:baseUrl,application,diagnostics,get current(){return current;},runs,
+    async close(){clearInterval(tick);for(const run of runs.values())run.dispose();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));await diagnostics.close();}};
 }
